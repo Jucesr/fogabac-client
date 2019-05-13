@@ -1,0 +1,515 @@
+[
+  {
+    "cve_machote": 43,
+    "nombre": "BOLSA FOGABAC",
+    "iniciales": "BF",
+    "monto_maximo": 500000,
+    "cve_credito": 0,
+    "tipo_credito": "",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 51,
+    "nombre": "AVIO NORMAL",
+    "iniciales": "HO9",
+    "monto_maximo": 2500000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 235
+  },
+  {
+    "cve_machote": 65,
+    "nombre": "AVIO LARGO PLAZO",
+    "iniciales": "H12",
+    "monto_maximo": 2500000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 77
+  },
+  {
+    "cve_machote": 67,
+    "nombre": "AVIO CORTO PLAZO",
+    "iniciales": "H06",
+    "monto_maximo": 2500000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 11
+  },
+  {
+    "cve_machote": 83,
+    "nombre": "AVIO CORTO PLAZO CLIENTES NUEVOS",
+    "iniciales": "HN06",
+    "monto_maximo": 1000000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 9
+  },
+  {
+    "cve_machote": 86,
+    "nombre": "AVIO PBI1",
+    "iniciales": "HPBI1",
+    "monto_maximo": 1000000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 91,
+    "nombre": "AVIO PEST2",
+    "iniciales": "PEST2",
+    "monto_maximo": 1500000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 96,
+    "nombre": "AVIO PPB3",
+    "iniciales": "PPB3",
+    "monto_maximo": 2000000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 101,
+    "nombre": "AVIO PB4",
+    "iniciales": "PB4",
+    "monto_maximo": 3000000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 105,
+    "nombre": "SIMPLE PB4",
+    "iniciales": "PB4",
+    "monto_maximo": 3000000,
+    "cve_credito": 2,
+    "tipo_credito": "AVIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 56,
+    "nombre": "BOLSA CONVENIO JUDICIAL",
+    "iniciales": "CJ",
+    "monto_maximo": 500000,
+    "cve_credito": 6,
+    "tipo_credito": "CONVENIO JUDICIAL",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 52,
+    "nombre": "BOLSA A CORTO PLAZO",
+    "iniciales": "BC",
+    "monto_maximo": 3000000,
+    "cve_credito": 3,
+    "tipo_credito": "CORTO PLAZO",
+    "no_solicitudes": 162
+  },
+  {
+    "cve_machote": 50,
+    "nombre": "BOLSA PEART",
+    "iniciales": "BP",
+    "monto_maximo": 2000000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 608
+  },
+  {
+    "cve_machote": 55,
+    "nombre": "SIMPLE CAPITAL DE TRABAJO 1",
+    "iniciales": "SCT1",
+    "monto_maximo": 500000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 253
+  },
+  {
+    "cve_machote": 68,
+    "nombre": "SIMPLE CAPITAL DE TRABAJO 2",
+    "iniciales": "SCT2",
+    "monto_maximo": 1000000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 54
+  },
+  {
+    "cve_machote": 69,
+    "nombre": "SIMPLE CAPITAL DE TRABAJO 3",
+    "iniciales": "SCT3",
+    "monto_maximo": 1000000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 26
+  },
+  {
+    "cve_machote": 79,
+    "nombre": "SIMPLE CAPITAL DE TRABAJO 4",
+    "iniciales": "SCT4",
+    "monto_maximo": 2500000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 9
+  },
+  {
+    "cve_machote": 87,
+    "nombre": "SIMPLE PBI1",
+    "iniciales": "PBI1",
+    "monto_maximo": 1000000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 2
+  },
+  {
+    "cve_machote": 94,
+    "nombre": "SIMPLE PEST2",
+    "iniciales": "PEST2",
+    "monto_maximo": 1500000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 100,
+    "nombre": "SIMPLE PPB3",
+    "iniciales": "PPB3",
+    "monto_maximo": 2000000,
+    "cve_credito": 5,
+    "tipo_credito": "CREDITO SIMPLE",
+    "no_solicitudes": 2
+  },
+  {
+    "cve_machote": 57,
+    "nombre": " CORTO PLAZO CAPITAL DE TRABAJO REVOLVENTE",
+    "iniciales": "CSR",
+    "monto_maximo": 7500000,
+    "cve_credito": 7,
+    "tipo_credito": "CUENTA CORRIENTE",
+    "no_solicitudes": 84
+  },
+  {
+    "cve_machote": 88,
+    "nombre": "CUENTA CORRIENTE PBI1",
+    "iniciales": "PBI1",
+    "monto_maximo": 1000000,
+    "cve_credito": 7,
+    "tipo_credito": "CUENTA CORRIENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 95,
+    "nombre": "CUENTA CORRIENTE PEST2",
+    "iniciales": "PEST2",
+    "monto_maximo": 1500000,
+    "cve_credito": 7,
+    "tipo_credito": "CUENTA CORRIENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 97,
+    "nombre": "CUENTA CORRIENTE PPB3",
+    "iniciales": "PPB3",
+    "monto_maximo": 2000000,
+    "cve_credito": 7,
+    "tipo_credito": "CUENTA CORRIENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 102,
+    "nombre": "CUENTA CORRIENTE PB4",
+    "iniciales": "PB4",
+    "monto_maximo": 3000000,
+    "cve_credito": 7,
+    "tipo_credito": "CUENTA CORRIENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 66,
+    "nombre": "GARANTIA LIQUIDAS",
+    "iniciales": "GL",
+    "monto_maximo": 10000000,
+    "cve_credito": 11,
+    "tipo_credito": "GARANTIA LIQUIDA",
+    "no_solicitudes": 69
+  },
+  {
+    "cve_machote": 89,
+    "nombre": "GARANTIAS LIQUIDAS PBI1",
+    "iniciales": "PBI1",
+    "monto_maximo": 1000000,
+    "cve_credito": 11,
+    "tipo_credito": "GARANTIA LIQUIDA",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 59,
+    "nombre": "BOLSA PRORROGA",
+    "iniciales": "PR",
+    "monto_maximo": 800000,
+    "cve_credito": 9,
+    "tipo_credito": "PRORROGA",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 53,
+    "nombre": "PUENTE DIRECTO",
+    "iniciales": "PD",
+    "monto_maximo": 1000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 206
+  },
+  {
+    "cve_machote": 61,
+    "nombre": "PUENTE FACTORAJE",
+    "iniciales": "PF",
+    "monto_maximo": 50000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 62,
+    "nombre": "PUENTE ESPECIAL",
+    "iniciales": "PE",
+    "monto_maximo": 5000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 21
+  },
+  {
+    "cve_machote": 63,
+    "nombre": "PUENTE PROCAMPO",
+    "iniciales": "PPC",
+    "monto_maximo": 96300,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 72,
+    "nombre": "PUENTE DIRECTO 1",
+    "iniciales": "PD1",
+    "monto_maximo": 1000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 31
+  },
+  {
+    "cve_machote": 73,
+    "nombre": "PUENTE DIRECTO 2",
+    "iniciales": "PD2",
+    "monto_maximo": 1000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 9
+  },
+  {
+    "cve_machote": 74,
+    "nombre": "PUENTE DIRECTO 3",
+    "iniciales": "PD3",
+    "monto_maximo": 1000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 75,
+    "nombre": "PUENTE PROGAN",
+    "iniciales": "PPG",
+    "monto_maximo": 300000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 76,
+    "nombre": "PUENTE ESPECIAL 1",
+    "iniciales": "PE1",
+    "monto_maximo": 5000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 10
+  },
+  {
+    "cve_machote": 77,
+    "nombre": "PUENTE ESPECIAL 2",
+    "iniciales": "PE2",
+    "monto_maximo": 5000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 5
+  },
+  {
+    "cve_machote": 78,
+    "nombre": "PUENTE ESPECIAL 3",
+    "iniciales": "PE3",
+    "monto_maximo": 5000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 13
+  },
+  {
+    "cve_machote": 84,
+    "nombre": "PUENTE ESPECIAL 4",
+    "iniciales": "PE4",
+    "monto_maximo": 3000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 78
+  },
+  {
+    "cve_machote": 85,
+    "nombre": "PUENTE PBI1",
+    "iniciales": "PBI1",
+    "monto_maximo": 5000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 92,
+    "nombre": "PUENTE PEST2",
+    "iniciales": "PEST2",
+    "monto_maximo": 1500000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 98,
+    "nombre": "PUENTE PPB3",
+    "iniciales": "PPB3",
+    "monto_maximo": 2000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 103,
+    "nombre": "PUENTE PB4",
+    "iniciales": "PB4",
+    "monto_maximo": 3000000,
+    "cve_credito": 1,
+    "tipo_credito": "PUENTE",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 54,
+    "nombre": "TRATAMIENTO DE CARTERA FOGABAC",
+    "iniciales": "TRN",
+    "monto_maximo": 2500000,
+    "cve_credito": 4,
+    "tipo_credito": "REESTRUCTURA",
+    "no_solicitudes": 340
+  },
+  {
+    "cve_machote": 60,
+    "nombre": "TRATAMIENTO DE CARTERA PEART",
+    "iniciales": "TPEART",
+    "monto_maximo": 2000000,
+    "cve_credito": 4,
+    "tipo_credito": "REESTRUCTURA",
+    "no_solicitudes": 79
+  },
+  {
+    "cve_machote": 64,
+    "nombre": "REFACCIONARIO ADQ O REP DE MAQ Y EQ. 3",
+    "iniciales": "RME3",
+    "monto_maximo": 2500000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 5
+  },
+  {
+    "cve_machote": 70,
+    "nombre": "REFACCIONARIO ADQ O REP DE MAQ Y  EQ.1",
+    "iniciales": "RME1",
+    "monto_maximo": 500000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 18
+  },
+  {
+    "cve_machote": 71,
+    "nombre": "REFACCIONARIO ADQ O REP  DE MAQ  Y EQ.2",
+    "iniciales": "RME2",
+    "monto_maximo": 1000000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 35
+  },
+  {
+    "cve_machote": 80,
+    "nombre": "REFACCIONARIO DE INFRAESTRUCTURA 1",
+    "iniciales": "RME1",
+    "monto_maximo": 500000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 1
+  },
+  {
+    "cve_machote": 81,
+    "nombre": "REFACCIONARIO ADQ. O CONST. DE INFRAESTRUCTURA 2",
+    "iniciales": "RINF2",
+    "monto_maximo": 1000000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 82,
+    "nombre": "REFACCIONARIO ADQ. O CONST. DE INFRAESTRUCTURA 3",
+    "iniciales": "RINF3",
+    "monto_maximo": 2500000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 93,
+    "nombre": "REFACCIONARIO PEST2",
+    "iniciales": "PEST2",
+    "monto_maximo": 1500000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 99,
+    "nombre": "REFACCIONARIO PPB3",
+    "iniciales": "PPB3",
+    "monto_maximo": 2000000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 104,
+    "nombre": "REFACCIONARIO PB4",
+    "iniciales": "PB4",
+    "monto_maximo": 3000000,
+    "cve_credito": 10,
+    "tipo_credito": "REFACCIONARIO",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 58,
+    "nombre": "BOLSA RENOVACION",
+    "iniciales": "RE",
+    "monto_maximo": 500000,
+    "cve_credito": 8,
+    "tipo_credito": "RENOVACION",
+    "no_solicitudes": 0
+  },
+  {
+    "cve_machote": 90,
+    "nombre": "REFACCIONARIO PBI1",
+    "iniciales": "PBI1",
+    "monto_maximo": 1000000,
+    "cve_credito": 8,
+    "tipo_credito": "RENOVACION",
+    "no_solicitudes": 0
+  }
+ ]

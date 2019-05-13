@@ -1,5 +1,30 @@
 .App {
-  text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  background: rgb(222, 222, 255);
+  min-height: 100vh;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  color: black;
+}
+
+.App-Container{
+  width: 80%;
+  min-height: 100vh;
+  background: white;
+  margin: auto;
 }
 
 .App-logo {
@@ -31,3 +56,99 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Header */
+
+.Header_User{
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+
+/* Page */
+
+.Page_title{
+  margin: 10px;
+}
+
+.Page_body{
+  margin: 0 10px;
+}
+
+/* Form */
+
+.Form{
+  display: flex;
+  flex-direction: column;
+}
+
+.Form_field{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+}
+
+.Form_field label {
+  flex: 0.35;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.Form_field input, select {
+  flex: 0.75;
+  padding: 4px;
+}
+
+.Form_field div {
+  flex: 0.75 1;
+}
+/* Input inside data picker */
+.Form_field div div input {
+  width: 100%;
+}
+
+.Form_button{
+  margin: 10px 0 0 0 !important;
+}
+
+.react-datepicker__input-container{
+  width: 100% !important;
+}
+
+/* Grid */
+
+.Grid{
+  margin: 0 !important;
+}
+
+.Grid_row{
+  padding: 1px !important;
+}
+
+.Grid_row_label{
+  background: #e1dcd5;
+  /* padding: 5px; */
+}
+
+.Grid_row_text{
+  background: #f7f3f0;
+  /* padding: 5px; */
+}
+
+/* Creditos */
+
+.Creditos{
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Subtitle{
+  margin: auto 0 !important;
+}
+
+
+
