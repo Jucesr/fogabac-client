@@ -1,6 +1,6 @@
 export const loadSolicitantes = () => {
   return async (dispatch, getState) => {
-    const res = await fetch('http://localhost:3000/solicitantes')
+    const res = await fetch('http://localhost:3002/solicitante')
     const data = await res.json()
 
     dispatch({
@@ -11,16 +11,50 @@ export const loadSolicitantes = () => {
 }
 
 export const addSolicitante = item => {
-  return {
-    type: 'ADD_SOLICITANTE',
-    response: item
+  return async (dispatch, getState) => {
+    const res = await fetch('http://localhost:3002/solicitante',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...item,
+          tipo_persona: 'Fisica',
+          usuario_id: 1,
+          vigente: 0,
+          vencido: 0
+        })
+      })
+    const result_item = await res.json()
+
+    dispatch({
+      type: 'ADD_SOLICITANTE',
+      response: result_item
+    })
   }
 }
 
 export const editSolicitante = item => {
-  return {
-    type: 'EDIT_SOLICITANTE',
-    payload: item.id,
-    response: item
+  return async (dispatch, getState) => {
+    console.log(item)
+    const res = await fetch(`http://localhost:3002/solicitante/${item._id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+
+    const result_item = await res.json()
+
+    dispatch({
+      type: 'EDIT_SOLICITANTE',
+      payload: item._id,
+      response: result_item
+    })
   }
 }

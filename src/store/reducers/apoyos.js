@@ -1,18 +1,12 @@
+import { convertToArrayObject } from "utils/index";
+
 export default (state = {}, action) => {
   const {type, response} = action;
   switch (type) {
     
     case 'LOAD_APOYOS': 
 
-      return response.reduce((acum, item, index) => {
-        return {
-          ...acum,
-          [index] : {
-            ...item,
-            id: index
-          }
-        }
-      }, {}) 
+      return convertToArrayObject(response)
 
     case 'ADD_APOYO':
       

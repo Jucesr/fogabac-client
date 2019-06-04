@@ -57,3 +57,20 @@ export const formatColumn = (format, value) => {
 
   }
 };
+
+export const convertToArrayObject = (array) => {
+  return array.reduce((current, item) => {
+      current[item._id] = item;
+      return current
+  }, {})
+};
+
+export const convertArrayToObjectWithValue = (array, objectWithValues) => {
+  return array.reduce((current, item) => {
+      current[item._id] = {
+          ...objectWithValues[item._id],
+          ...item
+      };
+      return current
+  }, {})
+};

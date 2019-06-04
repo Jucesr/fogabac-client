@@ -1,32 +1,26 @@
+import { convertToArrayObject } from "utils/index";
+
 export default (state = {}, action) => {
   const {type, response} = action;
   switch (type) {
     
     case 'LOAD_SOLICITANTES': 
 
-      return response.reduce((acum, item, index) => {
-        return {
-          ...acum,
-          [index] : {
-            ...item,
-            id: index
-          }
-        }
-      }, {}) 
+      return convertToArrayObject(response)
 
     case 'ADD_SOLICITANTE':
       
       return {
         ...state,
-        [response.id]: response
+        [response._id]: response
       }
 
       case 'EDIT_SOLICITANTE':
       
       return {
         ...state,
-        [response.id]: {
-          ...state[response.id],
+        [response._id]: {
+          ...state[response._id],
           ...response
         }
       }

@@ -34,7 +34,7 @@ class SolicitantesPage extends React.Component {
   setSolicitante = (person) => {
     this.setState((prevState) => ({
       page_active: 'INFO',
-      solicitante_active_id: person.id
+      solicitante_active_id: person._id
     }))
   }
 
@@ -128,10 +128,7 @@ class SolicitantesPage extends React.Component {
           <Modal.Content>
             {
               state.modal_id == 'SOLICITANTE_FORM_ADD' && <SolicitanteForm onSubmit={item => {
-                props.addSolicitante({
-                  ...item,
-                  id: solicitantes.length + 1
-                })
+                props.addSolicitante(item)
                 this.closeModal()
               }}/>
             }
@@ -140,7 +137,7 @@ class SolicitantesPage extends React.Component {
               state.modal_id == 'SOLICITANTE_FORM_EDIT' && <SolicitanteForm item={solicitante_active} onSubmit={item => {
                 props.editSolicitante({
                   ...item,
-                  id: solicitante_active.id
+                  _id: solicitante_active._id
                 })
                 this.closeModal()
               }}/>
