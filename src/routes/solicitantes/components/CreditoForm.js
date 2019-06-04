@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Form} from 'informed';
 import { Button } from 'semantic-ui-react'
 import { generateOptions } from "utils/index";
@@ -7,7 +6,7 @@ import { generateOptions } from "utils/index";
 import Field from "components/Field";
 
 const validate = value => {
-  return !value || value.length == 0
+  return !value || value.length === 0
     ? 'Obligatorio'
     : undefined;
 };

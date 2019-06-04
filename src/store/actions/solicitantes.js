@@ -1,6 +1,6 @@
 export const loadSolicitantes = () => {
   return async (dispatch, getState) => {
-    const res = await fetch('http://localhost:3002/solicitante')
+    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitante`)
     const data = await res.json()
 
     dispatch({
@@ -12,7 +12,7 @@ export const loadSolicitantes = () => {
 
 export const addSolicitante = item => {
   return async (dispatch, getState) => {
-    const res = await fetch('http://localhost:3002/solicitante',
+    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitante`,
       {
         method: 'POST',
         headers: {
@@ -39,7 +39,7 @@ export const addSolicitante = item => {
 export const editSolicitante = item => {
   return async (dispatch, getState) => {
     console.log(item)
-    const res = await fetch(`http://localhost:3002/solicitante/${item._id}`,
+    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitante/${item._id}`,
       {
         method: 'PATCH',
         headers: {

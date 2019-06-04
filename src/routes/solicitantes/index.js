@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Icon, Header, Modal } from 'semantic-ui-react'
-import { Route, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 import ListSolicitantes from "./components/List";
@@ -127,14 +127,14 @@ class SolicitantesPage extends React.Component {
           <Modal.Header>{state.modal_title}</Modal.Header>
           <Modal.Content>
             {
-              state.modal_id == 'SOLICITANTE_FORM_ADD' && <SolicitanteForm onSubmit={item => {
+              state.modal_id === 'SOLICITANTE_FORM_ADD' && <SolicitanteForm onSubmit={item => {
                 props.addSolicitante(item)
                 this.closeModal()
               }}/>
             }
 
             {
-              state.modal_id == 'SOLICITANTE_FORM_EDIT' && <SolicitanteForm item={solicitante_active} onSubmit={item => {
+              state.modal_id === 'SOLICITANTE_FORM_EDIT' && <SolicitanteForm item={solicitante_active} onSubmit={item => {
                 props.editSolicitante({
                   ...item,
                   _id: solicitante_active._id
@@ -144,7 +144,7 @@ class SolicitantesPage extends React.Component {
             }
 
 {
-              state.modal_id == 'CREDITO_FORM_ADD' && <CreditoForm onSubmit={item => {
+              state.modal_id === 'CREDITO_FORM_ADD' && <CreditoForm onSubmit={item => {
                 props.addCredito({
                   ...item,
                   id: creditos.length + 1

@@ -1,6 +1,6 @@
 export const loadCreditos = () => {
   return async (dispatch, getState) => {
-    const res = await fetch('http://localhost:3000/solicitantes')
+    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitantes`)
     const data = await res.json()
 
     dispatch({

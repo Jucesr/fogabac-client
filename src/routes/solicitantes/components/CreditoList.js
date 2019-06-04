@@ -51,7 +51,7 @@ const CreditoList = (props) => {
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {
-              if(column.Header == 'Abrir'){
+              if(column.Header === 'Abrir'){
                 props.onRowClick(rowInfo.original)
               }
         

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import ReactTable from "react-table";
 import { Icon } from 'semantic-ui-react'
 
@@ -41,7 +40,7 @@ const ListSolicitantes = (props) => {
         getTdProps={(state, rowInfo, column, instance) => {
           return {
             onClick: (e, handleOriginal) => {
-              if(column.Header == 'Abrir'){
+              if(column.Header === 'Abrir'){
                 props.onRowClick(rowInfo.original)
               }
         

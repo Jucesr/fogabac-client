@@ -7,10 +7,6 @@ import { setApoyo } from "store/actions/app";
 
 class ApoyosListPage extends Component {
 
-  constructor(props){
-    super(props)
-  }
-
   componentDidMount = () => {
     this.props.changePage({
       page_title: 'Apoyos'
