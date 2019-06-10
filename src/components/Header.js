@@ -3,9 +3,6 @@ import {connect} from 'react-redux'
 import { Label, Input, Menu, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-const handleItemClick = () => {
-}
-
 const Header = (props) => {
   const activeItem = 'Apoyos'
   return (
@@ -26,29 +23,19 @@ const Header = (props) => {
 
       <div>
       <Menu pointing>
-          <Menu.Item 
-            active={activeItem === 'Pendientes'} 
-            onClick={handleItemClick}
-          >
-            <Link to="/pendientes">Pendientes</Link>
-          </Menu.Item >
+          <Menu.Item name="pendientes" as={Link} to="/pendientes" active={activeItem === 'Pendientes'} />
 
-          <Menu.Item 
-            active={activeItem === 'Apoyos'} 
+          <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem === 'Apoyos'}/>
             
-          >
-            <Link to="/apoyos">Apoyos</Link>
-          </Menu.Item >
+          <Menu.Item name="solicitantes" as={Link} to="/solicitantes" active={activeItem === 'Solicitantes'} />
 
           <Menu.Item
             name='Notificaciones'
             active={activeItem === 'Notificaciones'}
-            onClick={handleItemClick}
           />
           <Menu.Item
             name='Reportes'
             active={activeItem === 'Reportes'}
-            onClick={handleItemClick}
           />
           <Menu.Menu position='right'>
             <Menu.Item>

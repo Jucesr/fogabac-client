@@ -151,4 +151,11 @@ a:hover{
 }
 
 
+/* Table */
+
+.ReactTable .rt-tr:hover .rt-td {
+  background: rgb(211, 211, 216);
+  cursor: pointer;
+}
+
 

@@ -11,7 +11,7 @@ import CreditoForm from "./components/CreditoForm";
 import SolicitanteForm from "./components/SolicitanteForm";
 
 import { loadSolicitantes, addSolicitante, editSolicitante } from "store/actions/solicitantes";
-import { addCredito } from "store/actions/creditos";
+import { loadCreditos } from "store/actions/creditos";
 
 import { objectToArray } from "utils/index";
 
@@ -32,6 +32,9 @@ class SolicitantesPage extends React.Component {
   }
 
   setSolicitante = (person) => {
+
+    this.props.loadCreditos(person._id)
+
     this.setState((prevState) => ({
       page_active: 'INFO',
       solicitante_active_id: person._id
@@ -56,8 +59,19 @@ class SolicitantesPage extends React.Component {
     const { props, state } = this
 
     const solicitantes = objectToArray(props.solicitantes)
-    const creditos = objectToArray(props.creditos)
+    
     const solicitante_active = props.solicitantes[state.solicitante_active_id]
+
+    //  Get Creditos based on Solicitante active
+    const creditos = solicitante_active && solicitante_active.creditos ? solicitante_active.creditos.map(
+      credito => ({
+        ...credito,
+        ejercido: 0,
+        bolsa_credito: props.apoyos[credito.bolsa_credito],
+        disponible: credito.monto,
+        recuperado: credito.monto
+      })
+    ) : []
     return (
       <div>
 
@@ -144,13 +158,7 @@ class SolicitantesPage extends React.Component {
             }
 
 {
-              state.modal_id === 'CREDITO_FORM_ADD' && <CreditoForm onSubmit={item => {
-                props.addCredito({
-                  ...item,
-                  id: creditos.length + 1
-                })
-                this.closeModal()
-              }}/>
+              state.modal_id === 'CREDITO_FORM_ADD' && <CreditoForm solicitante_active={state.solicitante_active_id} />
             }
 
           </Modal.Content>
@@ -182,13 +190,13 @@ const mapDispatchToProps = (dispatch) => ({
   addSolicitante: item => dispatch(addSolicitante(item)),
   editSolicitante: item => dispatch(editSolicitante(item)),
 
-  addCredito: item => dispatch(addCredito(item))
+  loadCreditos: solicitante_id => dispatch(loadCreditos(solicitante_id))
 });
 
 const mapStateToProps = (state) => ({
   solicitantes: state.solicitantes,
-  creditos: state.creditos,
-  apoyo_active: state.app.apoyo_active
+  apoyo_active: state.app.apoyo_active,
+  apoyos: state.apoyos
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SolicitantesPage)

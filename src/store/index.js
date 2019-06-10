@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import solicitantesReducer from './reducers/solicitantes'
 import apoyosReducer from './reducers/apoyos'
-import creditosReducer from './reducers/creditos'
+import tcReducer from './reducers/tipo_creditos'
 import appReducer from './reducers/app'
 
 //Middleware
@@ -14,7 +14,7 @@ export default () => {
         combineReducers({
             apoyos: apoyosReducer,
             solicitantes: solicitantesReducer,
-            creditos: creditosReducer,
+            tipo_creditos: tcReducer,
             app: appReducer,
         }),
         composeEnhancers(applyMiddleware(thunk))
