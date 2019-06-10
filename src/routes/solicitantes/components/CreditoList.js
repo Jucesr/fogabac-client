@@ -24,11 +24,11 @@ const CreditoList = (props) => {
           },
           {
             Header: "Folio",
-            accessor: "id"
+            accessor: "_id"
           },
           {
             Header: "Bolsa de Crédito",
-            accessor: "bolsa_credito",
+            accessor: "bolsa_credito.nombre",
             width: 400
           },
           {
@@ -38,14 +38,17 @@ const CreditoList = (props) => {
           },
           {
             Header: "Ejercido",
-            accessor: "ejercido"
+            accessor: "ejercido",
+            Cell: row => formatColumn('currency', row.value)
           },{
             Header: "Disponible",
-            accessor: "disponible"
+            accessor: "disponible",
+            Cell: row => formatColumn('currency', row.value)
           },
           {
             Header: "Recuperado",
-            accessor: "recuperado"
+            accessor: "recuperado",
+            Cell: row => formatColumn('currency', row.value)
           }
         ]}
         getTdProps={(state, rowInfo, column, instance) => {
