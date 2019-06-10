@@ -1,7 +1,10 @@
 import { BasicText, asField } from 'informed';
-import DatePicker from 'react-datepicker';
 import es from 'date-fns/locale/es';
 import React from 'react'
+
+//  Third party components
+import DatePicker from 'react-datepicker';
+import Cleave from 'cleave.js/react';
 
 const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
 
@@ -26,9 +29,9 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
       {
         kind === "select" && (
           <React.Fragment>
-            <select 
+            <select
               ref={props.forwardedRef}
-              value={!fieldState.value && fieldState.value !== 0 ? '' : fieldState.value}
+              value={props.value ? props.value : (!fieldState.value && fieldState.value !== 0 ? '' : fieldState.value)}
               onChange={e => {
                 props.fieldApi.setValue(e.target.value);
                 if (props.onChange) {
@@ -45,22 +48,47 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
         )
       }
 
-{
+      {
         kind === "datepicker" && (
           <React.Fragment>
 
             <DatePicker
               showYearDropdown
-              customInput={<input/>}
+              customInput={<input />}
               selected={fieldState.value}
               onChange={date => props.fieldApi.setValue(date)}
               locale={es}
-              placeholderText="Selecciona una fecha" 
+              placeholderText="Selecciona una fecha"
               dateFormat="d MMMM, yyyy"
               isClearable={true}
             />
 
-            
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
+
+
+          </React.Fragment>
+        )
+      }
+
+      {
+        kind === "currency" && (
+          <React.Fragment>
+
+            <Cleave
+              onChange={e => props.fieldApi.setValue(e.target.rawValue)}
+              options={{
+                numeral: true,
+                rawValueTrimPrefix: true,
+                prefix: '$'
+              }
+              }
+            />
+
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
           </React.Fragment>
         )
       }

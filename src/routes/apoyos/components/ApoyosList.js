@@ -33,7 +33,7 @@ const ApoyosList = (props) => {
           },
           {
             Header: "Tipo Crédito",
-            accessor: "tipo_credito"
+            accessor: "tipo_credito.nombre"
           },
           {
             Header: "Monto Máximo",

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import ApoyosList from "./components/ApoyosList";
 
 import { loadApoyos } from "store/actions/apoyos";
+import { loadTipoCreditos } from "store/actions/tipo_creditos";
 import { setApoyo } from "store/actions/app";
 
 class ApoyosListPage extends Component {
@@ -12,6 +13,7 @@ class ApoyosListPage extends Component {
       page_title: 'Apoyos'
     })
     this.props.loadApoyos()
+    this.props.loadTipoCreditos()
   }
 
   openApoyo = (item) => {
@@ -45,6 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
   })
  },
  loadApoyos: () => dispatch(loadApoyos()),
+ loadTipoCreditos: () => dispatch(loadTipoCreditos()),
  setApoyo: item => dispatch(setApoyo(item))
 });
 
