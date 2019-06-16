@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        page_title: payload.page_title
+        page_title: payload
       }
 
     case 'TOGGLE_MODAL': 

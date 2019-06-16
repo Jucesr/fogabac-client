@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
   changePage: ({page_title, page_active}) => {
    dispatch({
      type: 'CHANGE_PAGE',
-     payload: {page_title}
+     payload: page_title
    })
   }
  });

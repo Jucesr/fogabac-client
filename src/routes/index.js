@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {connect} from 'react-redux'
 
 import ApoyosRoute from "./apoyos";
-import SolicitantesRoute from "./solicitantes";
+import SolicitanteListRoute from "./solicitantes";
+import SolicitanteRoute from "./solicitante";
 
 import Header from "components/Header";
 import Page from "components/Page";
@@ -18,7 +19,8 @@ const AppRouter =  (props) => (
 
           <Switch>
             <Route path="/apoyos" component={ApoyosRoute} exact={true} />
-            <Route path="/solicitantes" component={SolicitantesRoute} exact={true} />
+            <Route path="/solicitantes" component={SolicitanteListRoute} exact={true} />
+            <Route path="/solicitantes/:id" component={SolicitanteRoute} exact={true} />
           </Switch>
         </Page>
 
