@@ -47,6 +47,32 @@ export default (state = {}, action) => {
           ]
         }
       }
+
+    //*************************
+    //  REFERENCIAS PERSONALES
+    //*************************
+    case 'LOAD_REFERENCIAS_PERSONALES': 
+
+      return{
+        ...state,
+        [payload]: {
+          ...state[payload],
+          referencias_personales: response
+        }
+      }
+
+    case 'ADD_REFERENCIA_PERSONAL': 
+
+      return{
+        ...state,
+        [response.solicitante]: {
+          ...state[response.solicitante],
+          referencias_personales: [
+            ...state[response.solicitante].referencias_personales,
+            response
+          ]
+        }
+      }
   
     default:
       return state

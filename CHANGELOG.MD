@@ -2,7 +2,7 @@
   Date: June 04, 2019
   * [ADD] First realese version.
 
-## 0.0.1
+## 0.0.2
   Date: June 10, 2019
   * [NEW] Install Cleave.js
   * [NEW] Row in table will change color when hover
@@ -18,4 +18,20 @@
       * [FIX] uses real tipo de credito and bolsas de credito
       * [FIX] change names of Field name to match API names
     * [FIX] column format in CreditoList
+
+## 0.0.3
+  Date: June 16, 2019
+  * [FIX] split route Solicitnates in 2 routes.
+
+## 0.0.4
+  Date: June 17, 2019
+  * [NEW] Install Hot Loader for development mode.
+  * [NEW] Kind for Field component => Input File
+  * [NEW] Table component. It includes a column for CRUD actions and spanish messages
+  * [NEW] Credito Info component.
+  * [NEW] Tabs for Credito Route
+  * [NEW] Referencias personales Tab
+    * [NEW] Add item
+    * [NEW] Form to add RP
+  * [STORE] Update solicitante reducer to include hanldlers for Referencias personales 
 

@@ -93,6 +93,42 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
         )
       }
 
+      {
+        kind === "file" && (
+          <React.Fragment>
+
+            <input
+              // {...props}
+              // fieldState={fieldState}
+              value={fieldState.value ? fieldState.value.name: ''}
+              onChange={event => {
+                props.fieldApi.setValue({
+                  ...fieldState.value,
+                  name: event.target.value
+                })
+              }}
+              className="Form_field_file"
+              style={fieldState.error ? { border: 'solid 1px red' } : null}
+            />
+
+            <input type="file" onChange={event => {
+              props.fieldApi.setValue({
+                name: event.target.files[0].name,
+                file: event.target.files[0]
+              })
+            }} className="inputfile" id="embedpollfileinput" />
+            <label htmlFor="embedpollfileinput" className="Form_field_label ui icon button">
+              <i className="ui search icon"></i>
+              
+            </label>
+
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
+          </React.Fragment>
+        )
+      }
+
     </div>
   )
 });

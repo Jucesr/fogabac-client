@@ -6,6 +6,15 @@
   min-height: 100vh;
 }
 
+input[type='file'] {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;
   opacity: 1; /* Firefox */
@@ -110,6 +119,18 @@ a:hover{
   width: 100%;
 }
 
+/* Input file */
+
+.Form_field_file{
+  flex: 0.52 1 !important;
+}
+
+.Form_field_label{
+  flex: 0.20 1 !important;
+  margin: 0 !important;
+  padding: 7px !important;
+}
+
 .Form_button{
   margin: 10px 0 0 0 !important;
 }
@@ -140,7 +161,7 @@ a:hover{
 
 /* Creditos */
 
-.Creditos{
+.Section{
   margin: 5px 0;
   display: flex;
   justify-content: space-between;
@@ -157,5 +178,7 @@ a:hover{
   background: rgb(211, 211, 216);
   cursor: pointer;
 }
+
+
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Icon, Header, Modal } from 'semantic-ui-react'
-import { Redirect, Route, Switch} from 'react-router-dom'
+import { Button, Icon, Modal } from 'semantic-ui-react'
+import { Redirect} from 'react-router-dom'
 
 
 import ListSolicitantes from "./components/List";
