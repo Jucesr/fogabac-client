@@ -4,11 +4,17 @@ import Table from "components/Table";
 import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 import RPForm from "./RPForm";
 
-import { loadReferenciasPersonales, addReferenciaPersonal } from "store/actions/referencias_personales";
+import { 
+  loadReferenciasPersonales, 
+  addReferenciaPersonal,
+  deleteReferenciaPersonal,
+  updateReferenciaPersonal 
+} from "store/actions/referencias_personales";
 
 const ReferenciasPersonales = (props) => {
 
   const [modal, setModal] = useState({});
+  const [item, setItem] = useState();
 
   useEffect(() => {
     props.loadReferenciasPersonales(props.solicitante_active._id)
@@ -30,14 +36,21 @@ const ReferenciasPersonales = (props) => {
         onEditRow={row => {
           setModal({
             title: 'Editar referencia personal',
-            id: 'FORM_EDIT'
+            id: 'EDIT'
           })
+          setItem(row)
         }}
-        onDeleteRow={() => { alert('Se va a borrar') }}
+        onDeleteRow={row => { 
+          props.deleteReferenciaPersonal(row);
+        }}
         columns={[
           {
             Header: "Nombre",
             accessor: "nombre"
+          },
+          {
+            Header: "Documento",
+            accessor: "documento.nombre"
           }
         ]}
         data={referencias}
@@ -50,17 +63,22 @@ const ReferenciasPersonales = (props) => {
       >
         <Modal.Header>{modal.title}</Modal.Header>
         <Modal.Content>
-          {/* 
+          
           {
-            modal.id === 'FORM_EDIT' && <SolicitanteForm item={solicitante_active} onSubmit={item => {
-              props.editSolicitante({
+            modal.id === 'EDIT' && <RPForm item={{
+              nombre: item.nombre,
+              documento: {
+                name: item.documento.nombre
+              }
+            }} onSubmit={values => {
+              props.updateReferenciaPersonal({
                 ...item,
-                _id: solicitante_active._id
+                ...values
               })
-              this.closeModal()
+              setModal({})
             }} />
           }
-          */}
+         
           {
             modal.id === 'ADD' && <RPForm onSubmit={values => {
               props.addReferenciaPersonal({
@@ -80,7 +98,9 @@ const ReferenciasPersonales = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   loadReferenciasPersonales: id => dispatch(loadReferenciasPersonales(id)),
-  addReferenciaPersonal: item => dispatch(addReferenciaPersonal(item))
+  addReferenciaPersonal: item => dispatch(addReferenciaPersonal(item)),
+  deleteReferenciaPersonal: item => dispatch(deleteReferenciaPersonal(item)),
+  updateReferenciaPersonal: item => dispatch(updateReferenciaPersonal(item))
 });
 
 

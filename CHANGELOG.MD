@@ -35,3 +35,8 @@
     * [NEW] Form to add RP
   * [STORE] Update solicitante reducer to include hanldlers for Referencias personales 
 
+## 0.0.5
+  Fecha: 23 Junio 2019
+  * [NEW] Acciones para borrar y editar referencias.
+  * [NEW] Se modificó la accción para agregar referencia para que tambien agrege el archivo.
+

@@ -73,6 +73,44 @@ export default (state = {}, action) => {
           ]
         }
       }
+
+    case 'DELETE_REFERENCIA_PERSONAL': {
+      const rps = state[response.solicitante].referencias_personales.filter(rp => rp._id != response ._id);
+
+      return{
+        ...state,
+        [response.solicitante]: {
+          ...state[response.solicitante],
+          referencias_personales: rps
+        }
+      }
+    }
+
+    case 'UPDATE_REFERENCIA_PERSONAL': {
+      const items = state[response.solicitante].referencias_personales
+      
+      const rps = items.map(rp => {
+       
+        if(rp._id == response._id){
+          rp = {
+            ...rp,
+            ...response
+          }
+        }
+
+        return rp;
+      });
+
+      return{
+        ...state,
+        [response.solicitante]: {
+          ...state[response.solicitante],
+          referencias_personales: rps
+        }
+      }
+    }
+
+      
   
     default:
       return state
