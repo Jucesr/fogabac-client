@@ -75,7 +75,7 @@ export default (state = {}, action) => {
       }
 
     case 'DELETE_REFERENCIA_PERSONAL': {
-      const rps = state[response.solicitante].referencias_personales.filter(rp => rp._id != response ._id);
+      const rps = state[response.solicitante].referencias_personales.filter(rp => rp._id !== response._id);
 
       return{
         ...state,
@@ -91,7 +91,7 @@ export default (state = {}, action) => {
       
       const rps = items.map(rp => {
        
-        if(rp._id == response._id){
+        if(rp._id === response._id){
           rp = {
             ...rp,
             ...response

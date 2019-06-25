@@ -47,6 +47,9 @@ const Table = (props) => {
                 
                 {props.onDownloadRow && <Button icon onClick={() => props.onDownloadRow(original)}><Icon name="download" /></Button>}
                 
+                {/* EDIT */}
+
+                {props.onEditRow && <Button icon onClick={() => props.onEditRow(original)}><Icon name="edit" /></Button>}
                 
                 {/* DELETE */}
 
@@ -65,9 +68,7 @@ const Table = (props) => {
                   }}><Icon name="trash" />
                 </Button>}
 
-                {/* EDIT */}
-
-                {props.onEditRow && <Button icon onClick={() => props.onEditRow(original)}><Icon name="edit" /></Button>}
+                
               </div>
             )
           },

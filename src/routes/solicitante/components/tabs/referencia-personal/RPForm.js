@@ -10,6 +10,7 @@ const RPForm = (props) => {
       {({ formState }) => (
         <div className="Form">
           <Field label="Nombre" field="nombre"/>
+          <Field label="Teléfono" field="telefono"/>
           <Field label="Documento" field="documento" kind="file"/> 
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>

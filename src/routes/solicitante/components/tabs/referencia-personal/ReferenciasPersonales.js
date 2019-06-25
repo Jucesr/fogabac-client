@@ -33,6 +33,7 @@ const ReferenciasPersonales = (props) => {
       </div>
       <Table
         itemName="nombre"
+        onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${row._id}/downloadFile`)}
         onEditRow={row => {
           setModal({
             title: 'Editar referencia personal',
@@ -47,6 +48,10 @@ const ReferenciasPersonales = (props) => {
           {
             Header: "Nombre",
             accessor: "nombre"
+          },
+          {
+            Header: "Teléfono",
+            accessor: "telefono"
           },
           {
             Header: "Documento",
@@ -67,9 +72,10 @@ const ReferenciasPersonales = (props) => {
           {
             modal.id === 'EDIT' && <RPForm item={{
               nombre: item.nombre,
-              documento: {
+              telefono: item.telefono,
+              documento: item.documento ? {
                 name: item.documento.nombre
-              }
+              } : undefined
             }} onSubmit={values => {
               props.updateReferenciaPersonal({
                 ...item,

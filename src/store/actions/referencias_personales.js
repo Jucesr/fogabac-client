@@ -1,11 +1,12 @@
+import { callApi } from "utils/api";
+
 export const loadReferenciasPersonales = (solicitante_id) => {
   return async (dispatch, getState) => {
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitante/${solicitante_id}/referencias_personales`)
-    const data = await res.json()
-
+    const res = await callApi(`/solicitante/${solicitante_id}/referencias_personales`)
+    
     dispatch({
       type: 'LOAD_REFERENCIAS_PERSONALES',
-      response: data,
+      response: res.body,
       payload: solicitante_id
     })
   }
@@ -13,75 +14,124 @@ export const loadReferenciasPersonales = (solicitante_id) => {
 
 export const addReferenciaPersonal = ({documento, ...item}) => {
   return async (dispatch, getState) => {
-    let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(item)
-      })
+    //  It first add the Item
 
-    if(res.status != 200){
+    let res = await callApi(`/referencia_personal`, {
+      method: 'POST',
+      body: JSON.stringify(item)
+    })
+
+    //  Check the item was added correctly
+    if(res.status !== 200){
       //  TODO: Throw error here!
+      console.log(res.body)
+      return 0;
     }
-    let res_obj = await res.json()
 
-    //  Upload the file
-    let body = new FormData();
-    body.append('file', documento.file)
-    //body.append('name', documento.name)
-    res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${res_obj._id}/uploadFile`,
+    let stored_item = res.body
+
+    if(documento){
+      //  A document was provided
+      res = await callApi(`/referencia_personal/${stored_item._id}/uploadFile`,
       {
         method: 'PUT',
-        body 
+        json: false,
+        body: documento 
       })
 
-    const result_item = await res.json()
+      //  Check the file was added correctly
+      if(res.status !== 200){
+        //  There was an error uploading the file
+        //  It adds the item but throw an error letting know the user.
+        dispatch({
+          type: 'ADD_REFERENCIA_PERSONAL',
+          response: stored_item
+        })
 
-    dispatch({
-      type: 'ADD_REFERENCIA_PERSONAL',
-      response: result_item
-    })
+      }else{
+
+        dispatch({
+          type: 'ADD_REFERENCIA_PERSONAL',
+          response: res.body
+        })
+      }
+    }else{
+      //  No document was provided
+
+      dispatch({
+        type: 'ADD_REFERENCIA_PERSONAL',
+        response: stored_item
+      })
+    }    
   }
 }
 
 export const deleteReferenciaPersonal = item => {
   return async (dispatch, getState) => {
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${item._id}`,
+    const res = await callApi(`/referencia_personal/${item._id}`,
       {
-        method: 'DELETE',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+        method: 'DELETE'
       })
-    const result_item = await res.json()
-
+    
     dispatch({
       type: 'DELETE_REFERENCIA_PERSONAL',
-      response: result_item
+      response: res.body
     })
   }
 }
 
-export const updateReferenciaPersonal = item => {
+export const updateReferenciaPersonal = ({documento, ...item}) => {
   return async (dispatch, getState) => {
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${item._id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(item)
-      })
-    const result_item = await res.json()
 
-    dispatch({
-      type: 'UPDATE_REFERENCIA_PERSONAL',
-      response: result_item
+    let res = await callApi(`/referencia_personal/${item._id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(item)
     })
+
+    //  Check the item was added correctly
+    if(res.status !== 200){
+      //  TODO: Throw error here!
+      console.log(res.body)
+      return 0;
+    }
+
+    let stored_item = res.body
+
+    if(documento){
+      //  A document was provided
+      res = await callApi(`/referencia_personal/${stored_item._id}/uploadFile`,
+      {
+        method: 'PUT',
+        json: false,
+        body: documento 
+      })
+
+      //  Check the file was added correctly
+      if(res.status !== 200){
+        //  There was an error uploading the file
+        //  It adds the item but throw an error letting know the user.
+        dispatch({
+          type: 'UPDATE_REFERENCIA_PERSONAL',
+          response: stored_item
+        })
+
+      }else{
+
+        dispatch({
+          type: 'UPDATE_REFERENCIA_PERSONAL',
+          response: res.body
+        })
+
+      }
+    }else{
+      //  No document was provided
+
+      dispatch({
+        type: 'UPDATE_REFERENCIA_PERSONAL',
+        response: stored_item
+      })
+    }   
+
+    
   }
 }

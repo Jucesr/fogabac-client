@@ -40,3 +40,11 @@
   * [NEW] Acciones para borrar y editar referencias.
   * [NEW] Se modificó la accción para agregar referencia para que tambien agrege el archivo.
 
+## 0.0.6
+  Fecha: 24 Junio 2019
+  * [UPDATE] Se cambió el orden de las acciones en la tabla, Delete va al último.
+  * [FIX] Se limpiaron los eslint warnings.
+  * [NEW] campo de telefono para formulario de referencias
+  * [NEW] acción para descargar archivos de referencias.
+  * [NEW] util para llamar el API.
+

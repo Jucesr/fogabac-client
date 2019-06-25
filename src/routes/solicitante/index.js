@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import SolicitanteForm from "components/SolicitanteForm"
 import PersonalInfo from "./components/PersonalInfo";
@@ -8,7 +8,7 @@ import CreditoList from "./components/CreditoList";
 import CreditoForm from "./components/CreditoForm";
 import CreditoInfo from "./components/CreditoInfo";
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
-import { Tab, Button, Icon, Header, Modal, Popup } from 'semantic-ui-react'
+import { Tab, Button, Icon, Header, Modal } from 'semantic-ui-react'
 
 import { editSolicitante } from "store/actions/solicitantes";
 
