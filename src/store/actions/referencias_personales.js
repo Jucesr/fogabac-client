@@ -23,8 +23,14 @@ export const addReferenciaPersonal = ({documento, ...item}) => {
 
     //  Check the item was added correctly
     if(res.status !== 200){
-      //  TODO: Throw error here!
-      console.log(res.body)
+      dispatch({
+        type: 'OPEN_NOTIFICATION',
+        payload: {
+          type: 'ERROR',
+          message: res.body.error
+        }
+      })
+
       return 0;
     }
 
@@ -46,6 +52,14 @@ export const addReferenciaPersonal = ({documento, ...item}) => {
         dispatch({
           type: 'ADD_REFERENCIA_PERSONAL',
           response: stored_item
+        })
+
+        dispatch({
+          type: 'OPEN_NOTIFICATION',
+          payload: {
+            type: 'ERROR',
+            message: res.body.error
+          }
         })
 
       }else{

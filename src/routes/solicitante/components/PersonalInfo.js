@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
-import PropTypes from 'prop-types'
 import { formatDate } from "utils/";
 
 const SolicitanteInfoPage = ({
@@ -44,9 +43,5 @@ const GR = ({items: [i1, i2, i3, i4]}) => {
     <Grid.Column className="Grid_row_text"width={textWidth}>{i4}</Grid.Column>
   </Grid.Row>
 )}
-
-SolicitanteInfoPage.propTypes = {
-  persona: PropTypes.object.isRequired
-}
 
 export default SolicitanteInfoPage

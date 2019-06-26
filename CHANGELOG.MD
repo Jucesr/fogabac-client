@@ -40,7 +40,7 @@
   * [NEW] Acciones para borrar y editar referencias.
   * [NEW] Se modificó la accción para agregar referencia para que tambien agrege el archivo.
 
-## 0.0.6
+## 0.0.6 (3H)
   Fecha: 24 Junio 2019
   * [UPDATE] Se cambió el orden de las acciones en la tabla, Delete va al último.
   * [FIX] Se limpiaron los eslint warnings.
@@ -48,3 +48,14 @@
   * [NEW] acción para descargar archivos de referencias.
   * [NEW] util para llamar el API.
 
+## 0.0.7 (2H)
+  Fecha: 25 Junio 2019
+  * [ADD] Se agregarón dos tipos en componente Field (Porcentaje, Numerico)
+  * [NEW] Componente para notificaciones de error.
+  * [FIX] Acciones de Creditos y Referencias personales tienen validado los errores.
+  * [FIX] CreditoPage
+    * El formulario ahora se cierra cuando se le da submit
+    * Se validaron que los campos no esten vacios y sean del tipo que corresponde
+    * La lista ahora muestra el folio correcto
+  * [FIX] ReferenciasPersonales
+    * Se hizo obligatorio el nombre

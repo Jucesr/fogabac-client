@@ -192,7 +192,7 @@ class Solicitante extends React.Component {
             }
 
             {
-              state.modal_id === 'CREDITO_FORM_ADD' && <CreditoForm solicitante_active={solicitante_active._id} />
+              state.modal_id === 'CREDITO_FORM_ADD' && <CreditoForm onSubmit={() => this.closeModal()} solicitante_active={solicitante_active._id} />
             }
 
           </Modal.Content>

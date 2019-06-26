@@ -24,7 +24,7 @@ const CreditoList = (props) => {
           },
           {
             Header: "Folio",
-            accessor: "_id"
+            accessor: "folio"
           },
           {
             Header: "Bolsa de Crédito",

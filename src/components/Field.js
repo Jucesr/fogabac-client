@@ -30,6 +30,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
         kind === "select" && (
           <React.Fragment>
             <select
+              style={fieldState.error ? { border: 'solid 1px red' } : null}
               ref={props.forwardedRef}
               value={props.value ? props.value : (!fieldState.value && fieldState.value !== 0 ? '' : fieldState.value)}
               onChange={e => {
@@ -44,6 +45,9 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               </option>
               {props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)}
             </select>
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
           </React.Fragment>
         )
       }
@@ -82,6 +86,46 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
                 numeral: true,
                 rawValueTrimPrefix: true,
                 prefix: '$'
+              }
+              }
+            />
+
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
+          </React.Fragment>
+        )
+      }
+
+    {
+        kind === "number" && (
+          <React.Fragment>
+
+            <Cleave
+              onChange={e => props.fieldApi.setValue(e.target.rawValue)}
+              options={{
+                numeral: true
+              }
+              }
+            />
+
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
+          </React.Fragment>
+        )
+      }
+
+      {
+        kind === "percentage" && (
+          <React.Fragment>
+
+            <Cleave
+              onChange={e => props.fieldApi.setValue(e.target.rawValue)}
+              options={{
+                numeral: true,
+                rawValueTrimPrefix: true,
+                prefix: '%'
               }
               }
             />

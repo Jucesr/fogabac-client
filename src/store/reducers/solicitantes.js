@@ -24,7 +24,9 @@ export default (state = {}, action) => {
           ...response
         }
       }
-
+    //*************************
+    //  CREDITOS
+    //*************************
     case 'LOAD_CREDITOS': 
 
       return{

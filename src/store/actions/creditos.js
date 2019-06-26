@@ -1,11 +1,12 @@
+import { callApi } from "utils/api";
+
 export const loadCreditos = (solicitante_id) => {
   return async (dispatch, getState) => {
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/solicitante/${solicitante_id}/creditos`)
-    const data = await res.json()
+    const res = await callApi(`/solicitante/${solicitante_id}/creditos`)
 
     dispatch({
       type: 'LOAD_CREDITOS',
-      response: data,
+      response: res.body,
       payload: solicitante_id
     })
   }
@@ -13,20 +14,26 @@ export const loadCreditos = (solicitante_id) => {
 
 export const addCredito = item => {
   return async (dispatch, getState) => {
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/credito`,
+    const res = await callApi(`/credito`,
       {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(item)
       })
-    const result_item = await res.json()
+
+    if(res.status !== 200){
+      dispatch({
+        type: 'OPEN_NOTIFICATION',
+        payload: {
+          type: 'ERROR',
+          message: res.body.error
+        }
+      })
+      return 0;
+    }
 
     dispatch({
       type: 'ADD_CREDITO',
-      response: result_item
+      response: res.body
     })
   }
 }

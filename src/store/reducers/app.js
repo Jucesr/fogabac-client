@@ -1,5 +1,6 @@
 const initialState = {
   page_title: undefined,
+  modal: {},
   modal_id: undefined,
   modal_title: undefined,
   apoyo_active: undefined,
@@ -18,13 +19,24 @@ export default (state = initialState, action) => {
         page_title: payload
       }
 
-    case 'TOGGLE_MODAL': 
-
+    case 'OPEN_NOTIFICATION': {
       return {
         ...state,
-        modal_id: payload.id,
-        modal_title: payload.title
+        modal: {
+          type: payload.type,
+          message: payload.message
+        }
       }
+    }
+
+    case 'CLOSE_NOTIFICATION': {
+      return {
+        ...state,
+        modal: {}
+      }
+    }
+
+      
 
     case 'SET_APOYO':
 

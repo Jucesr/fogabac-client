@@ -62,6 +62,8 @@ const CreditoForm = (props) => {
         ...values,
         solicitante: props.solicitante_active,
       })
+
+      props.onSubmit();
     }}>
       {({ formState }) => (
         <div className="Form">
@@ -74,21 +76,22 @@ const CreditoForm = (props) => {
             onChange={e => {
               setTC(e.target.value)
             }}
+            validate={validate}
           />
-          <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} />
+          <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} validate={validate} />
           <Field label="Monto Solicitado (Pesos)" field="monto" kind="currency" validate={validate} />
           <Field label="Linea" field="linea" validate={validate} kind="select" options={lineas} />
-          <Field label="Domicilio de la inversion del credito" field="domicilio_inversion" />
-          <Field label="Medida" field="medida" />
-          <Field label="Ciclo" field="ciclo" />
-          <Field label="Unidad de medida" field="unidad_medida" kind="select" options={unidades} />
-          <Field label="Destino del crédito" field="destino" kind="select" options={destinos} />
-          <Field label="Actividad del productor o razón social" kind="select" field="actividad" options={actividades} />
-          <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} />
-          <Field label="TIEE (Taza Interbancaria de Interes y Equilibrio)" field="tiee" />
-          <Field label="Tasa de intereses moratorios" field="tim" />
-          <Field label="Tasa de intereses vencidos" field="tiv" />
-          <Field label="Comision por apertura" field="comision_apertura" />
+          <Field label="Domicilio de la inversion del credito" field="domicilio_inversion" validate={validate} />
+          <Field label="Medida" field="medida" kind="number" validate={validate}  />
+          <Field label="Unidad de medida" field="unidad_medida" kind="select" options={unidades} validate={validate}  />
+          <Field label="Ciclo" field="ciclo" validate={validate}  />
+          <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
+          <Field label="Actividad del productor o razón social" kind="select" field="actividad" options={actividades} validate={validate}  />
+          <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
+          <Field label="TIEE (Taza Interbancaria de Interes y Equilibrio)" field="tiee" kind="percentage" validate={validate}  />
+          <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
+          <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
+          <Field label="Comision por apertura" field="comision_apertura" kind="percentage" validate={validate}  />
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>
       )}

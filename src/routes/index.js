@@ -8,7 +8,7 @@ import SolicitanteRoute from "./solicitante";
 
 import Header from "components/Header";
 import Page from "components/Page";
-import ModalForm from "components/ModalForm";
+import NotificationMessage from "components/NotificationMessage";
 
 const AppRouter =  (props) => (
   <BrowserRouter>
@@ -26,7 +26,7 @@ const AppRouter =  (props) => (
 
       </div>
 
-      <ModalForm />
+      <NotificationMessage />
 
     </div>
 
