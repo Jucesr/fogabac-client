@@ -88,7 +88,7 @@ const CreditoForm = (props) => {
           <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
           <Field label="Actividad del productor o razón social" kind="select" field="actividad" options={actividades} validate={validate}  />
           <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
-          <Field label="TIEE (Taza Interbancaria de Interes y Equilibrio)" field="tiee" kind="percentage" validate={validate}  />
+          <Field label="Taza de interes ordinario" field="tiee" kind="percentage" validate={validate}  />
           <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
           <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
           <Field label="Comision por apertura" field="comision_apertura" kind="percentage" validate={validate}  />

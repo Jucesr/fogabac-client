@@ -4,7 +4,8 @@ const initialState = {
   modal_id: undefined,
   modal_title: undefined,
   apoyo_active: undefined,
-  solicitante_active: undefined
+  solicitante_active: undefined,
+  credito_active: undefined
 }
 
 
@@ -50,6 +51,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         solicitante_active: payload
+      }
+
+    case 'SET_CREDITO':
+
+      return {
+        ...state,
+        credito_active: payload
       }
   
     default:

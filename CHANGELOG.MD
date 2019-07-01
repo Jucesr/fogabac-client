@@ -59,3 +59,10 @@
     * La lista ahora muestra el folio correcto
   * [FIX] ReferenciasPersonales
     * Se hizo obligatorio el nombre
+
+## 0.0.8 (3H)
+  Fecha: 30 Junio 2019
+  * [NEW] Funcionalidad para agregar Garantias Hipotecarias a un credito
+  * [UPDATE] Referencias personales pertenecen a un credito y no a un solicitante.
+  * [UPDATE] Creditos tiene su propia prop en Redux
+  * [FIX] Tiee a Tasa Ordinaria

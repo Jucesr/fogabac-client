@@ -1,13 +1,13 @@
 import { callApi } from "utils/api";
 
-export const loadReferenciasPersonales = (solicitante_id) => {
+export const loadReferenciasPersonales = (credito_id) => {
   return async (dispatch, getState) => {
-    const res = await callApi(`/solicitante/${solicitante_id}/referencias_personales`)
+    const res = await callApi(`/credito/${credito_id}/referencias_personales`)
     
     dispatch({
       type: 'LOAD_REFERENCIAS_PERSONALES',
       response: res.body,
-      payload: solicitante_id
+      payload: credito_id
     })
   }
 }

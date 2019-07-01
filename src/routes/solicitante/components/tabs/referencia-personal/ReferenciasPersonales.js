@@ -17,10 +17,10 @@ const ReferenciasPersonales = (props) => {
   const [item, setItem] = useState();
 
   useEffect(() => {
-    props.loadReferenciasPersonales(props.solicitante_active._id)
+    props.loadReferenciasPersonales(props.credito_active._id)
   }, [])
 
-  const referencias = props.solicitante_active.referencias_personales ? props.solicitante_active.referencias_personales : []
+  const referencias = props.credito_active.referencias_personales ? props.credito_active.referencias_personales : []
 
   return (
     <React.Fragment>
@@ -89,7 +89,7 @@ const ReferenciasPersonales = (props) => {
             modal.id === 'ADD' && <RPForm onSubmit={values => {
               props.addReferenciaPersonal({
                 ...values,
-                solicitante: props.solicitante_active._id
+                credito: props.credito_active._id
               })
               setModal({})
             } } />
@@ -110,8 +110,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const mapStateToProps = (state) => ({
-  solicitante_active: state.solicitantes[state.app.solicitante_active]
+const mapStateToProps = (state, ownProps) => ({
+  credito_active: state.creditos[ownProps.credito_active]
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReferenciasPersonales)

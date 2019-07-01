@@ -3,6 +3,7 @@ import solicitantesReducer from './reducers/solicitantes'
 import apoyosReducer from './reducers/apoyos'
 import tcReducer from './reducers/tipo_creditos'
 import appReducer from './reducers/app'
+import creditosReducer from './reducers/creditos'
 
 //Middleware
 import thunk from 'redux-thunk'
@@ -16,6 +17,7 @@ export default () => {
             solicitantes: solicitantesReducer,
             tipo_creditos: tcReducer,
             app: appReducer,
+            creditos: creditosReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     );

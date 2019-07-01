@@ -8,9 +8,11 @@ import CreditoList from "./components/CreditoList";
 import CreditoForm from "./components/CreditoForm";
 import CreditoInfo from "./components/CreditoInfo";
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
+import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/GarantiaHipotecaria";
 import { Tab, Button, Icon, Header, Modal } from 'semantic-ui-react'
 
 import { editSolicitante } from "store/actions/solicitantes";
+import { setSolicitante } from "store/actions/app";
 
 class Solicitante extends React.Component {
 
@@ -43,7 +45,7 @@ class Solicitante extends React.Component {
     const { solicitante_active } = props;
 
     //  Get Creditos based on Solicitante active
-    const creditos = solicitante_active && solicitante_active.creditos ? solicitante_active.creditos.map(
+    const creditos = props.creditos.map(
       credito => ({
         ...credito,
         ejercido: 0,
@@ -51,7 +53,7 @@ class Solicitante extends React.Component {
         disponible: credito.monto,
         recuperado: credito.monto
       })
-    ) : []
+    )
 
     return (
       <React.Fragment>
@@ -60,15 +62,25 @@ class Solicitante extends React.Component {
 
         <div className="Section">
           <Header className="Subtitle" as='h4'>Datos del solicitante</Header>
-          <Button size="tiny" color="blue" onClick={() => {
-            this.toggleModal({
-              id: 'SOLICITANTE_FORM_EDIT',
-              title: 'Editar Solicitante Persona Fisica'
-            })
-          }}>
-            <Icon name='edit' />
-            Editar solicitante
-      </Button>
+          <div>
+            <Button size="tiny" color="blue" onClick={() => {
+              this.toggleModal({
+                id: 'SOLICITANTE_FORM_EDIT',
+                title: 'Editar Solicitante Persona Fisica'
+              })
+            }}>
+              <Icon name='edit' />
+              Editar
+          </Button>
+            <Button size="tiny" color="blue" onClick={() => {
+              props.setSolicitante(undefined);
+            }}>
+              <Icon name='exchange' />
+              Cambiar
+          </Button>
+          </div>
+
+
         </div>
 
         <PersonalInfo persona={solicitante_active} />
@@ -91,6 +103,7 @@ class Solicitante extends React.Component {
             <CreditoList
               data={creditos}
               onRowClick={credito => {
+                //props.setCredito(credito._id)
                 this.setState((prevState) => ({
                   credito_active: credito
                 }))
@@ -101,6 +114,14 @@ class Solicitante extends React.Component {
             <React.Fragment>
               <div className="Section">
                 <Header className="Subtitle" as='h4'>Datos del crédito</Header>
+                <Button size="tiny" color="blue" onClick={() => {
+                  this.setState((prevState) => ({
+                    credito_active: undefined
+                  }))
+                }}>
+                  <Icon name='exchange' />
+                  Cambiar crédito
+              </Button>
               </div>
               <CreditoInfo item={state.credito_active}></CreditoInfo>
               <br />
@@ -112,7 +133,7 @@ class Solicitante extends React.Component {
                     icon: 'address book',
                     content: <span className="TabItem">Referencias Personales</span>
                   },
-                  render: () => <Tab.Pane> <ReferenciasPersonales /></Tab.Pane>
+                  render: () => <Tab.Pane> <ReferenciasPersonales credito_active={state.credito_active._id} /></Tab.Pane>
                 },
                 {
                   menuItem:
@@ -121,7 +142,7 @@ class Solicitante extends React.Component {
                     icon: 'home',
                     content: <span className="TabItem">Garantía hipotecaria</span>
                   },
-                  render: () => <Tab.Pane> <Header as="h4"> Garantía hipotecaria</Header></Tab.Pane>
+                  render: () => <Tab.Pane> <GarantiaHipotecaria credito_active={state.credito_active._id} /></Tab.Pane>
                 },
                 {
                   menuItem:
@@ -204,13 +225,25 @@ class Solicitante extends React.Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  editSolicitante: item => dispatch(editSolicitante(item))
+  editSolicitante: item => dispatch(editSolicitante(item)),
+  setSolicitante: id => dispatch(setSolicitante(id))
 });
 
 
-const mapStateToProps = (state) => ({
-  apoyos: state.apoyos,
-  solicitante_active: state.solicitantes[state.app.solicitante_active]
-});
+const mapStateToProps = (state) => {
+
+  const solicitante_active = state.solicitantes[state.app.solicitante_active]
+
+  const creditos_id = solicitante_active ? solicitante_active.creditos : []
+
+  const creditos = creditos_id ? creditos_id.map(credito_id => state.creditos[credito_id]) : []
+
+
+  return {
+    apoyos: state.apoyos,
+    solicitante_active: solicitante_active,
+    creditos: creditos
+  }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Solicitante)

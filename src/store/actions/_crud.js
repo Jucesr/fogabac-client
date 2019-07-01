@@ -1,78 +1,159 @@
-export default ({
+import { callApi } from "utils/api";
+
+export default (
   entity,
-}) => {
-  const load = (item_id) => {
+  entityPlural
+) => {
+
+  const load = (credito_id) => {
     return async (dispatch, getState) => {
-      const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/${entity}/${item_id}`)
-      const data = await res.json()
-  
+      const res = await callApi(`/credito/${credito_id}/${entityPlural}`)
+      
       dispatch({
-        type: `LOAD_${entity.toUpperCase()}`,
-        response: data,
-        payload: solicitante_id
+        type: `LOAD_${entityPlural.toUpperCase()}`,
+        response: res.body,
+        payload: credito_id
       })
     }
   }
-  
-  const add = item => {
+
+  const add = ({documento, ...item}) => {
     return async (dispatch, getState) => {
-      const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/${entity}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(item)
-        })
-      const result_item = await res.json()
+      //  It first add the Item
   
-      dispatch({
-        type: `ADD_${entity.toUpperCase()}`,
-        response: result_item
+      let res = await callApi(`/${entity}`, {
+        method: 'POST',
+        body: JSON.stringify(item)
       })
+  
+      //  Check the item was added correctly
+      if(res.status !== 200){
+        dispatch({
+          type: 'OPEN_NOTIFICATION',
+          payload: {
+            type: 'ERROR',
+            message: res.body.error
+          }
+        })
+  
+        return 0;
+      }
+  
+      let stored_item = res.body
+  
+      if(documento){
+        //  A document was provided
+        res = await callApi(`/${entity}/${stored_item._id}/uploadFile`,
+        {
+          method: 'PUT',
+          json: false,
+          body: documento 
+        })
+  
+        //  Check the file was added correctly
+        if(res.status !== 200){
+          //  There was an error uploading the file
+          //  It adds the item but throw an error letting know the user.
+          dispatch({
+            type: `ADD_${entity.toUpperCase()}`,
+            response: stored_item
+          })
+  
+          dispatch({
+            type: 'OPEN_NOTIFICATION',
+            payload: {
+              type: 'ERROR',
+              message: res.body.error
+            }
+          })
+  
+        }else{
+  
+          dispatch({
+            type: `ADD_${entity.toUpperCase()}`,
+            response: res.body
+          })
+        }
+      }else{
+        //  No document was provided
+  
+        dispatch({
+          type: `ADD_${entity.toUpperCase()}`,
+          response: stored_item
+        })
+      }    
     }
   }
   
   const remove = item => {
     return async (dispatch, getState) => {
-      const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/${entity}/${item._id}`,
+      const res = await callApi(`/${entity}/${item._id}`,
         {
-          method: 'DELETE',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          }
+          method: 'DELETE'
         })
-      const result_item = await res.json()
-  
+      
       dispatch({
         type: `DELETE_${entity.toUpperCase()}`,
-        response: result_item
-      })
-    }
-  }
-  
-  const update = item => {
-    return async (dispatch, getState) => {
-      const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/${entity}/${item._id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(item)
-        })
-      const result_item = await res.json()
-  
-      dispatch({
-        type: `UPDATE_${entity.toUpperCase()}`,
-        response: result_item
+        response: res.body
       })
     }
   }
 
+  const update = ({documento, ...item}) => {
+    return async (dispatch, getState) => {
+  
+      let res = await callApi(`/${entity}/${item._id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(item)
+      })
+  
+      //  Check the item was added correctly
+      if(res.status !== 200){
+        //  TODO: Throw error here!
+        console.log(res.body)
+        return 0;
+      }
+  
+      let stored_item = res.body
+  
+      if(documento){
+        //  A document was provided
+        res = await callApi(`/${entity}/${stored_item._id}/uploadFile`,
+        {
+          method: 'PUT',
+          json: false,
+          body: documento 
+        })
+  
+        //  Check the file was added correctly
+        if(res.status !== 200){
+          //  There was an error uploading the file
+          //  It adds the item but throw an error letting know the user.
+          dispatch({
+            type: `UPDATE_${entity.toUpperCase()}`,
+            response: stored_item
+          })
+  
+        }else{
+  
+          dispatch({
+            type: `UPDATE_${entity.toUpperCase()}`,
+            response: res.body
+          })
+  
+        }
+      }else{
+        //  No document was provided
+  
+        dispatch({
+          type: `UPDATE_${entity.toUpperCase()}`,
+          response: stored_item
+        })
+      }   
+  
+      
+    }
+  }
 
   return {
     load,
