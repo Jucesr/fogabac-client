@@ -81,6 +81,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
           <React.Fragment>
 
             <Cleave
+              value={fieldState.value}
               onChange={e => props.fieldApi.setValue(e.target.rawValue)}
               options={{
                 numeral: true,
@@ -102,6 +103,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
           <React.Fragment>
 
             <Cleave
+              value={fieldState.value}
               onChange={e => props.fieldApi.setValue(e.target.rawValue)}
               options={{
                 numeral: true
@@ -121,6 +123,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
           <React.Fragment>
 
             <Cleave
+              value={fieldState.value}
               onChange={e => props.fieldApi.setValue(e.target.rawValue)}
               options={{
                 numeral: true,

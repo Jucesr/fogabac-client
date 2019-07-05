@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Tab, Button, Icon, Header, Modal } from 'semantic-ui-react'
 
 import SolicitanteForm from "components/SolicitanteForm"
 import PersonalInfo from "./components/PersonalInfo";
 import CreditoList from "./components/CreditoList";
 import CreditoForm from "./components/CreditoForm";
 import CreditoInfo from "./components/CreditoInfo";
+
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
 import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/GarantiaHipotecaria";
-import { Tab, Button, Icon, Header, Modal } from 'semantic-ui-react'
+import Pagares from "./components/tabs/pagares/Pagares";
+
 
 import { editSolicitante } from "store/actions/solicitantes";
 import { setSolicitante } from "store/actions/app";
@@ -46,13 +49,15 @@ class Solicitante extends React.Component {
 
     //  Get Creditos based on Solicitante active
     const creditos = props.creditos.map(
-      credito => ({
-        ...credito,
-        ejercido: 0,
-        bolsa_credito: props.apoyos[credito.bolsa_credito],
-        disponible: credito.monto,
-        recuperado: credito.monto
-      })
+      credito => {
+        const {importe_ejercido = 0, monto = 0} = credito;
+        const disponible = monto - importe_ejercido;
+        return {
+          ...credito,
+          bolsa_credito: props.apoyos[credito.bolsa_credito],
+          importe_disponible: disponible 
+        }
+      }
     )
 
     return (
@@ -179,7 +184,19 @@ class Solicitante extends React.Component {
                     content: <span className="TabItem">Estados financieros</span>
                   },
                   render: () => <Tab.Pane> <Header as="h4"> Estados financieros</Header></Tab.Pane>
+                },
+                {
+                  menuItem:
+                  {
+                    key: 'pagares',
+                    icon: 'money bill alternate',
+                    content: <span className="TabItem">Pagarés</span>
+                  },
+                  render: () => <Tab.Pane> <Pagares credito_active={state.credito_active._id} /></Tab.Pane>
                 }
+
+
+                
               ]} />
 
               {/* 

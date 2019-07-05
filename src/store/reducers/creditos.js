@@ -153,9 +153,124 @@ export default (state = {}, action) => {
       }
     }
 
+    //*************************
+    //  PAGARES
+    //*************************
+
+    // case 'LOAD_PAGARES': {
+    //   return{
+    //     ...state,
+    //     [payload]: {
+    //       ...state[payload],
+    //       pagares: response
+    //     }
+    //   }
+    // }
+
+    
+  
+    default:
+      let newState = generateHandlers(state, action, 'pagare', 'pagares', {
+        onAdd: (response, credito) => {
+          const {importe_ejercido = 0} = credito
+          return {
+            importe_ejercido: importe_ejercido + response.monto
+          }},
+        onUpdate: (response, credito) => {
+          const {importe_ejercido = 0} = credito
+          return {
+            importe_ejercido: importe_ejercido + response.monto
+          }},
+        onDelete: (response, credito) => {
+          const {importe_ejercido = 0} = credito
+          return {
+            importe_ejercido: importe_ejercido - response.monto
+          }}
+      });
+      return newState
+  }
+}
+
+const generateHandlers = (state, action, entity, entityPlural, callbacks = {
+  onAdd: () => {},
+  onUpdate: () => {},
+  onDelete: () => {},
+  onLoad: () => {}
+}) => {
+  const {type, response, payload} = action;
+
+  switch (type) {
+    case `LOAD_${entityPlural.toUpperCase()}`: {
+      return{
+        ...state,
+        [payload]: {
+          ...state[payload],
+          [entityPlural]: response
+        }
+      }
+    }
+
       
+
+    case `ADD_${entity.toUpperCase()}`: {
+      const credito_id = response.credito;
+      return{
+        ...state,
+        [credito_id]: {
+          ...state[credito_id],
+          [entityPlural]: [
+            ...state[credito_id][entityPlural],
+            response
+          ],
+          ...callbacks.onAdd(response, state[credito_id])
+        }
+      }
+    }
+
+    case `DELETE_${entity.toUpperCase()}`: {
+      const credito_id = response.credito;
+      const rps = state[credito_id][entityPlural].filter(rp => rp._id !== response._id);
+
+      return{
+        ...state,
+        [credito_id]: {
+          ...state[credito_id],
+          [entityPlural]: rps,
+          ...callbacks.onDelete(response, state[credito_id])
+        }
+      }
+    }
+
+    case `UPDATE_${entity.toUpperCase()}`: {
+      const credito_id = response.credito;
+      const items = state[credito_id][entityPlural]
+      
+      const rps = items.map(rp => {
+      
+        if(rp._id === response._id){
+          rp = {
+            ...rp,
+            ...response
+          }
+        }
+
+        return rp;
+      });
+
+      return{
+        ...state,
+        [credito_id]: {
+          ...state[credito_id],
+          [entityPlural]: rps,
+          ...callbacks.onUpdate(response, state[credito_id])
+        }
+      }
+    }
   
     default:
       return state
+
   }
+    
+
 }

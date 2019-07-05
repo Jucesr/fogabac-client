@@ -39,17 +39,15 @@ export const formatColumn = (format, value) => {
 
   switch (type) {
     case 'currency':
-
-      return !isNaN(value) ? (
-        `$${transform(parseFloat(value), decimals, 3, ',', '.')}`
-      ) : value;
+      if(isNaN(value))
+        value = 0;
+    return `$${transform(parseFloat(value), decimals, 3, ',', '.')}`;
 
 
     case 'number':
-
-      return !isNaN(value) ? (
-        `${transform(parseFloat(value), decimals, 3, ',', '.')}`
-      ) : value;
+      if(isNaN(value))
+        value = 0;
+      return `${transform(parseFloat(value), decimals, 3, ',', '.')}`;
 
 
     default:

@@ -38,16 +38,16 @@ const CreditoList = (props) => {
           },
           {
             Header: "Ejercido",
-            accessor: "ejercido",
+            accessor: "importe_ejercido",
             Cell: row => formatColumn('currency', row.value)
           },{
             Header: "Disponible",
-            accessor: "disponible",
+            accessor: "importe_disponible",
             Cell: row => formatColumn('currency', row.value)
           },
           {
             Header: "Recuperado",
-            accessor: "recuperado",
+            accessor: "importe_recuperado",
             Cell: row => formatColumn('currency', row.value)
           }
         ]}

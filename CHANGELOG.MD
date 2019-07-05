@@ -66,3 +66,13 @@
   * [UPDATE] Referencias personales pertenecen a un credito y no a un solicitante.
   * [UPDATE] Creditos tiene su propia prop en Redux
   * [FIX] Tiee a Tasa Ordinaria
+
+## 0.0.8 (2H)
+  Fecha: 04 Julio 2019
+  * [NEW]
+    * Funcionalidad para administrar Pagarés.
+    * Función en reducer de Credito para generar manejadores de acciones muy similares y ahorrar código.
+  * [FIX] 
+    * Bug que no dejaba editar Fields que usan Cleave, Se agregó la propiedad value 
+    * El método update del crud de store/actions no tenia el dispatch de error cuando el request fallaba.
+    * El método formatColumn de utils ahora regresa 0 o $0 cuando el valor no es numerico.
