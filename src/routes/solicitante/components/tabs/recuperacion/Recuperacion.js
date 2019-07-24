@@ -4,9 +4,9 @@ import Table from "components/Table";
 import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 import RPForm from "./Form";
 import { formatColumn, formatDate } from "utils/";
-import actions from "store/actions/pagares";
+import actions from "store/actions/recuperaciones";
 
-const Pagares = (props) => {
+const Recuperacion = (props) => {
 
   const [modal, setModal] = useState({});
   const [item, setItem] = useState();
@@ -15,15 +15,15 @@ const Pagares = (props) => {
     props.load(props.credito_active._id)
   }, [])
 
-  const items = props.credito_active.pagares ? props.credito_active.pagares : []
+  const items = props.credito_active.recuperaciones ? props.credito_active.recuperaciones : []
 
   return (
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Pagarés</Header>
-        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar pagaré', id: 'ADD'})}>
+        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar recuperación', id: 'ADD'})}>
           <Icon name='plus' />
-          Nuevo pagaré
+          Nueva recuperación
         </Button>
       </div>
       <Table
@@ -31,7 +31,7 @@ const Pagares = (props) => {
         // onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${row._id}/downloadFile`)}
         onEditRow={row => {
           setModal({
-            title: 'Editar pagaré',
+            title: 'Editar recuperación',
             id: 'EDIT'
           })
           setItem(row)
@@ -45,13 +45,13 @@ const Pagares = (props) => {
             accessor: "concepto"
           },
           {
-            Header: "Fecha de subscipción",
-            accessor: "fecha_suscripcion",
+            Header: "Fecha de registro",
+            accessor: "fecha_registro",
             Cell: row => formatDate(row.value)
           },
           {
-            Header: "Fecha de vencimiento",
-            accessor: "fecha_vencimiento",
+            Header: "Fecha de interés",
+            accessor: "fecha_interes",
             Cell: row => formatDate(row.value)
           },
           {
@@ -60,27 +60,27 @@ const Pagares = (props) => {
             Cell: row => formatColumn('currency', row.value)
           },
           {
-            Header: "Recuperado",
-            accessor: "monto_recuperado",
+            Header: "Capital",
+            accessor: "capital",
             Cell: row => formatColumn('currency', row.value)
           },
           {
-            Header: "Interes Ordinario",
-            accessor: "monto_recuperado_interes",
+            Header: "Interes ordinario",
+            accessor: "ordinario",
             Cell: row => formatColumn('currency', row.value)
           },
           {
-            Header: "Interes Moratorio",
-            accessor: "monto_recuperado_moratorio",
-            Cell: row => formatColumn('currency', row.value)
-          },
-          {
-            Header: "Restante",
-            accessor: "restante",
+            Header: "Interes moratorio",
+            accessor: "moratorio",
             Cell: row => formatColumn('currency', row.value)
           }
         ]}
-        data={items.map(item => ({...item, restante: item.monto - item.monto_recuperado}))}
+        data={items.map(item => ({
+          ...item,
+          capital: item.pagares.reduce( (acum, p) => acum + p.monto_capital , 0),
+          ordinario: item.pagares.reduce( (acum, p) => acum + p.monto_interes_ordinario , 0),
+          moratorio: item.pagares.reduce( (acum, p) => acum + p.monto_interes_moratorio , 0)
+        }))}
       />
 
       <Modal
@@ -103,16 +103,18 @@ const Pagares = (props) => {
          
           {
             modal.id === 'ADD' && <RPForm onSubmit={values => {
-              const {importe_ejercido = 0, monto = 0} = props.credito_active;
-              const disponible = monto - importe_ejercido;
-              if(values.monto > disponible){
-                props.logError(`No hay dinero suficiente para crear un pagaré, Disponible = $${disponible}`)
-              }else{
-                props.add({
-                  ...values,
-                  credito: props.credito_active._id
-                })
-              }
+              // const {importe_ejercido = 0, monto = 0} = props.credito_active;
+              // const disponible = monto - importe_ejercido;
+              // if(values.monto > disponible){
+              //   props.logError(`No hay dinero suficiente para crear un recuperación, Disponible = $${disponible}`)
+              // }else{
+                
+              // }
+
+              props.add({
+                ...values,
+                credito: props.credito_active._id
+              })
               
               setModal({})
             } } />
@@ -144,5 +146,5 @@ const mapStateToProps = (state, ownProps) => ({
   credito_active: state.creditos[ownProps.credito_active]
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pagares)
+export default connect(mapStateToProps, mapDispatchToProps)(Recuperacion)
 

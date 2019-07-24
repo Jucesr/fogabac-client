@@ -76,3 +76,11 @@
     * Bug que no dejaba editar Fields que usan Cleave, Se agregó la propiedad value 
     * El método update del crud de store/actions no tenia el dispatch de error cuando el request fallaba.
     * El método formatColumn de utils ahora regresa 0 o $0 cuando el valor no es numerico.
+
+## 0.0.9 (4H)
+  Fecha: 24 Julio 2019
+  * [NEW]
+    * Funcionalidad para administrar Recuperaciones
+    * Columnas para ver recuperaciones de capital e interes en pagares
+  * [FIX]
+    * El total de garantia hipotecaria tiene formato de moneda.

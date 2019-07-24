@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Table from "components/Table";
 import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 import Form from "./GHForm";
+import { formatColumn } from "utils/";
 
 import actions from "store/actions/garantia_hipotecaria";
 
@@ -58,7 +59,8 @@ const GarantiaHipotecaria = (props) => {
           },
           {
             Header: "Valor estimado",
-            accessor: "valor_estimado"
+            accessor: "valor_estimado",
+            Cell: row => formatColumn('currency', row.value)
           },
           {
             Header: "Documento",

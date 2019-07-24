@@ -187,6 +187,26 @@ export default (state = {}, action) => {
             importe_ejercido: importe_ejercido - response.monto
           }}
       });
+
+
+      newState = generateHandlers(newState, action, 'recuperacion', 'recuperaciones', {
+        onAdd: (response, credito) => {
+          const {importe_recuperado = 0} = credito
+          return {
+            importe_recuperado: importe_recuperado + response.pagares.reduce((acum, p ) => acum + p.monto_capital, 0)
+          }},
+        onUpdate: (response, credito) => {
+          const {importe_recuperado = 0} = credito
+          return {
+            importe_recuperado: importe_recuperado - response.pagares.reduce((acum, p ) => acum + p.monto_capital, 0)
+          }},
+        onDelete: (response, credito) => {
+          const {importe_recuperado = 0} = credito
+          return {
+            importe_recuperado: importe_recuperado - response.pagares.reduce((acum, p ) => acum + p.monto_capital, 0)
+          }}
+      });
+
       return newState
   }
 }

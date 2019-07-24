@@ -12,6 +12,8 @@ import CreditoInfo from "./components/CreditoInfo";
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
 import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/GarantiaHipotecaria";
 import Pagares from "./components/tabs/pagares/Pagares";
+import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
+
 
 
 import { editSolicitante } from "store/actions/solicitantes";
@@ -193,6 +195,14 @@ class Solicitante extends React.Component {
                     content: <span className="TabItem">Pagarés</span>
                   },
                   render: () => <Tab.Pane> <Pagares credito_active={state.credito_active._id} /></Tab.Pane>
+                },{
+                  menuItem:
+                  {
+                    key: 'recuperacion',
+                    icon: 'money bill alternate',
+                    content: <span className="TabItem">Recuperaciones</span>
+                  },
+                  render: () => <Tab.Pane> <Recuperaciones credito_active={state.credito_active._id} /></Tab.Pane>
                 }
 
 
