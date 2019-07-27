@@ -2,12 +2,13 @@ import { callApi } from "utils/api";
 
 export default (
   entity,
-  entityPlural
+  entityPlural,
+  parentEntity = 'credito'
 ) => {
 
   const load = (credito_id) => {
     return async (dispatch, getState) => {
-      const res = await callApi(`/credito/${credito_id}/${entityPlural}`)
+      const res = await callApi(`/${parentEntity}/${credito_id}/${entityPlural}`)
       
       dispatch({
         type: `LOAD_${entityPlural.toUpperCase()}`,

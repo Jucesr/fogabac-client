@@ -84,3 +84,17 @@
     * Columnas para ver recuperaciones de capital e interes en pagares
   * [FIX]
     * El total de garantia hipotecaria tiene formato de moneda.
+
+## 0.0.10 (5H)
+  Fecha: 26 Julio 2019
+  * [NEW]
+    * Mensaje de carga en un Dimmer dentro del componente Notification
+    * Credito Index
+      * Funcionalidad para cambiar de estado un credito
+      * Funcionalidad para generar solicitud de credito
+      * Botones de Tarjeta Ejecutiva y Generacion de contrato (No se han implementado aun)
+  * [UPDATE]
+    * Reducer de credito ahora usa operaciones CRUD y se le agregó una nueva para generar reporte de solictud de credito
+    * Handler para actualizar crédito.
+  * [FIX]
+    * Se puede modificar la entidad padre de donde se hará el fetch de los sub elementos ejemplo 'padre/id/hijos' en el crud de actions

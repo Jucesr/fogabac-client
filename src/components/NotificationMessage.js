@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Modal, Button } from 'semantic-ui-react'
+import { Modal, Button, Dimmer, Loader } from 'semantic-ui-react'
 
 const NotificationMessage = (props) => {
 
   const {type, message} = props.modal
 
-  let title, style;
+  let title, style, info = false;
 
   switch (type) {
     case 'ERROR':
@@ -15,6 +15,9 @@ const NotificationMessage = (props) => {
         color: 'red'
       } 
     break;
+
+    case 'INFO':
+      info = true;
   
     default:
       title = 'Información'
@@ -26,7 +29,11 @@ const NotificationMessage = (props) => {
 
   return (
     <div>
-      <Modal style={style} open={type !== undefined} onClose={props.closeModal} >
+      <Dimmer active={info}>
+        <Loader>{message}</Loader>
+      </Dimmer>
+
+      <Modal style={style} open={type !== undefined && !info} onClose={props.closeModal} >
         <Modal.Header>{title}</Modal.Header>
         <Modal.Content image scrolling>
           <Modal.Description>

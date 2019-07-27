@@ -6,7 +6,7 @@ import { Button } from 'semantic-ui-react'
 import { generateOptions } from "utils/index";
 import formData from "./formData";
 
-import { addCredito } from "store/actions/creditos";
+import actions from "store/actions/creditos";
 
 import Field from "components/Field";
 
@@ -100,7 +100,7 @@ const CreditoForm = (props) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addCredito: item => dispatch(addCredito(item))
+  addCredito: item => dispatch(actions.add(item))
 });
 
 const mapStateToProps = (state) => ({

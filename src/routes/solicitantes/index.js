@@ -8,7 +8,7 @@ import ListSolicitantes from "./components/List";
 import SolicitanteForm from "components/SolicitanteForm"
 
 import { loadSolicitantes, addSolicitante } from "store/actions/solicitantes";
-import { loadCreditos } from "store/actions/creditos";
+import actions from "store/actions/creditos";
 import { setSolicitante } from "store/actions/app";
 
 import { objectToArray } from "utils/index";
@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadSolicitantes: () => dispatch(loadSolicitantes()),
   addSolicitante: item => dispatch(addSolicitante(item)),
   setSolicitante: id => dispatch(setSolicitante(id)),
-  loadCreditos: solicitante_id => dispatch(loadCreditos(solicitante_id))
+  loadCreditos: solicitante_id => dispatch(actions.load(solicitante_id))
 });
 
 const mapStateToProps = (state) => ({

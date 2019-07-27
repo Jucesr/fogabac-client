@@ -15,6 +15,13 @@ export default (state = {}, action) => {
       }
     }
 
+    case 'UPDATE_CREDITO':{
+      return {
+        ...state,
+        [response._id]: response
+      }
+    }
+
     //*************************
     //  REFERENCIAS PERSONALES
     //*************************

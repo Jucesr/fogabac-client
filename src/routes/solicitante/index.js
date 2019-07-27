@@ -15,7 +15,7 @@ import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 
 
-
+import actions from "store/actions/creditos";
 import { editSolicitante } from "store/actions/solicitantes";
 import { setSolicitante } from "store/actions/app";
 
@@ -48,6 +48,7 @@ class Solicitante extends React.Component {
     const { props, state } = this
 
     const { solicitante_active } = props;
+    let panes = [];
 
     //  Get Creditos based on Solicitante active
     const creditos = props.creditos.map(
@@ -61,6 +62,92 @@ class Solicitante extends React.Component {
         }
       }
     )
+
+    const credito_active = state.credito_active !== undefined ? creditos.filter(c => c._id == state.credito_active)[0] : undefined
+      console.log(credito_active)
+    // Panes
+
+    if(credito_active !== undefined ){
+      panes = [
+        {
+          menuItem:
+          {
+            key: 'refs',
+            icon: 'address book',
+            content: <span className="TabItem">Referencias Personales</span>
+          },
+          render: () => <Tab.Pane> <ReferenciasPersonales credito_active={credito_active._id} /></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'hipotecaria',
+            icon: 'home',
+            content: <span className="TabItem">Garantía hipotecaria</span>
+          },
+          render: () => <Tab.Pane> <GarantiaHipotecaria credito_active={credito_active._id} /></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'prendaria',
+            icon: 'truck',
+            content: <span className="TabItem">Garantía prendaria</span>
+          },
+          render: () => <Tab.Pane> <Header as="h4"> Garantía prendaria</Header></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'usufructaria',
+            icon: 'car',
+            content: <span className="TabItem">Garantía usufructaria</span>
+          },
+          render: () => <Tab.Pane> <Header as="h4"> Garantía usufructaria</Header></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'lugar',
+            icon: 'map',
+            content: <span className="TabItem">Lugar de inversión</span>
+          },
+          render: () => <Tab.Pane> <Header as="h4"> Lugar de inversión</Header></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'financiero',
+            icon: 'money bill alternate',
+            content: <span className="TabItem">Estados financieros</span>
+          },
+          render: () => <Tab.Pane> <Header as="h4"> Estados financieros</Header></Tab.Pane>
+        }
+      ]
+
+      if(credito_active.estatus == 'Aprobado'){
+        panes = [
+          ...panes,
+          {
+            menuItem:
+            {
+              key: 'pagares',
+              icon: 'money bill alternate',
+              content: <span className="TabItem">Pagarés</span>
+            },
+            render: () => <Tab.Pane> <Pagares credito_active={credito_active._id} /></Tab.Pane>
+          },{
+            menuItem:
+            {
+              key: 'recuperacion',
+              icon: 'money bill alternate',
+              content: <span className="TabItem">Recuperaciones</span>
+            },
+            render: () => <Tab.Pane> <Recuperaciones credito_active={credito_active._id} /></Tab.Pane>
+          }
+        ]
+      }
+    }
 
     return (
       <React.Fragment>
@@ -92,7 +179,7 @@ class Solicitante extends React.Component {
 
         <PersonalInfo persona={solicitante_active} />
 
-        {state.credito_active === undefined ? (
+        {credito_active === undefined ? (
           <React.Fragment>
             <div className="Section">
               <Header className="Subtitle" as='h4'>Créditos</Header>
@@ -112,7 +199,7 @@ class Solicitante extends React.Component {
               onRowClick={credito => {
                 //props.setCredito(credito._id)
                 this.setState((prevState) => ({
-                  credito_active: credito
+                  credito_active: credito._id
                 }))
               }}
             />
@@ -130,84 +217,57 @@ class Solicitante extends React.Component {
                   Cambiar crédito
               </Button>
               </div>
-              <CreditoInfo item={state.credito_active}></CreditoInfo>
-              <br />
-              <Tab onTabChange={this.onTabChange} menu={{ fluid: true, color: 'blue', pointing: true }} panes={[
-                {
-                  menuItem:
-                  {
-                    key: 'refs',
-                    icon: 'address book',
-                    content: <span className="TabItem">Referencias Personales</span>
-                  },
-                  render: () => <Tab.Pane> <ReferenciasPersonales credito_active={state.credito_active._id} /></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'hipotecaria',
-                    icon: 'home',
-                    content: <span className="TabItem">Garantía hipotecaria</span>
-                  },
-                  render: () => <Tab.Pane> <GarantiaHipotecaria credito_active={state.credito_active._id} /></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'prendaria',
-                    icon: 'truck',
-                    content: <span className="TabItem">Garantía prendaria</span>
-                  },
-                  render: () => <Tab.Pane> <Header as="h4"> Garantía prendaria</Header></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'usufructaria',
-                    icon: 'car',
-                    content: <span className="TabItem">Garantía usufructaria</span>
-                  },
-                  render: () => <Tab.Pane> <Header as="h4"> Garantía usufructaria</Header></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'lugar',
-                    icon: 'map',
-                    content: <span className="TabItem">Lugar de inversión</span>
-                  },
-                  render: () => <Tab.Pane> <Header as="h4"> Lugar de inversión</Header></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'financiero',
-                    icon: 'money bill alternate',
-                    content: <span className="TabItem">Estados financieros</span>
-                  },
-                  render: () => <Tab.Pane> <Header as="h4"> Estados financieros</Header></Tab.Pane>
-                },
-                {
-                  menuItem:
-                  {
-                    key: 'pagares',
-                    icon: 'money bill alternate',
-                    content: <span className="TabItem">Pagarés</span>
-                  },
-                  render: () => <Tab.Pane> <Pagares credito_active={state.credito_active._id} /></Tab.Pane>
-                },{
-                  menuItem:
-                  {
-                    key: 'recuperacion',
-                    icon: 'money bill alternate',
-                    content: <span className="TabItem">Recuperaciones</span>
-                  },
-                  render: () => <Tab.Pane> <Recuperaciones credito_active={state.credito_active._id} /></Tab.Pane>
-                }
+              <CreditoInfo item={credito_active}></CreditoInfo>
+              <div className="Section">
+                <div>
+                <Button.Group size="tiny" floated='left'>
+                  <Button size="tiny" color="blue" onClick={async () => {
+                    await this.props.generateSolicitud(credito_active._id)
+                    window.open(`${process.env.REACT_APP_API_ENDPOINT}/credito/${credito_active._id}/get_solicitud`);
+                  }}>
+                    <Icon name='file alternate outline' />
+                    Formato de solicitud
+                  </Button>
 
-
+                  <Button  color="blue" onClick={() =>{ alert('No se implenta aun')}}>
+                    <Icon name='file outline' />
+                    Tarjeta ejecutiva
+                  </Button>
+                  
+                </Button.Group>
                 
-              ]} />
+                </div>
+                <div>
+                {credito_active.estatus !== 'Aprobado' && <Button size="tiny" color="blue" onClick={() =>{ alert('No se implenta aun')}}>
+                  <Icon name='newspaper outline' />
+                  Generar contrato
+                </Button>}
+                
+                {credito_active.estatus !== 'Aprobado' && <Button size="tiny" color="teal" onClick={() => {
+                    this.props.editCredito({
+                      _id: credito_active._id,
+                      estatus: 'Aprobado'
+                    })
+                  }}>
+                  <Icon name='lock' />
+                  Formalizar
+                </Button>}
+
+                {credito_active.estatus !== 'Solicitado' && <Button size="tiny" color="teal" onClick={() => {
+                    this.props.editCredito({
+                      _id: credito_active._id,
+                      estatus: 'Solicitado'
+                    })
+                  }}>
+                  <Icon name='lock open' />
+                  Liberar
+                </Button>}
+
+                </div>
+                
+              </div>
+              <br />
+              <Tab onTabChange={this.onTabChange} menu={{ fluid: true, color: 'blue', pointing: true }} panes={panes} />
 
               {/* 
               <Tab onTabChange={this.onTabChange} menu={{ fluid: true, color: 'blue',  inverted: true, pointing: true }} panes={[
@@ -253,7 +313,9 @@ class Solicitante extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   editSolicitante: item => dispatch(editSolicitante(item)),
-  setSolicitante: id => dispatch(setSolicitante(id))
+  setSolicitante: id => dispatch(setSolicitante(id)),
+  editCredito: item => dispatch(actions.update(item)),
+  generateSolicitud: id => dispatch(actions.generateSolicitud(id))
 });
 
 
