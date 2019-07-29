@@ -98,3 +98,11 @@
     * Handler para actualizar crédito.
   * [FIX]
     * Se puede modificar la entidad padre de donde se hará el fetch de los sub elementos ejemplo 'padre/id/hijos' en el crud de actions
+
+## 0.0.11 (3H)
+  Fecha: 28 Julio 2019
+  * [NEW]
+    * Se agregó el logo y se mejoró usuario en el Header
+    * Funcionalidad para administrar garantias prendarias
+  * [UPDATE]
+    * Se agregó datos bancarios al formulario de solicitante y se separó en tabs

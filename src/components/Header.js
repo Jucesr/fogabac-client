@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Label, Input, Menu, Button, Icon } from 'semantic-ui-react'
+import { Image, Label, Input, Menu, Button, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const Header = (props) => {
@@ -8,16 +8,34 @@ const Header = (props) => {
   return (
     <div>
       <div className="Header_User">
-        <div className ="Header_UserInfo">
-          <Label color='blue'>Analista 
-            <Label.Detail>Julio Ojeda</Label.Detail>
-          </Label>
+        <div>
+          <Image src='/img/logo_xs.jpg' />
         </div>
         <div>
-          <Button color="red">
-            <Icon name='log out' />
-            Cerrar Sesión
-        </Button>
+        <Popup 
+          hoverable 
+          trigger={
+          <div className="Header_UserInfo">
+            <Image size='mini' src={`/img/user.png`} avatar/>
+            <div>
+              <div>
+                Julio Ojeda
+              </div>
+              <span>
+                Analista
+              </span>
+            </div>
+          </div>
+          
+          } 
+          position='bottom right' 
+          content={
+            <div
+            >
+              <Button onClick={() => alert('No implementado')} color="red"><Icon name="log out" />Cerrar sesión</Button>
+            </div>
+          }
+        />
         </div>
       </div>
 

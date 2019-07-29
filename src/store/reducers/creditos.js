@@ -214,6 +214,8 @@ export default (state = {}, action) => {
           }}
       });
 
+      newState = generateHandlers(newState, action, 'garantia_prendaria', 'garantias_prendarias');
+
       return newState
   }
 }

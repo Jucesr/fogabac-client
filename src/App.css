@@ -76,6 +76,14 @@ a:hover{
   margin: 0 10px;
 }
 
+.Header_UserInfo{
+  display: flex;
+}
+
+.Header_UserInfo span{
+  color: #b9b9b9;
+}
+
 
 /* Page */
 
@@ -92,6 +100,10 @@ a:hover{
 .Form{
   display: flex;
   flex-direction: column;
+}
+
+.Form_tab{
+  height: 310px;
 }
 
 .Form_field{
@@ -179,6 +191,10 @@ a:hover{
   cursor: pointer;
 }
 
+/* Modal */
 
+.ModalContent{
+  height: 10px !important;
+}
 
 

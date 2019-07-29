@@ -11,6 +11,7 @@ import CreditoInfo from "./components/CreditoInfo";
 
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
 import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/GarantiaHipotecaria";
+import GarantiaPrendaria from "./components/tabs/garantia-prendaria/GarantiaPrendaria";
 import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 
@@ -94,7 +95,7 @@ class Solicitante extends React.Component {
             icon: 'truck',
             content: <span className="TabItem">Garantía prendaria</span>
           },
-          render: () => <Tab.Pane> <Header as="h4"> Garantía prendaria</Header></Tab.Pane>
+          render: () => <Tab.Pane> <GarantiaPrendaria credito_active={credito_active._id} /></Tab.Pane>  
         },
         {
           menuItem:
