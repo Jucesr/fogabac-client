@@ -10,7 +10,14 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
 
   return (
     <div className="Form_field">
-      <label>{label}</label>
+      <label>
+        {label}
+        <span>
+            {fieldState.error && fieldState.touched ? (
+              <small style={{ color: 'red' }}>{fieldState.error}</small>
+            ) : null}
+        </span>
+      </label>
       {
         kind === "text" && (
           <React.Fragment>
@@ -19,9 +26,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               {...props}
               style={fieldState.error ? { border: 'solid 1px red' } : null}
             />
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+            
           </React.Fragment>
         )
       }
@@ -45,9 +50,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               </option>
               {props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)}
             </select>
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
           </React.Fragment>
         )
       }
@@ -67,9 +70,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               isClearable={true}
             />
 
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
 
 
           </React.Fragment>
@@ -91,9 +92,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               }
             />
 
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
           </React.Fragment>
         )
       }
@@ -111,9 +110,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               }
             />
 
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
           </React.Fragment>
         )
       }
@@ -133,9 +130,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               }
             />
 
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
           </React.Fragment>
         )
       }
@@ -169,9 +164,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               
             </label>
 
-            {fieldState.error && fieldState.touched ? (
-              <small style={{ color: 'red' }}>{fieldState.error}</small>
-            ) : null}
+
           </React.Fragment>
         )
       }

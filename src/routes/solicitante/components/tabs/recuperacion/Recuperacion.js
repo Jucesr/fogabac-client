@@ -20,7 +20,7 @@ const Recuperacion = (props) => {
   return (
     <React.Fragment>
       <div className="Section">
-        <Header className="Subtitle" as='h4'>Pagarés</Header>
+        <Header className="Subtitle" as='h4'>Recuperaciones</Header>
         <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar recuperación', id: 'ADD'})}>
           <Icon name='plus' />
           Nueva recuperación

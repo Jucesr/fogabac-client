@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { Form } from 'informed';
 import { Button } from 'semantic-ui-react'
-import { generateOptions } from "utils/index";
+import { generateOptions, formatColumn } from "utils/index";
 import formData from "./formData";
 
 import actions from "store/actions/creditos";
@@ -55,8 +55,21 @@ const CreditoForm = (props) => {
   const destinos = generateOptions(formData.destinos)
   const tenencias = generateOptions(formData.tenencias)
 
+  const validateFields = values => {
+    const bolsa = apoyos[values.bolsa_credito]
+
+    if(bolsa){
+      return {
+        monto: values.monto > bolsa.monto_maximo ? `El monto no puede ser mayor a ${formatColumn("currency",bolsa.monto_maximo)}`: undefined
+       }
+    }else{
+      return {}
+    }
+    
+  }
+
   return (
-    <Form initialValues={props.item ? props.item : {}} onSubmit={values => {
+    <Form validateFields={validateFields} initialValues={props.item ? props.item : {}} onSubmit={values => {
 
       props.addCredito({
         ...values,
@@ -76,7 +89,6 @@ const CreditoForm = (props) => {
             onChange={e => {
               setTC(e.target.value)
             }}
-            validate={validate}
           />
           <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} validate={validate} />
           <Field label="Monto Solicitado (Pesos)" field="monto" kind="currency" validate={validate} />

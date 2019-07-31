@@ -106,3 +106,17 @@
     * Funcionalidad para administrar garantias prendarias
   * [UPDATE]
     * Se agregó datos bancarios al formulario de solicitante y se separó en tabs
+
+## 0.0.12 (8H)
+  Fecha: 30 Julio 2019
+  * [NEW]
+    * Funcionalidad para agregar Estados financieros (Activos y Pasivos)
+    * Se valida que el monto del credito no sea mayor al maximo permitido por la Bolsa
+    * Estilos para el grid que muestra estados financieros
+  * [UPDATE]
+    * El componente Field ahora muestra el mensaje de error abajo del Label para mejor lectura
+    * En el formulario de solicitante NO se puede modificar el nombre
+  * [FIX]
+    * El destino del credito ya no muestra el guion bajo
+    * El texto de gantias prendarias y recuperaciones se actualizó al correcto.
+

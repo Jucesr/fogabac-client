@@ -57,9 +57,9 @@ const SolicitanteForm = (props) => {
           <Tab menu={{ secondary: true, pointing: true }} panes={[
           { menuItem: 'Datos personales', render: () => (
               <div className="Form">
-                <Field label="Apellido paterno" field="paterno" validate={validate} keepState  />
-                <Field label="Apellido materno" field="materno" validate={validate} keepState/>
-                <Field label="Nombre" field="nombre" validate={validate}keepState />
+                <Field label="Apellido paterno" field="paterno" validate={validate} keepState disabled={props.disabled}  />
+                <Field label="Apellido materno" field="materno" validate={validate} keepState disabled={props.disabled}/>
+                <Field label="Nombre" field="nombre" validate={validate}keepState disabled={props.disabled} />
                 <Field label="RFC" field="rfc" keepState/>
                 <Field label="CURP" field="curp" keepState  />
                 <Field label="Teléfono" field="telefono" keepState />

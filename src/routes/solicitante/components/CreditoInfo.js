@@ -1,7 +1,8 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-import { formatDate, formatColumn } from "utils/";
+import { formatDate, formatColumn , replaceAll} from "utils/";
+import capitalize from 'lodash/capitalize'
 
 const CreditoInfo = ({
   item: {
@@ -23,7 +24,7 @@ const CreditoInfo = ({
     <Grid className="Grid" columns={4}>
         <GR items={['Folio', _id, 'Registro', formatDate(createdAt)]}/>
         <GR items={['Promotor', promotor, 'Estatus', estatus]}/>
-        <GR items={['Monto Solicitado', formatColumn('currency', monto), 'Destino del crédito', destino]}/>
+        <GR items={['Monto Solicitado', formatColumn('currency', monto), 'Destino del crédito', capitalize(replaceAll(destino, '_', ' '))]}/>
         <GR items={['Comisión por apertura', `${comision_apertura} %` , 'TIEE', `${tiee} %`]}/>
         <GR items={['Ingresos', formatColumn('currency', ingresos), 'TIV', `${tiv} %` ]}/>
         <GR items={['Egresos', formatColumn('currency', egresos), 'TIM', `${tim} %` ]}/>

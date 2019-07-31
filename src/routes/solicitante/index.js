@@ -14,6 +14,7 @@ import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/Garantia
 import GarantiaPrendaria from "./components/tabs/garantia-prendaria/GarantiaPrendaria";
 import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
+import EstadosFinancieros from "./components/tabs/estados-financieros/EstadosFinancieros";
 
 
 import actions from "store/actions/creditos";
@@ -122,7 +123,7 @@ class Solicitante extends React.Component {
             icon: 'money bill alternate',
             content: <span className="TabItem">Estados financieros</span>
           },
-          render: () => <Tab.Pane> <Header as="h4"> Estados financieros</Header></Tab.Pane>
+          render: () => <Tab.Pane> <EstadosFinancieros credito_active={credito_active._id}/></Tab.Pane>
         }
       ]
 
@@ -291,7 +292,7 @@ class Solicitante extends React.Component {
           <Modal.Content>
 
             {
-              state.modal_id === 'SOLICITANTE_FORM_EDIT' && <SolicitanteForm item={solicitante_active} onSubmit={item => {
+              state.modal_id === 'SOLICITANTE_FORM_EDIT' && <SolicitanteForm disabled={true} item={solicitante_active} onSubmit={item => {
                 props.editSolicitante({
                   ...item,
                   _id: solicitante_active._id

@@ -21,7 +21,7 @@ const GrantiaPrendaria = (props) => {
   return (
     <React.Fragment>
       <div className="Section">
-        <Header className="Subtitle" as='h4'>Garantias Hipotecarias</Header>
+        <Header className="Subtitle" as='h4'>Garantias Prendarias</Header>
         <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar garantia prendaria', id: 'ADD'})}>
           <Icon name='plus' />
           Nueva garantia
