@@ -1,33 +1,34 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
-import { formatDate } from "utils/";
+import { formatDate, toUpper } from "utils/";
 
 const SolicitanteInfoPage = ({
   persona: {
-    paterno,
-    nombre,
-    rfc,
-    curp,
+    paterno = "",
+    nombre= "",
+    rfc= "",
+    curp= "",
     fecha_nacimiento = "",
-    municipio,
-    tipo_persona,
-    materno,
-    domicilio,
-    codigo_postal,
-    telefono,
-    sexo,
-    localidad
+    municipio= "",
+    tipo_persona= "",
+    materno= "",
+    domicilio= "",
+    codigo_postal= "",
+    telefono= "",
+    sexo= "",
+    localidad= ""
   } = {}
 }) => {
+
   return (
     <Grid className="Grid" columns={4}>
-        <GR items={['Apellido paterno', paterno, 'Apellido materno', materno]}/>
-        <GR items={['Nombre', nombre, 'Domicilio', domicilio]}/>
-        <GR items={['RFC', rfc, 'Código postal', codigo_postal]}/>
-        <GR items={['CURP', curp, 'Télefono', telefono]}/>
-        <GR items={['Fecha de nacimiento', formatDate(fecha_nacimiento), 'Sexo', sexo]}/>
-        <GR items={['Municipio', municipio, 'Localidad', localidad]}/>
-        <GR items={['Tipo de persona', tipo_persona, '', '']}/>
+        <GR items={['Apellido paterno', toUpper(paterno), 'Apellido materno', toUpper(materno)]}/>
+        <GR items={['Nombre', toUpper(nombre), 'Domicilio', toUpper(domicilio)]}/>
+        <GR items={['RFC', toUpper(rfc), 'Código postal', toUpper(codigo_postal)]}/>
+        <GR items={['CURP', toUpper(curp), 'Télefono', toUpper(telefono)]}/>
+        <GR items={['Fecha de nacimiento', formatDate(fecha_nacimiento), 'Sexo', toUpper(sexo)]}/>
+        <GR items={['Municipio', toUpper(municipio), 'Localidad', toUpper(localidad)]}/>
+        <GR items={['Tipo de persona', toUpper(tipo_persona), '', '']}/>
     </Grid>
   )
 }

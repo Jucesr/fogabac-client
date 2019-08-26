@@ -15,7 +15,7 @@ export default (state = {}, action) => {
         [response._id]: response
       }
 
-    case 'EDIT_SOLICITANTE':
+    case 'UPDATE_SOLICITANTE':
       
       return {
         ...state,

@@ -15,10 +15,11 @@ import GarantiaPrendaria from "./components/tabs/garantia-prendaria/GarantiaPren
 import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 import EstadosFinancieros from "./components/tabs/estados-financieros/EstadosFinancieros";
+import EstadoCuenta from "./components/tabs/estado-cuenta/EstadoCuenta";
 
 
 import actions from "store/actions/creditos";
-import { editSolicitante } from "store/actions/solicitantes";
+import solicitante_actions from "store/actions/solicitantes";
 import { setSolicitante } from "store/actions/app";
 
 class Solicitante extends React.Component {
@@ -66,7 +67,6 @@ class Solicitante extends React.Component {
     )
 
     const credito_active = state.credito_active !== undefined ? creditos.filter(c => c._id == state.credito_active)[0] : undefined
-      console.log(credito_active)
     // Panes
 
     if(credito_active !== undefined ){
@@ -138,6 +138,14 @@ class Solicitante extends React.Component {
               content: <span className="TabItem">Pagarés</span>
             },
             render: () => <Tab.Pane> <Pagares credito_active={credito_active._id} /></Tab.Pane>
+          },{
+            menuItem:
+            {
+              key: 'estado_cuenta',
+              icon: 'money bill alternate',
+              content: <span className="TabItem">Estado de cuenta</span>
+            },
+            render: () => <Tab.Pane> <EstadoCuenta credito_active={credito_active._id} /></Tab.Pane>
           },{
             menuItem:
             {
@@ -314,7 +322,7 @@ class Solicitante extends React.Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  editSolicitante: item => dispatch(editSolicitante(item)),
+  editSolicitante: item => dispatch(solicitante_actions.update(item)),
   setSolicitante: id => dispatch(setSolicitante(id)),
   editCredito: item => dispatch(actions.update(item)),
   generateSolicitud: id => dispatch(actions.generateSolicitud(id))

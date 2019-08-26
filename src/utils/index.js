@@ -72,3 +72,5 @@ export const convertArrayToObjectWithValue = (array, objectWithValues) => {
       return current
   }, {})
 };
+
+export const toUpper = text => text !== null ? text.toUpperCase() : text;

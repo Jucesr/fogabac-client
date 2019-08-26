@@ -55,7 +55,7 @@ const SolicitanteForm = (props) => {
 
         <React.Fragment>
           <Tab menu={{ secondary: true, pointing: true }} panes={[
-          { menuItem: 'Datos personales', render: () => (
+          { menuItem: 'Datos personales I', render: () => (
               <div className="Form">
                 <Field label="Apellido paterno" field="paterno" validate={validate} keepState disabled={props.disabled}  />
                 <Field label="Apellido materno" field="materno" validate={validate} keepState disabled={props.disabled}/>
@@ -69,7 +69,7 @@ const SolicitanteForm = (props) => {
                 <Field label="Localidad" field="localidad" kind="select" options={municipios} keepState/>
               </div>
           ) },
-          { menuItem: 'Extras', render: () => (
+          { menuItem: 'Datos personales II', render: () => (
             <div className="Form Form_tab">
                 <span></span>
                 <span></span>

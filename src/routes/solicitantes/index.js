@@ -7,7 +7,7 @@ import { Redirect} from 'react-router-dom'
 import ListSolicitantes from "./components/List";
 import SolicitanteForm from "components/SolicitanteForm"
 
-import { loadSolicitantes, addSolicitante } from "store/actions/solicitantes";
+import solicitante_actions from "store/actions/solicitantes";
 import actions from "store/actions/creditos";
 import { setSolicitante } from "store/actions/app";
 
@@ -92,8 +92,8 @@ class SolicitantesPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loadSolicitantes: () => dispatch(loadSolicitantes()),
-  addSolicitante: item => dispatch(addSolicitante(item)),
+  loadSolicitantes: () => dispatch(solicitante_actions.loadSolicitantes()),
+  addSolicitante: item => dispatch(solicitante_actions.add(item)),
   setSolicitante: id => dispatch(setSolicitante(id)),
   loadCreditos: solicitante_id => dispatch(actions.load(solicitante_id))
 });

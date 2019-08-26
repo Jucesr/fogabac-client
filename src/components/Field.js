@@ -87,6 +87,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               options={{
                 numeral: true,
                 rawValueTrimPrefix: true,
+                numeralDecimalScale: 4,
                 prefix: '$'
               }
               }
@@ -125,6 +126,7 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               options={{
                 numeral: true,
                 rawValueTrimPrefix: true,
+                numeralDecimalScale: 4,
                 prefix: '%'
               }
               }

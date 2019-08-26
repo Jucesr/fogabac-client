@@ -120,3 +120,20 @@
     * El destino del credito ya no muestra el guion bajo
     * El texto de gantias prendarias y recuperaciones se actualizó al correcto.
 
+## 0.0.13 (8H)
+  Fecha: 26 Agosto 2019
+  * [NEW]
+    * Tab para ver el estado de cuenta (Lo que falta de pagar en un credito)
+    * Se puede ver el desglose de una recuperación
+    * Funcion util para pasar a mayusculas
+  * [UPDATE]
+    * El Field tipo currency y percentage ahora toma 4 decimales
+    * El formulario de solicitud no lleva Extra, Datos Personales II
+    * Se puede pasar el texto y longitud de la columna Acciones en el componente Tabla
+    * Se cambia el formato del renglon tipo total en el componente Tabla
+    * Se cambió a mayusculas los datos de informacion de solicitante y credito
+    * Se cambió las activiades del formulario de credito
+    * Tab de pagares solo incluye el monto.
+  * [FIX]
+    * Acciones para solicitante usan el archivo crud
+

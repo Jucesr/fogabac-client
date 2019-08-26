@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-import { formatDate, formatColumn , replaceAll} from "utils/";
+import { formatDate, formatColumn , replaceAll, toUpper} from "utils/";
 import capitalize from 'lodash/capitalize'
 
 const CreditoInfo = ({
@@ -22,12 +22,12 @@ const CreditoInfo = ({
 }) => {
   return (
     <Grid className="Grid" columns={4}>
-        <GR items={['Folio', _id, 'Registro', formatDate(createdAt)]}/>
-        <GR items={['Promotor', promotor, 'Estatus', estatus]}/>
-        <GR items={['Monto Solicitado', formatColumn('currency', monto), 'Destino del crédito', capitalize(replaceAll(destino, '_', ' '))]}/>
-        <GR items={['Comisión por apertura', `${comision_apertura} %` , 'TIEE', `${tiee} %`]}/>
-        <GR items={['Ingresos', formatColumn('currency', ingresos), 'TIV', `${tiv} %` ]}/>
-        <GR items={['Egresos', formatColumn('currency', egresos), 'TIM', `${tim} %` ]}/>
+        <GR items={['Folio', toUpper(_id), 'Registro', toUpper(formatDate(createdAt))]}/>
+        <GR items={['Promotor', toUpper(promotor), 'Estatus', toUpper(estatus)]}/>
+        <GR items={['Monto Solicitado', formatColumn('currency', monto), 'Destino del crédito', toUpper(replaceAll(destino, '_', ' '))]}/>
+        <GR items={['Comisión por apertura', `${comision_apertura} %` , 'TI Ordinario', `${tiee} %`]}/>
+        <GR items={['Ingresos', formatColumn('currency', ingresos), 'TI Vencido', `${tiv} %` ]}/>
+        <GR items={['Egresos', formatColumn('currency', egresos), 'TI Moratorio', `${tim} %` ]}/>
     </Grid>
   )
 }

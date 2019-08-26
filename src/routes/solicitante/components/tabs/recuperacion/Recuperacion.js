@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Table from "components/Table";
+import NormalTable from "react-table";
 import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 import RPForm from "./Form";
 import { formatColumn, formatDate } from "utils/";
@@ -29,6 +30,13 @@ const Recuperacion = (props) => {
       <Table
         itemName="concepto"
         // onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${row._id}/downloadFile`)}
+        onSelectRow={row => {
+          setModal({
+            title: `Desglose de recuperacion ${row.concepto} - ${formatColumn('currency', row.monto)}`,
+            id: 'DETAIL'
+          })
+          setItem(row)
+        }}
         onEditRow={row => {
           setModal({
             title: 'Editar recuperación',
@@ -70,6 +78,11 @@ const Recuperacion = (props) => {
             Cell: row => formatColumn('currency', row.value)
           },
           {
+            Header: "Interes vencido",
+            accessor: "vencido",
+            Cell: row => formatColumn('currency', row.value)
+          },
+          {
             Header: "Interes moratorio",
             accessor: "moratorio",
             Cell: row => formatColumn('currency', row.value)
@@ -77,9 +90,10 @@ const Recuperacion = (props) => {
         ]}
         data={items.map(item => ({
           ...item,
-          capital: item.pagares.reduce( (acum, p) => acum + p.monto_capital , 0),
-          ordinario: item.pagares.reduce( (acum, p) => acum + p.monto_interes_ordinario , 0),
-          moratorio: item.pagares.reduce( (acum, p) => acum + p.monto_interes_moratorio , 0)
+          capital: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_capital , 0),
+          ordinario: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_interes , 0),
+          vencido: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_vencido , 0),
+          moratorio: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_moratorio , 0)
         }))}
       />
 
@@ -100,24 +114,66 @@ const Recuperacion = (props) => {
               setModal({})
             }} />
           }
-         
+
           {
             modal.id === 'ADD' && <RPForm onSubmit={values => {
-              // const {importe_ejercido = 0, monto = 0} = props.credito_active;
-              // const disponible = monto - importe_ejercido;
-              // if(values.monto > disponible){
-              //   props.logError(`No hay dinero suficiente para crear un recuperación, Disponible = $${disponible}`)
-              // }else{
-                
-              // }
-
               props.add({
                 ...values,
                 credito: props.credito_active._id
               })
               
               setModal({})
-            } } />
+            } } /> 
+          } 
+         
+          {
+            modal.id === 'DETAIL' && <React.Fragment>
+
+              <NormalTable
+                minRows={0}
+                className="-striped"
+                showPagination={false}
+                
+                data={item.pagares.map(pagare => {
+                  //  Buscar pagare.
+                  const pagare_complete = props.credito_active.pagares.find(item => item._id == pagare._id)
+
+                  return {
+                    ...pagare,
+                    concepto: pagare_complete.concepto
+                  }
+                })}
+                columns={[
+                  {
+                    Header: "Concepto",
+                    accessor: "concepto"
+                  },
+                  {
+                    Header: "Capital",
+                    accessor: "monto_recuperado_capital",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes ordinario",
+                    accessor: "monto_recuperado_interes",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes vencido",
+                    accessor: "monto_recuperado_vencido",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes moratorio",
+                    accessor: "monto_recuperado_moratorio",
+                    Cell: row => formatColumn('currency', row.value)
+                  }
+                ]}
+              >
+
+              </NormalTable>
+
+            </React.Fragment>
           } 
 
         </Modal.Content>

@@ -37,10 +37,10 @@ const Table = (props) => {
         data={props.data}
         columns={[
           {
-            Header: "Acciones",
+            Header: props.actionsLabel ? props.actionsLabel : "Acciones",
             accessor: "descarga",
-            width: 150,
-            Cell: ({ original }) => (
+            width: props.actionsWidth ? props.actionsWidth : 150,
+            Cell: ({ original }) => !original.is_total ? (
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 
                 {props.onSelectRow && <Button icon onClick={() => props.onSelectRow(original)}><Icon name="folder open outline" /></Button>}
@@ -70,10 +70,22 @@ const Table = (props) => {
 
                 
               </div>
-            )
+            ) : null
           },
           ...props.columns
         ]}
+        getTrProps={(state, rowInfo, column) => {
+          if(rowInfo && rowInfo.row._original.is_total){
+            return {
+              style: {
+                fontWeight: 'Bold'
+              }
+            }
+          }else{
+            return {}
+          }
+          
+        }}
       />
     </React.Fragment>
 
@@ -84,6 +96,8 @@ Table.propTypes = {
   itemName: PropTypes.string,
   data: PropTypes.array,
   columns: PropTypes.array,
+  actionsLabel: PropTypes.string,
+  actionsWidth: PropTypes.number,
   onSelectRow: PropTypes.func,
   onDeleteRow: PropTypes.func,
   onEditRow: PropTypes.func

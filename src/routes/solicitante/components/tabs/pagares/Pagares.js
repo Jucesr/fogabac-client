@@ -15,7 +15,7 @@ const Pagares = (props) => {
     props.load(props.credito_active._id)
   }, [])
 
-  const items = props.credito_active.pagares ? props.credito_active.pagares : []
+  let items = props.credito_active.pagares ? props.credito_active.pagares : []
 
   return (
     <React.Fragment>
@@ -41,43 +41,32 @@ const Pagares = (props) => {
         }}
         columns={[
           {
+            Header: "No.",
+            accessor: "numero",
+            width: 50
+          },
+          {
             Header: "Concepto",
-            accessor: "concepto"
+            accessor: "concepto",
+            // width: 500
           },
           {
             Header: "Fecha de subscipción",
             accessor: "fecha_suscripcion",
-            Cell: row => formatDate(row.value)
+            Cell: row => formatDate(row.value),
+            width: 150
           },
           {
             Header: "Fecha de vencimiento",
             accessor: "fecha_vencimiento",
-            Cell: row => formatDate(row.value)
+            Cell: row => formatDate(row.value),
+            width: 150
           },
           {
             Header: "Monto",
             accessor: "monto",
-            Cell: row => formatColumn('currency', row.value)
-          },
-          {
-            Header: "Recuperado",
-            accessor: "monto_recuperado",
-            Cell: row => formatColumn('currency', row.value)
-          },
-          {
-            Header: "Interes Ordinario",
-            accessor: "monto_recuperado_interes",
-            Cell: row => formatColumn('currency', row.value)
-          },
-          {
-            Header: "Interes Moratorio",
-            accessor: "monto_recuperado_moratorio",
-            Cell: row => formatColumn('currency', row.value)
-          },
-          {
-            Header: "Restante",
-            accessor: "restante",
-            Cell: row => formatColumn('currency', row.value)
+            Cell: row => formatColumn('currency', row.value),
+            width: 150
           }
         ]}
         data={items.map(item => ({...item, restante: item.monto - item.monto_recuperado}))}
