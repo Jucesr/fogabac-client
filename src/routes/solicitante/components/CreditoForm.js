@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 
 import { Form } from 'informed';
 import { Button } from 'semantic-ui-react'
-import { generateOptions } from "utils/index";
+import { generateOptions, formatColumn } from "utils/index";
 import formData from "./formData";
 
-import { addCredito } from "store/actions/creditos";
+import actions from "store/actions/creditos";
 
 import Field from "components/Field";
 
@@ -55,13 +55,28 @@ const CreditoForm = (props) => {
   const destinos = generateOptions(formData.destinos)
   const tenencias = generateOptions(formData.tenencias)
 
+  const validateFields = values => {
+    const bolsa = apoyos[values.bolsa_credito]
+
+    if(bolsa){
+      return {
+        monto: values.monto > bolsa.monto_maximo ? `El monto no puede ser mayor a ${formatColumn("currency",bolsa.monto_maximo)}`: undefined
+       }
+    }else{
+      return {}
+    }
+    
+  }
+
   return (
-    <Form initialValues={props.item ? props.item : {}} onSubmit={values => {
+    <Form validateFields={validateFields} initialValues={props.item ? props.item : {}} onSubmit={values => {
 
       props.addCredito({
         ...values,
         solicitante: props.solicitante_active,
       })
+
+      props.onSubmit();
     }}>
       {({ formState }) => (
         <div className="Form">
@@ -75,20 +90,20 @@ const CreditoForm = (props) => {
               setTC(e.target.value)
             }}
           />
-          <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} />
+          <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} validate={validate} />
           <Field label="Monto Solicitado (Pesos)" field="monto" kind="currency" validate={validate} />
           <Field label="Linea" field="linea" validate={validate} kind="select" options={lineas} />
-          <Field label="Domicilio de la inversion del credito" field="domicilio_inversion" />
-          <Field label="Medida" field="medida" />
-          <Field label="Ciclo" field="ciclo" />
-          <Field label="Unidad de medida" field="unidad_medida" kind="select" options={unidades} />
-          <Field label="Destino del crédito" field="destino" kind="select" options={destinos} />
-          <Field label="Actividad del productor o razón social" kind="select" field="actividad" options={actividades} />
-          <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} />
-          <Field label="TIEE (Taza Interbancaria de Interes y Equilibrio)" field="tiee" />
-          <Field label="Tasa de intereses moratorios" field="tim" />
-          <Field label="Tasa de intereses vencidos" field="tiv" />
-          <Field label="Comision por apertura" field="comision_apertura" />
+          <Field label="Domicilio de la inversion del credito" field="domicilio_inversion" validate={validate} />
+          <Field label="Medida" field="medida" kind="number" validate={validate}  />
+          <Field label="Unidad de medida" field="unidad_medida" kind="select" options={unidades} validate={validate}  />
+          <Field label="Ciclo" field="ciclo" validate={validate}  />
+          <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
+          <Field label="Actividad del productor" kind="select" field="actividad" options={actividades} validate={validate}  />
+          <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
+          <Field label="Taza de interes ordinario" field="tiee" kind="percentage" validate={validate}  />
+          <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
+          <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
+          <Field label="Comision por apertura" field="comision_apertura" kind="percentage" validate={validate}  />
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>
       )}
@@ -97,7 +112,7 @@ const CreditoForm = (props) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addCredito: item => dispatch(addCredito(item))
+  addCredito: item => dispatch(actions.add(item))
 });
 
 const mapStateToProps = (state) => ({

@@ -7,3 +7,8 @@ export const setSolicitante = (item) => ({
   type: 'SET_SOLICITANTE',
   payload: item
 })
+
+export const setCredito = (item) => ({
+  type: 'SET_CREDITO',
+  payload: item
+})

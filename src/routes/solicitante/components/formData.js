@@ -48,7 +48,7 @@ export default {
     "GANADERA",
     "PESCA",
     "COMERCIAL",
-    "FORESTAL"
+    "OTRA"
   ],
   unidades: [
     "PROYECTO",
@@ -73,7 +73,8 @@ export default {
     "COLONO",
     "PEQUEÑO PROPIETARIO",
     "EJIDATARIO",
-    "ARRENDATARIO"
+    "ARRENDATARIO",
+    "NO APLICA"
   ]
 
   

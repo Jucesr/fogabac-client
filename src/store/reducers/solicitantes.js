@@ -15,7 +15,7 @@ export default (state = {}, action) => {
         [response._id]: response
       }
 
-    case 'EDIT_SOLICITANTE':
+    case 'UPDATE_SOLICITANTE':
       
       return {
         ...state,
@@ -24,14 +24,16 @@ export default (state = {}, action) => {
           ...response
         }
       }
-
+    //*************************
+    //  CREDITOS
+    //*************************
     case 'LOAD_CREDITOS': 
 
       return{
         ...state,
         [payload]: {
           ...state[payload],
-          creditos: response
+          creditos: response.map(credito => credito._id)
         }
       }
 
@@ -43,11 +45,11 @@ export default (state = {}, action) => {
           ...state[response.solicitante],
           creditos: [
             ...state[response.solicitante].creditos,
-            response
+            response._id
           ]
         }
       }
-  
+
     default:
       return state
   }

@@ -9,17 +9,13 @@ import { setApoyo } from "store/actions/app";
 class ApoyosListPage extends Component {
 
   componentDidMount = () => {
-    this.props.changePage({
-      page_title: 'Apoyos'
-    })
+    this.props.changePage('BOLSAS DE CREDITO')
     this.props.loadApoyos()
     this.props.loadTipoCreditos()
   }
 
   openApoyo = (item) => {
-    this.props.changePage({
-      page_title: item.nombre
-    })
+    this.props.changePage(`${item.nombre}`)
     this.props.setApoyo(item)
     this.props.history.push('/solicitantes')
   }
@@ -40,10 +36,10 @@ class ApoyosListPage extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   
- changePage: ({page_title, page_active}) => {
+ changePage: (page_title) => {
   dispatch({
     type: 'CHANGE_PAGE',
-    payload: {page_title, page_active}
+    payload: page_title
   })
  },
  loadApoyos: () => dispatch(loadApoyos()),
