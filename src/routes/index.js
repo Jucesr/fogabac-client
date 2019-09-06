@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import ApoyosRoute from "./apoyos";
 import SolicitanteListRoute from "./solicitantes";
 import SolicitanteRoute from "./solicitante";
+import SettingsRoute from "./settings";
 
 import Header from "components/Header";
 import Page from "components/Page";
@@ -21,6 +22,7 @@ const AppRouter =  (props) => (
             <Route path="/apoyos" component={ApoyosRoute} exact={true} />
             <Route path="/solicitantes" component={SolicitanteListRoute} exact={true} />
             <Route path="/solicitantes/:id" component={SolicitanteRoute} exact={true} />
+            <Route path="/settings" component={SettingsRoute} exact={true} />
           </Switch>
         </Page>
 

@@ -5,13 +5,22 @@ const initialState = {
   modal_title: undefined,
   apoyo_active: undefined,
   solicitante_active: undefined,
-  credito_active: undefined
+  credito_active: undefined,
+  directores: {},
+  fetching: false
 }
 
 
 export default (state = initialState, action) => {
   const {type, payload} = action;
   switch (type) {
+
+    case 'SET_FETCHING': 
+
+      return {
+        ...state,
+        fetching: true
+      }
     
     case 'CHANGE_PAGE': 
 
@@ -58,6 +67,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         credito_active: payload
+      }
+
+    case 'SET_DIRECTOR':
+
+      return {
+        ...state,
+        directores: {
+          ...state.directores,
+          ...payload
+        },
+        fetching: false
       }
   
     default:
