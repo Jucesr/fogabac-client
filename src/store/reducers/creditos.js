@@ -183,10 +183,10 @@ export default (state = {}, action) => {
           return {
             importe_ejercido: importe_ejercido + response.monto
           }},
-        onUpdate: (response, credito) => {
+        onUpdate: (response, credito, old_item) => {
           const {importe_ejercido = 0} = credito
           return {
-            importe_ejercido: importe_ejercido + response.monto
+            importe_ejercido: importe_ejercido + (response.monto - old_item.monto)
           }},
         onDelete: (response, credito) => {
           const {importe_ejercido = 0} = credito
@@ -275,10 +275,12 @@ const generateHandlers = (state, action, entity, entityPlural, callbacks = {
     case `UPDATE_${entity.toUpperCase()}`: {
       const credito_id = response.credito;
       const items = state[credito_id][entityPlural]
+      let old_item;
       
       const rps = items.map(rp => {
       
         if(rp._id === response._id){
+          old_item = rp;
           rp = {
             ...rp,
             ...response
@@ -293,7 +295,7 @@ const generateHandlers = (state, action, entity, entityPlural, callbacks = {
         [credito_id]: {
           ...state[credito_id],
           [entityPlural]: rps,
-          ...callbacks.onUpdate(response, state[credito_id])
+          ...callbacks.onUpdate(response, state[credito_id], old_item)
         }
       }
     }

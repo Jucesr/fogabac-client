@@ -5,7 +5,9 @@ import NormalTable from "react-table";
 import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 import RPForm from "./Form";
 import { formatColumn, formatDate } from "utils/";
+import { calculateInterest } from "utils/bussines";
 import actions from "store/actions/recuperaciones";
+import pagareActions from "store/actions/pagares";
 
 const Recuperacion = (props) => {
 
@@ -14,9 +16,14 @@ const Recuperacion = (props) => {
 
   useEffect(() => {
     props.load(props.credito_active._id)
+    props.loadPagares(props.credito_active._id)
   }, [])
 
   const items = props.credito_active.recuperaciones ? props.credito_active.recuperaciones : []
+  const pagares = props.credito_active.pagares ? props.credito_active.pagares : []
+
+  const {tiee, tiv, tim, comision_apertura} = props.credito_active;
+  const res = calculateInterest(pagares, tiee, tiv, tim, comision_apertura);
 
   return (
     <React.Fragment>
@@ -116,14 +123,63 @@ const Recuperacion = (props) => {
           }
 
           {
-            modal.id === 'ADD' && <RPForm onSubmit={values => {
-              props.add({
-                ...values,
-                credito: props.credito_active._id
-              })
-              
-              setModal({})
-            } } /> 
+            modal.id === 'ADD' && (
+            <React.Fragment>
+              <Header className="Subtitle" as='h4'>Resumen de estado de cuenta</Header>
+              <br/>
+              <NormalTable
+                minRows={0}
+                className="-striped"
+                showPagination={false}
+                
+                data={[{
+                  ...res.totales
+                }]}
+                columns={[
+                  {
+                    Header: "Capital",
+                    accessor: "capital",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes ordinario",
+                    accessor: "io",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes vencido",
+                    accessor: "iv",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Interes moratorio",
+                    accessor: "im",
+                    Cell: row => formatColumn('currency', row.value)
+                  },
+                  {
+                    Header: "Total Liquidación",
+                    accessor: "liquidacion",
+                    Cell: row => formatColumn('currency', row.value)
+                  }
+                ]}
+              >
+
+              </NormalTable>
+                <br/>
+
+              <Header className="Subtitle" as='h4'>Formulario</Header>
+              <RPForm max={res.totales.liquidacion} onSubmit={values => {
+                props.add({
+                  ...values,
+                  credito: props.credito_active._id
+                })
+                
+                setModal({})
+                } } /> 
+            
+          
+            </React.Fragment>
+            )
           } 
          
           {
@@ -185,6 +241,7 @@ const Recuperacion = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   load: id => dispatch(actions.load(id)),
+  loadPagares: id => dispatch(pagareActions.load(id)),
   add: item => dispatch(actions.add(item)),
   remove: item => dispatch(actions.remove(item)),
   update: item => dispatch(actions.update(item)),

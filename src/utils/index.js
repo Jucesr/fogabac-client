@@ -74,3 +74,12 @@ export const convertArrayToObjectWithValue = (array, objectWithValues) => {
 };
 
 export const toUpper = text => text !== null ? text.toUpperCase() : text;
+
+export const validateMax = max => value => {
+  if(!value || value.length === 0)
+    return 'Obligatorio'
+  if(parseFloat(value) > max)
+    return `Valor maximo ${formatColumn("currency", max)}`
+  if(parseFloat(value) <= 0)
+    return 'No puede ser 0'
+};

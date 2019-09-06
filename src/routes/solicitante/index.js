@@ -278,16 +278,6 @@ class Solicitante extends React.Component {
               </div>
               <br />
               <Tab onTabChange={this.onTabChange} menu={{ fluid: true, color: 'blue', pointing: true }} panes={panes} />
-
-              {/* 
-              <Tab onTabChange={this.onTabChange} menu={{ fluid: true, color: 'blue',  inverted: true, pointing: true }} panes={[
-                { menuItem: { key: 'refs', icon: 'address book' }, render: () => <Tab.Pane><ReferenciasPersonales/></Tab.Pane> },
-                { menuItem: 'Gatantía hipotecaria', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-                { menuItem: 'Gatantía prendaria', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-                { menuItem: 'Gatantía usufructaria', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-                { menuItem: 'Lugar de inversión', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-                { menuItem: 'Estados financieros', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> }
-              ]} /> */}
             </React.Fragment>
           )}
 

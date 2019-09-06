@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {connect} from 'react-redux'
 import { Image, Label, Input, Menu, Button, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const Header = (props) => {
-  const activeItem = 'Apoyos'
+
+  const [activeItem, setActiveItem] = useState("Apoyos");
+
+  const handleItemClick = (e, { name }) => setActiveItem(name);
+
   return (
     <div>
       <div className="Header_User">
@@ -41,20 +45,26 @@ const Header = (props) => {
 
       <div>
       <Menu pointing>
-          <Menu.Item name="pendientes" as={Link} to="/pendientes" active={activeItem === 'Pendientes'} />
+          <Menu.Item 
+            name="pendientes" 
+            as={Link} 
+            to="/pendientes" 
+            active={activeItem == "pendientes"} 
+            onClick={handleItemClick}
+          />
 
-          <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem === 'Apoyos'}/>
+          <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem == "apoyos"} onClick={handleItemClick}/>
             
-          <Menu.Item name="solicitantes" as={Link} to="/solicitantes" active={activeItem === 'Solicitantes'} />
+          <Menu.Item name="solicitantes" as={Link} to="/solicitantes" active={activeItem == "solicitantes"}  onClick={handleItemClick}/>
 
           <Menu.Item
-            name='Notificaciones'
-            active={activeItem === 'Notificaciones'}
+            name='configuracion'
+            active={activeItem == "configuracion"}
+            as={Link}
+            to="/settings"
+            onClick={handleItemClick}
           />
-          <Menu.Item
-            name='Reportes'
-            active={activeItem === 'Reportes'}
-          />
+
           <Menu.Menu position='right'>
             <Menu.Item>
               <Input icon='search' placeholder='Buscar...' />

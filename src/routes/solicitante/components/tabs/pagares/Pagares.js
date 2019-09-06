@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Table from "components/Table";
-import { Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Modal, Header, Button, Icon, Message } from 'semantic-ui-react'
 import RPForm from "./Form";
 import { formatColumn, formatDate } from "utils/";
 import actions from "store/actions/pagares";
@@ -17,11 +17,15 @@ const Pagares = (props) => {
 
   let items = props.credito_active.pagares ? props.credito_active.pagares : []
 
+  const pagares_total = items.reduce(((acum, item) => item.monto + acum), 0)
+
+  const disponible = props.credito_active.monto - pagares_total;
+
   return (
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Pagarés</Header>
-        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar pagaré', id: 'ADD'})}>
+        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar pagaré', id: `${disponible > 0 ? 'ADD' : 'ERROR'}`})}>
           <Icon name='plus' />
           Nuevo pagaré
         </Button>
@@ -81,31 +85,52 @@ const Pagares = (props) => {
         <Modal.Content>
           
           {
-            modal.id === 'EDIT' && <RPForm item={item} onSubmit={values => {
-              props.update({
-                ...item,
-                ...values
-              })
-              setModal({})
-            }} />
+            modal.id === 'EDIT' && (
+              <React.Fragment>
+                <RPForm max={item.monto + disponible} item={item} onSubmit={values => {
+                  props.update({
+                    ...item,
+                    ...values
+                  })
+                  setModal({})
+                }} />
+              </React.Fragment>
+            )
+              
           }
          
           {
-            modal.id === 'ADD' && <RPForm onSubmit={values => {
-              const {importe_ejercido = 0, monto = 0} = props.credito_active;
-              const disponible = monto - importe_ejercido;
-              if(values.monto > disponible){
-                props.logError(`No hay dinero suficiente para crear un pagaré, Disponible = $${disponible}`)
-              }else{
-                props.add({
-                  ...values,
-                  credito: props.credito_active._id
-                })
-              }
-              
-              setModal({})
-            } } />
+            modal.id === 'ADD' && (
+              <React.Fragment>
+                <Message
+                  success
+                  header='Maximo disponible'
+                  content={formatColumn("currency", disponible)}
+                />
+                <RPForm max={disponible} onSubmit={values => {
+                  const {importe_ejercido = 0, monto = 0} = props.credito_active;
+                  const disponible = monto - importe_ejercido;
+                  if(values.monto > disponible){
+                    props.logError(`No hay dinero suficiente para crear un pagaré, Disponible = $${disponible}`)
+                  }else{
+                    props.add({
+                      ...values,
+                      credito: props.credito_active._id
+                    })
+                  }
+                  
+                  setModal({})
+                }}/>
+              </React.Fragment>
+            )
           } 
+
+          {
+            modal.id === 'ERROR' && <Message
+            error
+            header='No hay saldo disponible'
+          />
+          }
 
         </Modal.Content>
       </Modal>
