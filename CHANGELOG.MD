@@ -1,5 +1,11 @@
+## 0.0.14 (1H)
+  Fecha: 08 Septiembre 2019
+  * [NEW]
+    * Funcionalidad ABC para lugares de inversión
+    
+
 ## 0.0.14 (8H)
-  Fecha: 26 Agosto 2019
+  Fecha: 05 Septiembre 2019
   * [FIX]
     * El Header tiene solo elementos que funcionan y se marca como activado cuando esta seleccionado
     * Se agregó comision por apertura al estado de cuenta

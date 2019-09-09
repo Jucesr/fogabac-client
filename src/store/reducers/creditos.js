@@ -164,18 +164,6 @@ export default (state = {}, action) => {
     //  PAGARES
     //*************************
 
-    // case 'LOAD_PAGARES': {
-    //   return{
-    //     ...state,
-    //     [payload]: {
-    //       ...state[payload],
-    //       pagares: response
-    //     }
-    //   }
-    // }
-
-    
-  
     default:
       let newState = generateHandlers(state, action, 'pagare', 'pagares', {
         onAdd: (response, credito) => {
@@ -217,6 +205,8 @@ export default (state = {}, action) => {
       newState = generateHandlers(newState, action, 'garantia_prendaria', 'garantias_prendarias');
 
       newState = generateHandlers(newState, action, 'estado_financiero', 'estados_financieros');
+
+      newState = generateHandlers(newState, action, 'lugar_inversion', 'lugares_inversion');
 
       return newState
   }

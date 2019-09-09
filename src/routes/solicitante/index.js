@@ -16,6 +16,7 @@ import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 import EstadosFinancieros from "./components/tabs/estados-financieros/EstadosFinancieros";
 import EstadoCuenta from "./components/tabs/estado-cuenta/EstadoCuenta";
+import LugarInversion from "./components/tabs/lugares-inversion/LugarInversion";
 
 
 import actions from "store/actions/creditos";
@@ -114,7 +115,7 @@ class Solicitante extends React.Component {
             icon: 'map',
             content: <span className="TabItem">Lugar de inversión</span>
           },
-          render: () => <Tab.Pane> <Header as="h4"> Lugar de inversión</Header></Tab.Pane>
+          render: () => <Tab.Pane> <LugarInversion credito_active={credito_active._id}/></Tab.Pane>
         },
         {
           menuItem:
