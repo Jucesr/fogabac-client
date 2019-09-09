@@ -2,7 +2,10 @@
   Fecha: 08 Septiembre 2019
   * [NEW]
     * Funcionalidad ABC para lugares de inversión
-    
+    * Funcionalidad ABC para garantias usufurctarias
+  * [FIX]
+    * Formulario par garantias ususfructarias y hipotecarias se separó en 2 tabs
+
 
 ## 0.0.14 (8H)
   Fecha: 05 Septiembre 2019

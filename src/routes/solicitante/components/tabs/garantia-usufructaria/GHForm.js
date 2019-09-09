@@ -12,27 +12,13 @@ const validate = value => {
 
 const RPForm = (props) => {
 
-  const municipios = [{
-    label: 'Mexicali',
-    value: 'mexicali'
-  },{
-    label: 'Tijuana',
-    value: 'tijuana'
-  },{
-    label: 'Tecate',
-    value: 'tecate'
-  },{
-    label: 'Ensenada',
-    value: 'ensenada'
-  }]
-
   return (
     <Form initialValues={props.item ? props.item : {
       
     }} onSubmit={values => props.onSubmit({
       ...values,
-      manzana: values.manzana ? values.manzana : '',
-      colonia: values.colonia ? values.colonia : '',
+      numero_parcela: values.numero_parcela ? values.numero_parcela : '',
+      ejido: values.ejido ? values.ejido : '',
       superficie: values.superficie ? values.superficie : 0,
 
       norte: values.norte ? values.norte : '0',
@@ -44,15 +30,10 @@ const RPForm = (props) => {
       noreste: values.noreste ? values.noreste : '0',
 
       titular: values.titular ? values.titular : '',
-      escritura_publica : values.escritura_publica ? values.escritura_publica : '',
-      volumen : values.volumen ? values.volumen : 0,
+      registro_agrario : values.registro_agrario ? values.registro_agrario : '',
       fecha : values.fecha ? values.fecha : '', 
-      numero_notario : values.numero_notario ? values.numero_notario : '',
-      partida : values.partida ? values.partida : '',
-      municipio : values.municipio ? values.municipio : 'mexicali',
-      valor_estimado: values.valor_estimado ? values.valor_estimado : 0,
-      seccion : values.seccion ? values.seccion : '',
-      titular_notaria : values.titular_notaria ? values.titular_notaria : ''
+      certificado_parcelario : values.certificado_parcelario ? values.certificado_parcelario : '',
+      valor: values.valor ? values.valor : 0
     })}>
       {({ formState }) => (
 
@@ -60,31 +41,19 @@ const RPForm = (props) => {
             <Tab menu={{ secondary: true, pointing: true }} panes={[{
               menuItem: 'Datos generales', render: () => (
                 <div className="Form">
-                  <Field keepState label="Numero Lote" field="numero_lote" validate={validate} />
-                  <Field keepState label="Manzana" field="manzana"/>
-                  <Field keepState label="Colonia" field="colonia"/>
+                  <Field keepState label="Numero Parcela" field="numero_parcela" validate={validate} />
+                  <Field keepState label="Ejido" field="ejido"/>
                   <Field keepState label="Titular" field="titular"/>
-                  <Field keepState label="Escritura Publica" field="escritura_publica"/>
-                  <Field keepState label="Volumen" field="volumen" kind="number"/>
+                  <Field keepState label="Registro agrario nacional" field="registro_agrario"/>
                   <Field keepState label="Fecha" field="fecha" kind="datepicker" />
-                  <Field keepState label="Numero Notario" field="numero_notario"/>
-                  <Field keepState label="Partida" field="partida"/>
-                  <Field keepState label="Municipio" field="municipio" kind="select" options={municipios} />
-                  <Field keepState label="Valor Estimado" field="valor_estimado" kind="currency"/>
-                  <Field keepState label="Sección" field="seccion"/>
-                  <Field keepState label="Titular Notaria" field="titular_notaria"/>
+                  <Field keepState label="Certificado Parcelario" field="certificado_parcelario"/>
+                  <Field keepState label="Valor Estimado" field="valor" kind="currency"/>
                   <Field keepState label="Documento" field="documento" kind="file"/> 
                 </div>
               )
             },{
               menuItem: 'Datos de terreno', render: () => (
                 <div className="Form">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
                   <span></span>
                   <span></span>
                   <span></span>

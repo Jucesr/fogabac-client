@@ -12,6 +12,7 @@ import CreditoInfo from "./components/CreditoInfo";
 import ReferenciasPersonales from "./components/tabs/referencia-personal/ReferenciasPersonales";
 import GarantiaHipotecaria from "./components/tabs/garantia-hipotecaria/GarantiaHipotecaria";
 import GarantiaPrendaria from "./components/tabs/garantia-prendaria/GarantiaPrendaria";
+import GarantiaUsufructaria from "./components/tabs/garantia-usufructaria/GarantiaUsufructaria";
 import Pagares from "./components/tabs/pagares/Pagares";
 import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 import EstadosFinancieros from "./components/tabs/estados-financieros/EstadosFinancieros";
@@ -106,7 +107,7 @@ class Solicitante extends React.Component {
             icon: 'car',
             content: <span className="TabItem">Garantía usufructaria</span>
           },
-          render: () => <Tab.Pane> <Header as="h4"> Garantía usufructaria</Header></Tab.Pane>
+          render: () => <Tab.Pane> <GarantiaUsufructaria credito_active={credito_active._id}/></Tab.Pane>
         },
         {
           menuItem:
