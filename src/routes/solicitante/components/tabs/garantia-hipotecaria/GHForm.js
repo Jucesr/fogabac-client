@@ -77,7 +77,7 @@ const RPForm = (props) => {
                 </div>
               )
             },{
-              menuItem: 'Datos de terreno', render: () => (
+              menuItem: 'Colindancia de terreno', render: () => (
                 <div className="Form">
                   <span></span>
                   <span></span>

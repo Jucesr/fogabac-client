@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Modal, Button, Icon, Tab, Grid } from 'semantic-ui-react'
 import { formatColumn} from "utils/";
 import FormActivo from "./ActivoForm";
+import FormIngreso from "./IngresosForm";
+import FormEgreso from "./EgresoForm";
+import Table from "components/Table";
 
 import actions from "store/actions/estados_financieros";
 
@@ -10,6 +13,7 @@ import actions from "store/actions/estados_financieros";
 const EstadosFinancieros = (props) => {
 
   const [modal, setModal] = useState({});
+  const [item, setItem] = useState();
 
   useEffect(() => {
     props.load(props.credito_active._id)
@@ -21,7 +25,9 @@ const EstadosFinancieros = (props) => {
     activo_fijo = {},
     activo_otros = {},
     pasivo_circulante = {},
-    pasivo_largo_plazo = {}
+    pasivo_largo_plazo = {},
+    ingresos = [],
+    egresos = []
   } = props.credito_active.estados_financieros ? props.credito_active.estados_financieros[0] ? props.credito_active.estados_financieros[0] : {} : {}
 
   // Get totals
@@ -41,11 +47,27 @@ const EstadosFinancieros = (props) => {
 
   const sum_pasivo_largo_plazo = getTotal(pasivo_largo_plazo)
 
-
-  const handler = () => {
-    setModal({title: 'Activo', id: _id ? 'EDIT' : 'ADD'})
+  const onSubmit = values => {
+    if(_id){
+      //  It already exits it will update
+      props.update({
+        _id,
+        ...values
+      })
+    }else{
+      //  It is new
+      props.add({
+        ...values,
+        credito: props.credito_active._id
+      })
+    }
+    
+    setModal({})
   }
 
+  const handlerActivo = () => {
+    setModal({title: 'Activo', id: 'ACTIVO'})
+  }
 
   const GR = ({items: [i1, i2], type = "normal", handler}) => {
     const labelWidth = 14;
@@ -63,13 +85,13 @@ const EstadosFinancieros = (props) => {
         menuItem: 'Activo',
         render: () => <div>
           <Grid className="Grid">
-            <GR handler={handler} type="title" items={['Activo Circulante', sum_activo_circulante]}/>
+            <GR handler={handlerActivo} type="title" items={['Activo Circulante', sum_activo_circulante]}/>
             <GR type="black" items={['Caja', activo_circulante.caja]}/>
             <GR type="normal" items={['Bancos (Chequera)', activo_circulante.bancos]}/>
             <GR type="black" items={['Cuentas por cobrar (Clientes)', activo_circulante.cuentas_por_cobrar]}/>
             <GR type="normal" items={['Inventarios', activo_circulante.inventarios]}/>
 
-            <GR handler={handler} type="title" items={['Activo Fijo', sum_activo_fijo]}/>
+            <GR handler={handlerActivo} type="title" items={['Activo Fijo', sum_activo_fijo]}/>
             <GR type="black" items={['Terrenos y edificios (Catastral)', activo_fijo.terreno_catastral]}/>
             <GR type="normal" items={['Terrenos y edificios (Comercial)', activo_fijo.terreno_comercial]}/>
             <GR type="black" items={['Maquinaria y equipo', activo_fijo.maquinaria]}/>
@@ -77,7 +99,7 @@ const EstadosFinancieros = (props) => {
             <GR type="black" items={['Equipo de transporte', activo_fijo.equipo_transporte]}/>
             <GR type="normal" items={['Otros', activo_fijo.otros]}/>
 
-            <GR handler={handler} type="title" items={['Otros activos', sum_activo_otros]}/>
+            <GR handler={handlerActivo} type="title" items={['Otros activos', sum_activo_otros]}/>
             <GR type="black" items={['Rentas pagadas por anticipado', activo_otros.rentas_pagadas]}/>
             <GR type="normal" items={['Publicidad', activo_otros.publicidad]}/>
             <GR type="black" items={['Primas de seguro', activo_otros.primas]}/>
@@ -89,14 +111,14 @@ const EstadosFinancieros = (props) => {
         menuItem: 'Pasivo',
         render: () => <div>
           <Grid className="Grid">
-            <GR handler={handler} type="title" items={['Pasivo Circulante', sum_pasivo_circulante]}/>
+            <GR handler={handlerActivo} type="title" items={['Pasivo Circulante', sum_pasivo_circulante]}/>
             <GR type="black" items={['Proveedores', pasivo_circulante.proveedores]}/>
             <GR type="normal" items={['Acreedores diversos', pasivo_circulante.acreedores]}/>
             <GR type="black" items={['Impuestos por pagar', pasivo_circulante.impuestos_por_pagar]}/>
             <GR type="normal" items={['Creditos bancarios a corto plazo', pasivo_circulante.creditos_bancarios]}/>
             <GR type="black" items={['Otros pasivos a corto plazo', pasivo_circulante.corto_plazo]}/>
 
-            <GR handler={handler} type="title" items={['Pasivo a Largo Plazo', sum_pasivo_largo_plazo]}/>
+            <GR handler={handlerActivo} type="title" items={['Pasivo a Largo Plazo', sum_pasivo_largo_plazo]}/>
             <GR type="black" items={['Creditos Bancarios', pasivo_largo_plazo.creditos_bancarios]}/>
             <GR type="normal" items={['Otras Obligaciones a largo plazo', pasivo_largo_plazo.otras_obligaciones]}/>
             <GR type="black" items={['Rentas cobradas por anticipado', pasivo_largo_plazo.rentas_cobradas]}/>
@@ -111,6 +133,118 @@ const EstadosFinancieros = (props) => {
       },{
         menuItem: 'Circulante',
         render: () => <div></div>
+      },{
+        menuItem: 'Ingresos',
+        render: () => <div>
+          <div className="Section">
+            <div> 
+            </div>
+            <Button size="tiny" color="green" onClick={() => {setModal({title: 'Agregar ingreso', id: 'INGRESO'}); setItem({})}}>
+              <Icon name='plus' />
+              Nuevo ingreso
+            </Button>
+          </div>
+          <Table
+            itemName="concepto"
+            onEditRow={row => {
+              setModal({
+                  title: 'Editar egreso',
+                  id: 'INGRESO'
+                })
+                setItem(row)
+              }}
+            onDeleteRow={row => { 
+              props.deleteIngreso(_id, row._id);
+            }}
+            columns={[{
+              Header: "Concepto",
+              accessor: "concepto"
+            },{
+              Header: "Superficie",
+              accessor: "superficie",
+              Cell: row => formatColumn('number', row.value)
+            },{
+              Header: "Rendimiento",
+              accessor: "rendimiento",
+              Cell: row => formatColumn('number', row.value)
+            },{
+              Header: "Volumen Total",
+              accessor: "volumen_total",
+              Cell: row => formatColumn('number', row.value)
+            },{
+              Header: "Valor Unitario",
+              accessor: "valor_unitario",
+              Cell: row => formatColumn('currency', row.value)
+            },{
+              Header: "Otros Ingresos",
+              accessor: "otros_ingresos",
+              Cell: row => formatColumn('currency', row.value)
+            },{
+              Header: "Total Estimado",
+              accessor: "total",
+              Cell: row => formatColumn('currency', row.value)
+            }]}
+            data={ingresos.map(item => ({
+              ...item,
+              volumen_total: item.superficie * item.rendimiento,
+              total: item.superficie * item.rendimiento * item.valor_unitario
+            }))}
+          />
+        </div>
+      },{
+        menuItem: 'Egresos',
+        render: () => <div>
+          <div className="Section">
+            <div> 
+            </div>
+            <Button size="tiny" color="green" onClick={() => {setModal({title: 'Agregar egreso', id: 'EGRESO'}); setItem({})}}>
+              <Icon name='plus' />
+              Nuevo egreso
+            </Button>
+          </div>
+          <Table
+            itemName="concepto"
+            onEditRow={row => {
+              setModal({
+                  title: 'Editar egreso',
+                  id: 'EGRESO'
+                })
+                setItem(row)
+              }}
+            onDeleteRow={row => { 
+              props.deleteEgreso(_id, row._id);
+            }}
+            columns={[{
+              Header: "Concepto",
+              accessor: "concepto"
+            },{
+              Header: "Superficie",
+              accessor: "superficie",
+              Cell: row => formatColumn('number', row.value)
+            },{
+              Header: "Costo",
+              accessor: "costo",
+              Cell: row => formatColumn('number', row.value)
+            },{
+              Header: "Costo Total",
+              accessor: "costo_total",
+              Cell: row => formatColumn('currency', row.value)
+            },{
+              Header: "Otros Egresos",
+              accessor: "otros_egresos",
+              Cell: row => formatColumn('currency', row.value)
+            },{
+              Header: "Total Estimado",
+              accessor: "total",
+              Cell: row => formatColumn('currency', row.value)
+            }]}
+            data={egresos.map(item => ({
+              ...item,
+              costo_total: item.superficie * item.costo,
+              total: item.superficie * item.costo
+            }))}
+          />
+        </div>
       }]} />
 
       <Modal
@@ -122,28 +256,61 @@ const EstadosFinancieros = (props) => {
         <Modal.Content>
           
           {
-            modal.id === 'EDIT' && <FormActivo item={{
+            modal.id === 'ACTIVO' && <FormActivo item={ _id ? {
               ...activo_circulante,
               ...activo_fijo,
               ...activo_otros
-            }} onSubmit={values => {
-              props.update({
-                _id,
-                ...values
-              })
+            }: undefined } onSubmit={onSubmit} />
+          }
+
+          {
+            modal.id === 'INGRESO' && <FormIngreso item={item ? item : undefined} onSubmit={({ingresos}) => {
+              if(_id){
+                //  It already exits it will update
+                props.update({
+                  _id,
+                  ingresos: [{
+                    ...item,
+                    ...ingresos[0]
+                  }]
+                })
+              }else{
+                //  It is new
+                props.add({
+                  ...values,
+                  credito: props.credito_active._id
+                })
+              }
+              
               setModal({})
             }} />
           }
-         
+
           {
-            modal.id === 'ADD' && <FormActivo onSubmit={values => {
-              props.add({
-                ...values,
-                credito: props.credito_active._id
-              })
+            modal.id === 'EGRESO' && <FormEgreso item={item ? item : undefined} onSubmit={({egresos}) => {
+              if(_id){
+                //  It already exits it will update
+                props.update({
+                  _id,
+                  egresos: [{
+                    ...item,
+                    ...egresos[0]
+                  }]
+                })
+              }else{
+                //  It is new
+                props.add({
+                  ...values,
+                  credito: props.credito_active._id
+                })
+              }
+              
               setModal({})
-            } } />
-          } 
+            }} />
+          }
+
+
+
 
         </Modal.Content>
       </Modal>
@@ -157,7 +324,9 @@ const mapDispatchToProps = (dispatch) => ({
   load: id => dispatch(actions.load(id)),
   add: item => dispatch(actions.add(item)),
   remove: item => dispatch(actions.remove(item)),
-  update: item => dispatch(actions.update(item))
+  update: item => dispatch(actions.update(item)),
+  deleteEgreso: (id, item_id) => dispatch(actions.deleteEgreso(id, item_id)),
+  deleteIngreso: (id, item_id) => dispatch(actions.deleteIngreso(id, item_id))
 });
 
 

@@ -1,3 +1,13 @@
+## 0.0.15 (3H)
+  Fecha: 19 Septiembre 2019
+  * [NEW]
+    * Funcionalidad para generar tarjeta ejecutiva (parcial)
+    * Funcionalidad para administrar Ingresos y Egresos en estados financieros
+    * Funciones Utils para validar campos de un formulario
+  * [FIX]
+    * Las lineas disponibles en el formulario de credito son en funcion de la actividad
+    * En el formulario de Garantias se cambio el texto datos de terreno por colindancia de terreno
+
 ## 0.0.14 (1H)
   Fecha: 08 Septiembre 2019
   * [NEW]

@@ -75,11 +75,24 @@ export const convertArrayToObjectWithValue = (array, objectWithValues) => {
 
 export const toUpper = text => text !== null ? text.toUpperCase() : text;
 
+export const validate = value => {
+  return !value || value.length === 0
+    ? 'Obligatorio'
+    : undefined;
+};
+
 export const validateMax = max => value => {
   if(!value || value.length === 0)
     return 'Obligatorio'
   if(parseFloat(value) > max)
     return `Valor maximo ${formatColumn("currency", max)}`
   if(parseFloat(value) <= 0)
+    return 'No puede ser 0'
+};
+
+export const validateNegative = value => {
+  if(!value || value.length === 0)
+    return 'Obligatorio'
+  if(parseFloat(value) < 0)
     return 'No puede ser 0'
 };

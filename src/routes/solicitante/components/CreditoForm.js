@@ -22,6 +22,7 @@ const CreditoForm = (props) => {
   const first_tc = tipo_creditos[Object.keys(tipo_creditos)[0]]
 
   const [TC_selected, setTC] = useState(first_tc._id);
+  const [activity_selected, setActivity] = useState();
 
   const tipos_credito = Object.keys(tipo_creditos).map(key => {
     let tc = tipo_creditos[key]
@@ -49,7 +50,7 @@ const CreditoForm = (props) => {
   }))
 
   //  Lineas de creditos
-  const lineas = generateOptions(formData.lineas)
+  const lineas = activity_selected ? generateOptions(formData.lineas[activity_selected]) : []
   const actividades = generateOptions(formData.actividades)
   const unidades = generateOptions(formData.unidades)
   const destinos = generateOptions(formData.destinos)
@@ -92,13 +93,13 @@ const CreditoForm = (props) => {
           />
           <Field label="Bolsa de Crédito" field="bolsa_credito" kind="select" options={bolsas_options} validate={validate} />
           <Field label="Monto Solicitado (Pesos)" field="monto" kind="currency" validate={validate} />
+          <Field label="Actividad del productor" kind="select" field="actividad" options={actividades} validate={validate} onChange={e => setActivity(e.target.value)}  />
           <Field label="Linea" field="linea" validate={validate} kind="select" options={lineas} />
           <Field label="Domicilio de la inversion del credito" field="domicilio_inversion" validate={validate} />
           <Field label="Medida" field="medida" kind="number" validate={validate}  />
           <Field label="Unidad de medida" field="unidad_medida" kind="select" options={unidades} validate={validate}  />
           <Field label="Ciclo" field="ciclo" validate={validate}  />
           <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
-          <Field label="Actividad del productor" kind="select" field="actividad" options={actividades} validate={validate}  />
           <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
           <Field label="Taza de interes ordinario" field="tiee" kind="percentage" validate={validate}  />
           <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />

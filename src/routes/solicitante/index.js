@@ -241,7 +241,11 @@ class Solicitante extends React.Component {
                     Formato de solicitud
                   </Button>
 
-                  <Button  color="blue" onClick={() =>{ alert('No se implenta aun')}}>
+                  <Button  color="blue" onClick={ async () =>{ 
+                    await this.props.generateTarjetaEjecutiva(credito_active._id)
+                    window.open(`${process.env.REACT_APP_API_ENDPOINT}/credito/${credito_active._id}/get_tarjeta_ejecutiva`)
+
+                  }}>
                     <Icon name='file outline' />
                     Tarjeta ejecutiva
                   </Button>
@@ -317,7 +321,8 @@ const mapDispatchToProps = (dispatch) => ({
   editSolicitante: item => dispatch(solicitante_actions.update(item)),
   setSolicitante: id => dispatch(setSolicitante(id)),
   editCredito: item => dispatch(actions.update(item)),
-  generateSolicitud: id => dispatch(actions.generateSolicitud(id))
+  generateSolicitud: id => dispatch(actions.generateSolicitud(id)),
+  generateTarjetaEjecutiva: id => dispatch(actions.generateTarjetaEjecutiva(id))
 });
 
 
