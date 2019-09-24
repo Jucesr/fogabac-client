@@ -18,7 +18,7 @@ import Recuperaciones from "./components/tabs/recuperacion/Recuperacion";
 import EstadosFinancieros from "./components/tabs/estados-financieros/EstadosFinancieros";
 import EstadoCuenta from "./components/tabs/estado-cuenta/EstadoCuenta";
 import LugarInversion from "./components/tabs/lugares-inversion/LugarInversion";
-
+import Scoring from "./components/tabs/scoring/Scoring";
 
 import actions from "store/actions/creditos";
 import solicitante_actions from "store/actions/solicitantes";
@@ -126,6 +126,15 @@ class Solicitante extends React.Component {
             content: <span className="TabItem">Estados financieros</span>
           },
           render: () => <Tab.Pane> <EstadosFinancieros credito_active={credito_active._id}/></Tab.Pane>
+        },
+        {
+          menuItem:
+          {
+            key: 'scoring',
+            icon: 'star',
+            content: <span className="TabItem">Scoring</span>
+          },
+          render: () => <Tab.Pane> <Scoring credito_active={credito_active._id}/></Tab.Pane>
         }
       ]
 

@@ -7,6 +7,7 @@ const initialState = {
   solicitante_active: undefined,
   credito_active: undefined,
   directores: {},
+  scoring: {},
   fetching: false
 }
 
@@ -75,6 +76,18 @@ export default (state = initialState, action) => {
         ...state,
         directores: {
           ...state.directores,
+          ...payload
+        },
+        fetching: false
+      }
+
+
+    case 'SET_SCORING':
+
+      return {
+        ...state,
+        scoring: {
+          ...state.scoring,
           ...payload
         },
         fetching: false

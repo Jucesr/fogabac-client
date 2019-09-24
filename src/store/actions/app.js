@@ -45,3 +45,19 @@ export const getDirector = () => {
   }
 }
 
+export const getScoringMax = () => {
+  return async (dispatch, getState) => {
+
+    dispatch({
+      type: 'SET_FETCHING'
+    })
+
+    const res = await callApi(`/utils/get_settings?keys=scoring_fogabac,scoring_gobbc,scoring_solvencia_moral,scoring_proyecto_estatal`)
+    
+    dispatch({
+      type: `SET_SCORING`,
+      payload: res.body
+    })
+  }
+}
+

@@ -1,3 +1,16 @@
+## 0.0.16 (4H)
+  Fecha: 24 Septiembre 2019
+  * [NEW]
+    * Funcionalidad para capturar Scoring (4/6)
+      * Fogabac
+      * Gob BC
+      * Solvencia Moral
+      * Proyecto Estrategico
+    * Formato Percentage para el metodo util formatColumn
+  * [FIX]
+    * Crash cuando options estaba vacio en componente Field
+
+
 ## 0.0.15 (3H)
   Fecha: 19 Septiembre 2019
   * [NEW]

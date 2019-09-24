@@ -49,6 +49,10 @@ export const formatColumn = (format, value) => {
         value = 0;
       return `${transform(parseFloat(value), decimals, 3, ',', '.')}`;
 
+    case 'percentage':
+      if(isNaN(value))
+        value = 0;
+    return `${transform(parseFloat(value), decimals, 3, ',', '.')}%`;
 
     default:
       return value

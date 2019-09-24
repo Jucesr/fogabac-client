@@ -210,6 +210,8 @@ export default (state = {}, action) => {
 
       newState = generateHandlers(newState, action, 'lugar_inversion', 'lugares_inversion');
 
+      newState = generateHandlers(newState, action, 'scoring', 'scoring');
+
       return newState
   }
 }
