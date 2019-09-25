@@ -8,7 +8,6 @@ import FormSolvenciaMoral from "./FormSolvenciaMoral";
 import FormProyectoEstatal from "./FormProyectoEstatal";
 
 import actions from "store/actions/scoring";
-import {getScoringMax} from "store/actions/app"
 
 const Scoring = (props) => {
 
@@ -17,7 +16,6 @@ const Scoring = (props) => {
 
   useEffect(() => {
     props.load(props.credito_active._id)
-    props.getScoringMax();
   }, [])
 
   const {
@@ -29,22 +27,14 @@ const Scoring = (props) => {
     _fogabac = 0,
     _gob_bc = 0,
     _solvencia_moral = 0,
-    _proyecto_estrategico = 0
+    _proyecto_estrategico = 0,
+    _total_fogabac = 0,
+    _total_gob_bc = 0,
+    _total_solvencia_moral = 0,
+    _total_proyecto_estrategico = 0,
   } = props.credito_active.scoring ? props.credito_active.scoring[0] ? props.credito_active.scoring[0] : {} : {}
 
-  const {
-    scoring_fogabac,
-    scoring_gobbc,
-    scoring_solvencia_moral,
-    scoring_proyecto_estatal
-  } = props.scoring ? props.scoring : {};
-
-
-  const total_fogabac = (scoring_fogabac && _fogabac) ? (_fogabac * 20 / scoring_fogabac) : 0; 
-  const total_gobbc = (scoring_gobbc && _gob_bc) ? (_gob_bc * 10 / scoring_gobbc) : 0; 
-  const total_solvencia = (scoring_solvencia_moral && _solvencia_moral) ? (_solvencia_moral * 10 / scoring_solvencia_moral) : 0; 
-  const total_proyecto_estrategico = (scoring_proyecto_estatal && _proyecto_estrategico) ? (_proyecto_estrategico * 20 / scoring_proyecto_estatal) : 0; 
-  const gran_total = total_fogabac + total_gobbc + total_solvencia + total_proyecto_estrategico;
+  const gran_total = _total_fogabac + _total_gob_bc + _total_solvencia_moral + _total_proyecto_estrategico;
   const _total = _fogabac + _gob_bc + _solvencia_moral + _proyecto_estrategico;
 
   const onSubmit = values => {
@@ -103,12 +93,12 @@ const Scoring = (props) => {
     <div>
       <Grid className="Grid">
         <GR type="title" items={['Evaluación General', 'Porcentaje Sección', 'Valor Total Obtenido', 'Puntuación']}/>
-        <GR handler={handlerFogabac} type="black" items={['Scoring Fogabac', 20,_fogabac, total_fogabac]}/>
-        <GR handler={handlerGobBC} type="normal" items={['Scoring Gob BC', 10,_gob_bc,total_gobbc]}/>
+        <GR handler={handlerFogabac} type="black" items={['Scoring Fogabac', 20,_fogabac, _total_fogabac]}/>
+        <GR handler={handlerGobBC} type="normal" items={['Scoring Gob BC', 10,_gob_bc,_total_gob_bc]}/>
         <GR handler={handlerFogabac} type="black" items={['Razones Financieras', 10,0,0]}/>
         <GR handler={handlerFogabac} type="normal" items={['Capacidad de pago y Relación Garantiía vs Crédito', 30,0,0]}/>
-        <GR handler={handlerSolvencia} type="black" items={['Solvencia Moral', 10,_solvencia_moral,total_solvencia]}/>
-        <GR handler={handlerProyecto} type="normal" items={['Proyecto Estratégico Estatal', 20,_proyecto_estrategico,total_proyecto_estrategico]}/>
+        <GR handler={handlerSolvencia} type="black" items={['Solvencia Moral', 10,_solvencia_moral,_total_solvencia_moral]}/>
+        <GR handler={handlerProyecto} type="normal" items={['Proyecto Estratégico Estatal', 20,_proyecto_estrategico,_total_proyecto_estrategico]}/>
         <GR type="total" items={['Totales', 100, _total, gran_total]}/>
       </Grid>
 
@@ -145,14 +135,12 @@ const mapDispatchToProps = (dispatch) => ({
   load: id => dispatch(actions.load(id)),
   add: item => dispatch(actions.add(item)),
   remove: item => dispatch(actions.remove(item)),
-  update: item => dispatch(actions.update(item)),
-  getScoringMax: () => dispatch(getScoringMax())
+  update: item => dispatch(actions.update(item))
 });
 
 
 const mapStateToProps = (state, ownProps) => ({
-  credito_active: state.creditos[ownProps.credito_active],
-  scoring: state.app.scoring
+  credito_active: state.creditos[ownProps.credito_active]
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Scoring)

@@ -1,3 +1,8 @@
+## 0.0.17 (1H)
+  Fecha: 25 Septiembre 2019
+  * [FIX]
+    * El total de porcentaje de cada scoring se calcula en el server. 
+
 ## 0.0.16 (4H)
   Fecha: 24 Septiembre 2019
   * [NEW]
