@@ -221,6 +221,14 @@ a:hover{
   cursor: pointer;
 }
 
+/* .ReactTable .rt-thead.-header {
+  box-shadow: 0 2px 15px 0 rgba(0,0,0,0.15);
+  color: white;
+  background-color: #02b5ad;
+  font-weight: bold;
+  padding: .2rem 0;
+} */
+
 /* Modal */
 
 .ModalContent{

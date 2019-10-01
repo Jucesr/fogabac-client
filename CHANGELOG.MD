@@ -1,3 +1,8 @@
+## 0.0.17 (2H)
+  Fecha: 30 Septiembre 2019
+   [NEW]
+    * Funcionalidad para agregar Estados financieros (Capital y Circulante)
+
 ## 0.0.17 (1H)
   Fecha: 25 Septiembre 2019
   * [FIX]

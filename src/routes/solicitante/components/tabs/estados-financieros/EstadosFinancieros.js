@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Modal, Button, Icon, Tab, Grid } from 'semantic-ui-react'
 import { formatColumn} from "utils/";
 import FormActivo from "./ActivoForm";
+import FormPasivo from "./PasivoForm";
+import FormCapital from "./CapitalForm";
+import FormCirculante from "./CirculanteForm";
 import FormIngreso from "./IngresosForm";
 import FormEgreso from "./EgresoForm";
 import Table from "components/Table";
@@ -26,26 +29,38 @@ const EstadosFinancieros = (props) => {
     activo_otros = {},
     pasivo_circulante = {},
     pasivo_largo_plazo = {},
+    capital = {},
+    circulante_ingresos = {},
+    circulante_gastos = {},
+    circulante_otros = {},
     ingresos = [],
-    egresos = []
+    egresos = [],
   } = props.credito_active.estados_financieros ? props.credito_active.estados_financieros[0] ? props.credito_active.estados_financieros[0] : {} : {}
-
+  
   // Get totals
   const getTotal = (items) => items ? Object.keys(items).reduce((acum, key) => acum + items[key], 0) : 0;
 
   // Activos
 
   const sum_activo_circulante = getTotal(activo_circulante);
-
   const sum_activo_fijo = getTotal(activo_fijo)
-
   const sum_activo_otros = getTotal(activo_otros)
 
   // Pasivos
 
   const sum_pasivo_circulante = getTotal(pasivo_circulante)
-
   const sum_pasivo_largo_plazo = getTotal(pasivo_largo_plazo)
+
+  //  Capital
+
+  const sum_capital = getTotal(capital)
+
+  //  Circulantes
+
+  const sum_circulante_ingresos = getTotal(circulante_ingresos)
+  const sum_circulante_gastos = getTotal(circulante_gastos)
+  const sum_circulante_otros = getTotal(circulante_otros)
+
 
   const onSubmit = values => {
     if(_id){
@@ -67,6 +82,15 @@ const EstadosFinancieros = (props) => {
 
   const handlerActivo = () => {
     setModal({title: 'Activo', id: 'ACTIVO'})
+  }
+  const handlerPasivo = () => {
+    setModal({title: 'Pasivo', id: 'PASIVO'})
+  }
+  const handlerCapital = () => {
+    setModal({title: 'Capital', id: 'CAPITAL'})
+  }
+  const handlerCirculante = () => {
+    setModal({title: 'Circulante', id: 'CIRCULANTE'})
   }
 
   const GR = ({items: [i1, i2], type = "normal", handler}) => {
@@ -111,28 +135,60 @@ const EstadosFinancieros = (props) => {
         menuItem: 'Pasivo',
         render: () => <div>
           <Grid className="Grid">
-            <GR handler={handlerActivo} type="title" items={['Pasivo Circulante', sum_pasivo_circulante]}/>
+            <GR handler={handlerPasivo} type="title" items={['Pasivo Circulante', sum_pasivo_circulante]}/>
             <GR type="black" items={['Proveedores', pasivo_circulante.proveedores]}/>
             <GR type="normal" items={['Acreedores diversos', pasivo_circulante.acreedores]}/>
             <GR type="black" items={['Impuestos por pagar', pasivo_circulante.impuestos_por_pagar]}/>
-            <GR type="normal" items={['Creditos bancarios a corto plazo', pasivo_circulante.creditos_bancarios]}/>
+            <GR type="normal" items={['Creditos bancarios a corto plazo', pasivo_circulante.creditos_bancarios_corto]}/>
             <GR type="black" items={['Otros pasivos a corto plazo', pasivo_circulante.corto_plazo]}/>
 
-            <GR handler={handlerActivo} type="title" items={['Pasivo a Largo Plazo', sum_pasivo_largo_plazo]}/>
+            <GR handler={handlerPasivo} type="title" items={['Pasivo a Largo Plazo', sum_pasivo_largo_plazo]}/>
             <GR type="black" items={['Creditos Bancarios', pasivo_largo_plazo.creditos_bancarios]}/>
             <GR type="normal" items={['Otras Obligaciones a largo plazo', pasivo_largo_plazo.otras_obligaciones]}/>
             <GR type="black" items={['Rentas cobradas por anticipado', pasivo_largo_plazo.rentas_cobradas]}/>
-            
 
             <GR type="total" items={['Total Pasivo', (sum_pasivo_largo_plazo + sum_pasivo_circulante)]}/>
           </Grid>
         </div>
       },{
         menuItem: 'Capital',
-        render: () => <div></div>
+        render: () => <div>
+          <Grid className="Grid">
+            <GR handler={handlerCapital} type="title" items={['Capital', sum_capital]}/>
+            <GR type="black" items={['Capital social', capital.social]}/>
+            <GR type="normal" items={['Resultados acumulados', capital.resultados_acumulados]}/>
+            <GR type="black" items={['Utilidad o pérdida último periodo', capital.utilidad_perdida]}/>
+        
+            <GR type="total" items={['Total Pasivo mas Capital', (sum_pasivo_largo_plazo + sum_pasivo_circulante + sum_capital)]}/>
+          </Grid>
+        </div>
       },{
         menuItem: 'Circulante',
-        render: () => <div></div>
+        render: () => <div>
+        <Grid className="Grid">
+          <GR handler={handlerCirculante} type="title" items={['Ingresos', sum_circulante_ingresos]}/>
+          <GR type="black" items={['Ventas de contado', circulante_ingresos.ventas_contado]}/>
+          <GR type="normal" items={['Ventas de credito', circulante_ingresos.ventas_credito]}/>
+
+          <GR handler={handlerCirculante} type="title" items={['Gastos de operación', sum_circulante_gastos]}/>
+          <GR type="black" items={['Sueldos', circulante_gastos.sueldos]}/>
+          <GR type="normal" items={['Comisión por ventas', circulante_gastos.comision]}/>
+          <GR type="black" items={['Luz, teléfono, agua', circulante_gastos.luz_telefono_agua]}/>
+          <GR type="normal" items={['Renta de local', circulante_gastos.renta_local]}/>
+          <GR type="black" items={['Papelería y útiles de ofina', circulante_gastos.publicidad]}/>
+          <GR type="normal" items={['Publicidad', circulante_gastos.papeleria]}/>
+          <GR type="black" items={['Primas de seguro', circulante_gastos.primas_seguro]}/>
+          <GR type="normal" items={['Gasolina', circulante_gastos.gasolina]}/>
+          <GR type="black" items={['Otros', circulante_gastos.otros]}/>
+
+          <GR handler={handlerCirculante} type="title" items={['Otros', sum_circulante_otros]}/>
+          <GR type="black" items={['Costo de ventas', circulante_otros.costo_ventas]}/>
+          <GR type="normal" items={['Impuestos', circulante_otros.impuestos]}/>
+
+          <GR type="total" items={['Total Circulante', (sum_circulante_ingresos + sum_circulante_gastos + sum_circulante_otros)]}/>
+        </Grid>
+        
+      </div>
       },{
         menuItem: 'Ingresos',
         render: () => <div>
@@ -260,6 +316,24 @@ const EstadosFinancieros = (props) => {
               ...activo_circulante,
               ...activo_fijo,
               ...activo_otros
+            }: undefined } onSubmit={onSubmit} />
+          }
+          {
+            modal.id === 'PASIVO' && <FormPasivo item={ _id ? {
+              ...pasivo_circulante,
+              ...pasivo_largo_plazo
+            }: undefined } onSubmit={onSubmit} />
+          }
+          {
+            modal.id === 'CAPITAL' && <FormCapital item={ _id ? {
+              ...capital
+            }: undefined } onSubmit={onSubmit} />
+          }
+          {
+            modal.id === 'CIRCULANTE' && <FormCirculante item={ _id ? {
+              ...circulante_ingresos,
+              ...circulante_gastos,
+              ...circulante_otros
             }: undefined } onSubmit={onSubmit} />
           }
 
