@@ -29,13 +29,14 @@ const ListSolicitantes = (props) => {
             width: 400
           },
           {
-            Header: "Vígente",
-            accessor: "vigente"
-          },
-          {
-            Header: "Vencido",
-            accessor: "vencido"
+            Header: "Numero de Créditos",
+            accessor: "no_creditos"
           }
+          // ,
+          // {
+          //   Header: "Vencido",
+          //   accessor: "vencido"
+          // }
         ]}
         getTdProps={(state, rowInfo, column, instance) => {
           return {

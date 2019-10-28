@@ -1,4 +1,4 @@
-export const calculateInterest = (items, tiee, tiv, tim, comision) => {
+export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => {
   let totales = {
     capital: 0,
     io: 0,
@@ -27,14 +27,14 @@ export const calculateInterest = (items, tiee, tiv, tim, comision) => {
 
     let dias_hasta_vencimiento = (vencimiento - subscipcion) / 86400000;
 
-    let today = Date.now();
+    let today = startFrom ? startFrom : Date.now();
     let dias_ordinario = Math.floor(( today - subscipcion) / 86400000)
-    let dias_vencidos = Math.floor(( Date.now()  - vencimiento) / 86400000)
+    let dias_vencidos = Math.floor(( today  - vencimiento) / 86400000)
     
     //  Valida que los dias ordinarios no sean mayor a la fecha de vencimiento
     dias_ordinario = dias_ordinario >= dias_hasta_vencimiento ? dias_hasta_vencimiento : dias_ordinario;
     dias_vencidos = dias_vencidos < 0 ? 0 : dias_vencidos;
-    let interes_ordinario = (item.monto * (tiee/100) / 360 * dias_ordinario) - item.monto_recuperado_interes; 
+    let interes_ordinario = (item.monto * (tio/100) / 360 * dias_ordinario) - item.monto_recuperado_interes; 
     let interes_vencido = (item.monto * (tiv/100) / 360 * dias_vencidos) - item.monto_recuperado_vencido; 
     let interes_moratorio = (item.monto * (tim/100) / 360 * dias_vencidos) - item.monto_recuperado_moratorio; 
     let capital = (item.monto + (item.monto * (comision / 100))) - item.monto_recuperado_capital;

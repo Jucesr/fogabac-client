@@ -21,8 +21,11 @@ import LugarInversion from "./components/tabs/lugares-inversion/LugarInversion";
 import Scoring from "./components/tabs/scoring/Scoring";
 
 import actions from "store/actions/creditos";
+import pagare_actions from "store/actions/pagares";
 import solicitante_actions from "store/actions/solicitantes";
 import { setSolicitante } from "store/actions/app";
+
+import { calculateInterest } from "utils/bussines";
 
 class Solicitante extends React.Component {
 
@@ -49,6 +52,16 @@ class Solicitante extends React.Component {
     }))
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    
+    if(this.props.creditos.length != prevProps.creditos.length){
+      console.log(this.props.creditos)
+      this.props.creditos.forEach(credito => {
+        this.props.loadPagares(credito._id)
+      })
+    }
+  }
+
   render() {
     const { props, state } = this
 
@@ -60,10 +73,17 @@ class Solicitante extends React.Component {
       credito => {
         const {importe_ejercido = 0, monto = 0} = credito;
         const disponible = monto - importe_ejercido;
+        const no_pagares = credito.pagares ? credito.pagares.length : 0;
+        const pagares = credito.pagares ? credito.pagares : [];
+        const {tio, tiv, tim, comision_apertura} = credito;
+        const res = calculateInterest(pagares, tio, tiv, tim, 0);
+
         return {
           ...credito,
           bolsa_credito: props.apoyos[credito.bolsa_credito],
-          importe_disponible: disponible 
+          importe_disponible: disponible,
+          no_pagares,
+          liquidacion: res.totales.capital
         }
       }
     )
@@ -331,7 +351,9 @@ const mapDispatchToProps = (dispatch) => ({
   setSolicitante: id => dispatch(setSolicitante(id)),
   editCredito: item => dispatch(actions.update(item)),
   generateSolicitud: id => dispatch(actions.generateSolicitud(id)),
-  generateTarjetaEjecutiva: id => dispatch(actions.generateTarjetaEjecutiva(id))
+  generateTarjetaEjecutiva: id => dispatch(actions.generateTarjetaEjecutiva(id)),
+
+  loadPagares: id => dispatch(pagare_actions.load(id)),
 });
 
 

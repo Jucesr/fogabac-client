@@ -44,12 +44,14 @@ class SolicitantesPage extends React.Component {
   render() {
     const { props, state } = this
 
-    const solicitantes = objectToArray(props.solicitantes)
+    let solicitantes = objectToArray(props.solicitantes)
+
+    solicitantes = solicitantes.filter(sol => sol.is_imported_excel)
     
     return (
       <div>
 
-        {props.apoyo_active === undefined && <Redirect to="/" />}
+        {/* {props.apoyo_active === undefined && <Redirect to="/" />} */}
 
         <Button size="tiny" color="green" onClick={() => {
           this.toggleModal({

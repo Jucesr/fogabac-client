@@ -1,4 +1,11 @@
-## 0.0.17 (2H)
+## 0.0.18 (4H)
+  Fecha: 27 Octubre 2019
+  [NEW]
+    * Funcionalidad para activar/desactivar comision por apertura en estado de cuenta. 
+    * Func. para simular una fecha de corte en estado de cuenta.
+    * Los saldos se pueden ver desde la lista general de creditos
+
+## 0.0.18 (2H)
   Fecha: 30 Septiembre 2019
    [NEW]
     * Funcionalidad para agregar Estados financieros (Capital y Circulante)
@@ -130,7 +137,7 @@
   * [NEW] Funcionalidad para agregar Garantias Hipotecarias a un credito
   * [UPDATE] Referencias personales pertenecen a un credito y no a un solicitante.
   * [UPDATE] Creditos tiene su propia prop en Redux
-  * [FIX] Tiee a Tasa Ordinaria
+  * [FIX] tio a Tasa Ordinaria
 
 ## 0.0.7 (2H)
   Fecha: 25 Junio 2019

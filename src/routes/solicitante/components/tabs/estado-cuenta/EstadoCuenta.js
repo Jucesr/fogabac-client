@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import Table from "components/Table";
-import { Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Modal, Header, Button, Icon, Checkbox } from 'semantic-ui-react'
 import { formatColumn, formatDate } from "utils/";
 import { calculateInterest } from "utils/bussines";
 import actions from "store/actions/pagares";
+import es from 'date-fns/locale/es';
+import DatePicker from 'react-datepicker';
 
 const EstadoCuenta = (props) => {
 
   const [modal, setModal] = useState({});
   const [item, setItem] = useState();
+  const [interestDate, setInterestDate] = useState();
+  const [isComisionOn, setIsComisionOn] = useState(false);
 
   useEffect(() => {
     props.load(props.credito_active._id)
@@ -23,8 +27,8 @@ const EstadoCuenta = (props) => {
     im: 0,
     liquidacion: 0
   }
-  const {tiee, tiv, tim, comision_apertura} = props.credito_active;
-  const res = calculateInterest(items, tiee, tiv, tim, comision_apertura);
+  const {tio, tiv, tim, comision_apertura} = props.credito_active;
+  const res = calculateInterest(items, tio, tiv, tim, isComisionOn ? comision_apertura: 0, interestDate);
 
   items = res.items;
   totales = res.totales;
@@ -46,7 +50,24 @@ const EstadoCuenta = (props) => {
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Estado de cuenta</Header>
-        
+        <Checkbox checked={isComisionOn} onChange={v => setIsComisionOn(!isComisionOn)} toggle label='Comisión por apertura'/>
+        <div>
+          
+          <span>Fecha de corte: </span>
+          <DatePicker
+            popperPlacement="top"
+            showMonthDropdown
+            showYearDropdown
+            customInput={<input />}
+            selected={interestDate}
+            onChange={date => {
+              setInterestDate(date.getTime())}}
+            locale={es}
+            placeholderText="Selecciona una fecha"
+            dateFormat="d MMMM, yyyy"
+            isClearable={true}
+          />
+        </div>
       </div>
       <Table
         itemName="concepto"

@@ -22,8 +22,8 @@ const Recuperacion = (props) => {
   const items = props.credito_active.recuperaciones ? props.credito_active.recuperaciones : []
   const pagares = props.credito_active.pagares ? props.credito_active.pagares : []
 
-  const {tiee, tiv, tim, comision_apertura} = props.credito_active;
-  const res = calculateInterest(pagares, tiee, tiv, tim, comision_apertura);
+  const {tio, tiv, tim, comision_apertura} = props.credito_active;
+  const res = calculateInterest(pagares, tio, tiv, tim, comision_apertura);
 
   return (
     <React.Fragment>

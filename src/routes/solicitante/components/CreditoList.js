@@ -5,6 +5,8 @@ import { Icon } from 'semantic-ui-react'
 import { formatColumn } from "utils/";
 
 const CreditoList = (props) => {
+
+
   return (
     <ReactTable
          previousText='Anterior'
@@ -24,7 +26,7 @@ const CreditoList = (props) => {
           },
           {
             Header: "Folio",
-            accessor: "folio"
+            accessor: "numero_contrato"
           },
           {
             Header: "Bolsa de Crédito",
@@ -49,7 +51,16 @@ const CreditoList = (props) => {
             Header: "Recuperado",
             accessor: "importe_recuperado",
             Cell: row => formatColumn('currency', row.value)
-          }
+          },
+          {
+            Header: "Pagares",
+            accessor: "no_pagares",
+            Cell: row => formatColumn('number', row.value)
+          },{
+            Header: "Saldo",
+            accessor: "liquidacion",
+            Cell: row => formatColumn('currency', row.value)
+          },
         ]}
         getTdProps={(state, rowInfo, column, instance) => {
           return {
