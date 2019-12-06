@@ -55,7 +55,7 @@ class Solicitante extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     
     if(this.props.creditos.length != prevProps.creditos.length){
-      console.log(this.props.creditos)
+
       this.props.creditos.forEach(credito => {
         this.props.loadPagares(credito._id)
       })

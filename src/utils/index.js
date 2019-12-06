@@ -1,9 +1,12 @@
+import moment from "moment";
+
 export const formatDate = raw => {
   if(!raw) {
     return '';
   }
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  return new Date(raw).toLocaleDateString('ES-es', options)
+  return moment(raw).add(1,'days').format('DD/MM/YYYY')
+  // return new Date(raw).toLocaleDateString('ES-es', options)
 }
 
 export const replaceAll = (text, search, replacement) => {
@@ -77,7 +80,7 @@ export const convertArrayToObjectWithValue = (array, objectWithValues) => {
   }, {})
 };
 
-export const toUpper = text => text !== null ? text.toUpperCase() : text;
+export const toUpper = text => (text !== null && text !== undefined) ? text.toUpperCase() : text;
 
 export const validate = value => {
   return !value || value.length === 0

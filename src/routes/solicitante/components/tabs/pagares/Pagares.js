@@ -4,6 +4,7 @@ import Table from "components/Table";
 import { Modal, Header, Button, Icon, Message } from 'semantic-ui-react'
 import RPForm from "./Form";
 import { formatColumn, formatDate } from "utils/";
+import moment from "moment";
 import actions from "store/actions/pagares";
 
 const Pagares = (props) => {
@@ -20,6 +21,9 @@ const Pagares = (props) => {
   const pagares_total = items.reduce(((acum, item) => item.monto + acum), 0)
 
   const disponible = props.credito_active.monto - pagares_total;
+
+  // console.log("2019-11-30T00:00:00.000Z")
+  // console.log(moment("2019-11-30T00:00:00.000Z").add(1,'days').format('DD/MM/YYYY'))
 
   return (
     <React.Fragment>

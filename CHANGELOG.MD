@@ -1,3 +1,11 @@
+## 0.1.0 (2H)
+  Fecha: 6 Diciembre 2019
+    [NEW]
+      * Funcionalidad para cargar saldos de todos los solicitantes
+    [FIX]
+      * Se quito la barra de busqueda del header
+      * Crash cuando el mensaje de error no tenia formato de texto.
+
 ## 0.0.18 (4H)
   Fecha: 27 Octubre 2019
   [NEW]

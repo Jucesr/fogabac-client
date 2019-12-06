@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactTable from "react-table";
 import { Icon } from 'semantic-ui-react'
+import { formatColumn } from "utils/";
 
 const ListSolicitantes = (props) => {
   return (
     <div >
       <ReactTable
+         loading={props.loading}
          filterable={true}
          defaultFilterMethod={(filter, row, column) => String( row[filter.id] ).toLowerCase().includes(filter.value.toLowerCase())}
          previousText='Anterior'
@@ -31,6 +33,10 @@ const ListSolicitantes = (props) => {
           {
             Header: "Numero de Créditos",
             accessor: "no_creditos"
+          },{
+            Header: 'Saldo',
+            accessor: "liquidacion_total",
+            Cell: row => formatColumn('currency', row.value)
           }
           // ,
           // {

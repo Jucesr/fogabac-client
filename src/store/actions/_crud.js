@@ -6,6 +6,21 @@ export default (
   parentEntity = 'credito'
 ) => {
 
+  const dispatchErrorMessage = (dispatch, res) => {
+    let message = res.body ? 
+      (res.body.error ? res.body.error : JSON.stringify(res.body)) 
+      : {}
+
+    message = typeof message != 'string' ? 'Ha ocurrido un error. Favor de contactar el administrador del sistema.' : message;
+    dispatch({
+      type: 'OPEN_NOTIFICATION',
+      payload: {
+        type: 'ERROR',
+        message: message
+      }
+    })
+  }
+
   const load = (credito_id) => {
     return async (dispatch, getState) => {
       const res = await callApi(`/${parentEntity}/${credito_id}/${entityPlural}`)
@@ -15,6 +30,8 @@ export default (
         response: res.body,
         payload: credito_id
       })
+
+      return res.body;
     }
   }
 
@@ -29,13 +46,7 @@ export default (
   
       //  Check the item was added correctly
       if(res.status !== 200){
-        dispatch({
-          type: 'OPEN_NOTIFICATION',
-          payload: {
-            type: 'ERROR',
-            message: res.body.error
-          }
-        })
+        dispatchErrorMessage(dispatch, res)
   
         return 0;
       }
@@ -60,13 +71,7 @@ export default (
             response: stored_item
           })
   
-          dispatch({
-            type: 'OPEN_NOTIFICATION',
-            payload: {
-              type: 'ERROR',
-              message: res.body.error
-            }
-          })
+          dispatchErrorMessage(dispatch, res)
   
         }else{
   
@@ -110,13 +115,7 @@ export default (
   
       //  Check the item was added correctly
       if(res.status !== 200){
-        dispatch({
-          type: 'OPEN_NOTIFICATION',
-          payload: {
-            type: 'ERROR',
-            message: res.body.error
-          }
-        })
+        dispatchErrorMessage(dispatch, res)
 
         return 0;
       }

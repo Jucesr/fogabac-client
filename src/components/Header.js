@@ -23,10 +23,10 @@ const Header = (props) => {
             <Image size='mini' src={`/img/user.png`} avatar/>
             <div>
               <div>
-                Julio Ojeda
+                Usuario
               </div>
               <span>
-                Analista
+                General
               </span>
             </div>
           </div>
@@ -45,13 +45,13 @@ const Header = (props) => {
 
       <div>
       <Menu pointing>
-          <Menu.Item 
+          {/* <Menu.Item 
             name="pendientes" 
             as={Link} 
             to="/pendientes" 
             active={activeItem == "pendientes"} 
             onClick={handleItemClick}
-          />
+          /> */}
 
           <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem == "apoyos"} onClick={handleItemClick}/>
             
@@ -66,9 +66,9 @@ const Header = (props) => {
           />
 
           <Menu.Menu position='right'>
-            <Menu.Item>
+            {/* <Menu.Item>
               <Input icon='search' placeholder='Buscar...' />
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu.Menu>
         </Menu>
       </div>

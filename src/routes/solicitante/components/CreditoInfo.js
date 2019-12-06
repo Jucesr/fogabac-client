@@ -10,6 +10,7 @@ const CreditoInfo = ({
     promotor = "Julio Ojeda",
     estatus = "Pendiente",
     numero_contrato,
+    folio,
     monto,
     destino = '',
     comision_apertura,
@@ -20,9 +21,10 @@ const CreditoInfo = ({
     tim
   } = {}
 }) => {
+  const _folio = numero_contrato ? numero_contrato : folio
   return (
     <Grid className="Grid" columns={4}>
-        <GR items={['Folio', toUpper(numero_contrato), 'Registro', toUpper(formatDate(createdAt))]}/>
+        <GR items={['Folio', toUpper(_folio), 'Registro', toUpper(formatDate(createdAt))]}/>
         <GR items={['Promotor', toUpper(promotor), 'Estatus', toUpper(estatus)]}/>
         <GR items={[`Monto ${estatus == "Aprobado" ? "Aprobado" : "Solicitado"}`, formatColumn('currency', monto), 'Destino del crédito', toUpper(replaceAll(destino, '_', ' '))]}/>
         <GR items={['Comisión por apertura', `${comision_apertura} %` , 'TI Ordinario', `${tio} %`]}/>
