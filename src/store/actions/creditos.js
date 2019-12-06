@@ -1,4 +1,5 @@
 import { callApi } from "utils/api";
+import crud from "./_crud";
 
 const generateSolicitud = credito_id => {
   return async (dispatch, getState) => {
@@ -66,7 +67,7 @@ const generateTarjetaEjecutiva = credito_id => {
   }
 }
 
-import crud from "./_crud";
+
 
 export default {
   ...crud('credito', 'creditos', 'solicitante'),

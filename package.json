@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "cleave.js": "^1.5.0",
+    "express": "^4.17.1",
     "informed": "^2.6.3",
     "moment": "^2.24.0",
     "react": "^16.8.6",
@@ -18,7 +19,7 @@
     "semantic-ui-react": "^0.87.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

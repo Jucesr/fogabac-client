@@ -351,7 +351,6 @@ const EstadosFinancieros = (props) => {
               }else{
                 //  It is new
                 props.add({
-                  ...values,
                   credito: props.credito_active._id
                 })
               }
@@ -374,7 +373,6 @@ const EstadosFinancieros = (props) => {
               }else{
                 //  It is new
                 props.add({
-                  ...values,
                   credito: props.credito_active._id
                 })
               }

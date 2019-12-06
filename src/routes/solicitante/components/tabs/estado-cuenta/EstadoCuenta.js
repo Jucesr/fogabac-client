@@ -140,7 +140,7 @@ const EstadoCuenta = (props) => {
         <Modal.Header>{modal.title}</Modal.Header>
         <Modal.Content>
           
-          {
+          {/* {
             modal.id === 'EDIT' && <RPForm item={item} onSubmit={values => {
               props.update({
                 ...item,
@@ -165,7 +165,7 @@ const EstadoCuenta = (props) => {
               
               setModal({})
             } } />
-          } 
+          }  */}
 
         </Modal.Content>
       </Modal>
