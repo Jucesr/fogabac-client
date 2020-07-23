@@ -4,9 +4,7 @@ export const formatDate = raw => {
   if(!raw) {
     return '';
   }
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  return moment(raw).add(1,'days').format('DD/MM/YYYY')
-  // return new Date(raw).toLocaleDateString('ES-es', options)
+  return moment(raw).format('DD/MM/YYYY')
 }
 
 export const replaceAll = (text, search, replacement) => {

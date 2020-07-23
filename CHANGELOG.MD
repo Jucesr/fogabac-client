@@ -1,3 +1,8 @@
+## 0.1.0 (30m)
+  Fecha: 22 Julio 2020
+  [NEW]
+    * Correción de la fecha, ya no se incrementa un dia.
+
 ## 0.1.0 (2H)
   Fecha: 6 Diciembre 2019
     [NEW]
