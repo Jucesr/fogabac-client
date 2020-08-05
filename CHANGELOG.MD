@@ -1,4 +1,9 @@
-## 0.1.0 (30m)
+## 0.1.2 (30m)
+  Fecha: 04 Agosto 2020
+  [NEW]
+    * Corección de dias, se usan las funciones de moment.
+
+## 0.1.1 (30m)
   Fecha: 22 Julio 2020
   [NEW]
     * Correción de la fecha, ya no se incrementa un dia.

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => {
   let totales = {
     capital: 0,
@@ -22,14 +24,15 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
       }
     }
 
-    let vencimiento = new Date(item.fecha_vencimiento);
-    let subscipcion  = new Date(item.fecha_suscripcion);
+    let vencimiento = moment(item.fecha_vencimiento);
+    let subscipcion  = moment(item.fecha_suscripcion);
 
-    let dias_hasta_vencimiento = (vencimiento - subscipcion) / 86400000;
+    let dias_hasta_vencimiento = vencimiento.diff(subscipcion, 'days');
 
-    let today = startFrom ? startFrom : Date.now();
-    let dias_ordinario = Math.floor(( today - subscipcion) / 86400000)
-    let dias_vencidos = Math.floor(( today  - vencimiento) / 86400000)
+    let today = startFrom ? moment(startFrom) : moment();
+   
+    let dias_ordinario = today.diff(subscipcion, 'days');
+    let dias_vencidos = today.diff(vencimiento, 'days');
     
     //  Valida que los dias ordinarios no sean mayor a la fecha de vencimiento
     dias_ordinario = dias_ordinario >= dias_hasta_vencimiento ? dias_hasta_vencimiento : dias_ordinario;
