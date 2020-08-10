@@ -16,12 +16,19 @@ import configureStore from './store/';
 
 const store = configureStore();
 
+// const Root = () => (
+//   <AppContainer>
+//     <Provider store={store}>
+//       <AppRouter />
+//     </Provider>
+//   </AppContainer>
+
+// )
 const Root = () => (
-  <AppContainer>
+
     <Provider store={store}>
       <AppRouter />
     </Provider>
-  </AppContainer>
 
 )
 
