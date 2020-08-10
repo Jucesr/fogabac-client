@@ -44,13 +44,13 @@ const Recuperacion = (props) => {
           })
           setItem(row)
         }}
-        onEditRow={row => {
-          setModal({
-            title: 'Editar recuperación',
-            id: 'EDIT'
-          })
-          setItem(row)
-        }}
+        // onEditRow={row => {
+        //   setModal({
+        //     title: 'Editar recuperación',
+        //     id: 'EDIT'
+        //   })
+        //   setItem(row)
+        // }}
         onDeleteRow={row => { 
           props.remove(row);
         }}

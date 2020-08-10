@@ -1,3 +1,9 @@
+## 0.1.2 (1H)
+  Fecha: 09 Agosto 2020
+  [NEW]
+    * Se puede hacer refresh de URL y te carga el credito seleccionado.
+    * No se pude editar el pagare, se tiene que borra y crear uno nuevo.
+
 ## 0.1.2 (30m)
   Fecha: 04 Agosto 2020
   [NEW]
