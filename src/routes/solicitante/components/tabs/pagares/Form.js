@@ -22,6 +22,7 @@ const RPForm = (props) => {
           <Field label="Fecha de vencimiento" field="fecha_vencimiento" kind="datepicker" validate={validate} />
           <Field label="Concepto" field="concepto" validate={validate}/>
           <Field label="Monto" field="monto" kind="currency" validate={validateMax(props.max)}/> 
+          <Field label="Documento" field="documento" kind="file"/> 
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>
       )}

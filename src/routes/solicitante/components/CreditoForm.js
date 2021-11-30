@@ -81,6 +81,9 @@ const CreditoForm = (props) => {
     }}>
       {({ formState }) => (
         <div className="Form">
+           <Field label="Fecha de subscripción" field="fecha_suscripcion" kind="datepicker" validate={validate} />
+           <Field label="Fecha de vencimiento" field="fecha_vencimiento" kind="datepicker" validate={validate} />
+         
           <Field
             label="Tipo de crédito"
             field="tipo_credito"
@@ -102,8 +105,8 @@ const CreditoForm = (props) => {
           <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
           <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
           <Field label="Taza de interes ordinario" field="tio" kind="percentage" validate={validate}  />
-          <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
           <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
+          <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
           <Field label="Comision por apertura" field="comision_apertura" kind="percentage" validate={validate}  />
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>

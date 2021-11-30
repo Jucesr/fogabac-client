@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Tab, Button, Icon, Header, Modal } from 'semantic-ui-react'
 import queryString from "query-string";
+import { Decimal } from "decimal.js";
 
 import SolicitanteForm from "components/SolicitanteForm"
 import PersonalInfo from "./components/PersonalInfo";
@@ -26,8 +27,10 @@ import solicitante_actions from "store/actions/solicitantes";
 import { setSolicitante } from "store/actions/app";
 import { loadTipoCreditos } from "store/actions/tipo_creditos";
 import { loadApoyos } from "store/actions/apoyos";
+import estadosFinancierosActions from "store/actions/estados_financieros";
 
-import { calculateInterest } from "utils/bussines";
+
+import { calculateInterest, calculateSimpleTotal } from "utils/bussines";
 
 class Solicitante extends React.Component {
 
@@ -74,6 +77,8 @@ class Solicitante extends React.Component {
         credito_active: params.credito_selected_id
       }))
 
+      await this.props.loadEstadosFinancieros(params.credito_selected_id)
+
       if (params.tab) {
         this.setState((prevState) => ({
           activeIndex: params.tab
@@ -102,23 +107,31 @@ class Solicitante extends React.Component {
     const creditos = props.creditos.map(
       credito => {
         const { importe_ejercido = 0, monto = 0 } = credito;
-        const disponible = monto - importe_ejercido;
+        const disponible = new Decimal(monto).minus(importe_ejercido);
         const no_pagares = credito.pagares ? credito.pagares.length : 0;
         const pagares = credito.pagares ? credito.pagares : [];
         const { tio, tiv, tim } = credito;
         const res = calculateInterest(pagares, tio, tiv, tim, 0);
-
+        
+        const estado_financiero = credito.estados_financieros ? credito.estados_financieros[0] : {};
+        const {ingresos = [], egresos = []} = estado_financiero ? estado_financiero : {}
+        const total_ingresos = calculateSimpleTotal(ingresos, 'valor_unitario')
+        const total_egresos = calculateSimpleTotal(egresos, 'costo')
         return {
           ...credito,
           bolsa_credito: props.apoyos[credito.bolsa_credito],
           importe_disponible: disponible,
+          importe_recuperado: res.totales.recuperado,
           no_pagares,
-          liquidacion: res.totales.capital
+          liquidacion: res.totales.capital,
+          ingresos: total_ingresos,
+          egresos: total_egresos
         }
       }
     )
 
     const credito_active = state.credito_active !== undefined ? creditos.filter(c => c._id == state.credito_active)[0] : undefined
+
     // Panes
 
     if (credito_active !== undefined) {
@@ -274,6 +287,8 @@ class Solicitante extends React.Component {
                 this.setState((prevState) => ({
                   credito_active: credito._id
                 }))
+                this.props.loadEstadosFinancieros(credito._id)
+
               }}
             />
           </React.Fragment>
@@ -409,6 +424,8 @@ const mapDispatchToProps = (dispatch) => ({
 
   loadApoyos: () => dispatch(loadApoyos()),
   loadTipoCreditos: () => dispatch(loadTipoCreditos()),
+
+  loadEstadosFinancieros: (id) => dispatch(estadosFinancierosActions.load(id))
 });
 
 

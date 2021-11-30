@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Form } from 'informed';
 import { Button, Tab } from 'semantic-ui-react'
 import Field from "components/Field";
+import municipios from "catalogs/municipios";
+import tipos_seccion from "catalogs/tipos_seccion";
 
 const validate = value => {
   return !value || value.length === 0
@@ -12,19 +14,6 @@ const validate = value => {
 
 const RPForm = (props) => {
 
-  const municipios = [{
-    label: 'Mexicali',
-    value: 'mexicali'
-  },{
-    label: 'Tijuana',
-    value: 'tijuana'
-  },{
-    label: 'Tecate',
-    value: 'tecate'
-  },{
-    label: 'Ensenada',
-    value: 'ensenada'
-  }]
 
   return (
     <Form initialValues={props.item ? props.item : {
@@ -71,7 +60,7 @@ const RPForm = (props) => {
                   <Field keepState label="Partida" field="partida"/>
                   <Field keepState label="Municipio" field="municipio" kind="select" options={municipios} />
                   <Field keepState label="Valor Estimado" field="valor_estimado" kind="currency"/>
-                  <Field keepState label="Sección" field="seccion"/>
+                  <Field keepState label="Sección" field="seccion" kind="select" options={tipos_seccion}/>
                   <Field keepState label="Titular Notaria" field="titular_notaria"/>
                   <Field keepState label="Documento" field="documento" kind="file"/> 
                 </div>
@@ -97,6 +86,7 @@ const RPForm = (props) => {
                   <Field keepState label="Norte" field="norte"/>
                   <Field keepState label="Sur" field="sur"/>
                   <Field keepState label="Este" field="este"/>
+                  <Field keepState label="Oeste" field="oeste"/>
                   <Field keepState label="Sureste" field="sureste"/>
                   <Field keepState label="Suroeste" field="suroeste"/>
                   <Field keepState label="Noreste" field="noreste"/>

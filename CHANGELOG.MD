@@ -1,3 +1,13 @@
+## 0.1.X
+  Fecha: X Agosto 2020
+  [NEW]
+    * Se movieron las opciones en formularios a catalogs.
+    * Se agregaron ingresos, egresos y remanente
+    * Se agregaron fechas de subscripcion y vencimiento para el credito
+    * Se quitó la opcion de comision por apertura al ver un estado de cuenta.
+    * Se resta el circulante en el estado financiero
+    * Se agregó documento al pagaré
+
 ## 0.1.2 (1H)
   Fecha: 09 Agosto 2020
   [NEW]

@@ -36,7 +36,7 @@ const Pagares = (props) => {
       </div>
       <Table
         itemName="concepto"
-        // onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${row._id}/downloadFile`)}
+        onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/pagare/${row._id}/downloadFile`)}
         onEditRow={row => {
           setModal({
             title: 'Editar pagaré',

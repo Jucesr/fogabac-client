@@ -2,8 +2,12 @@ import React from 'react'
 import { Form} from 'informed';
 import { Button, Tab } from 'semantic-ui-react'
 
-
 import Field from "components/Field";
+
+import municipios from "catalogs/municipios";
+import sexos from "catalogs/sexos";
+import estados_civil from "catalogs/estados_civil";
+import tipos_identificacion from "catalogs/tipos_identificacion";
 
 const validate = value => {
   return !value || value.length === 0
@@ -12,42 +16,6 @@ const validate = value => {
 };
 
 const SolicitanteForm = (props) => {
-
-  const estados_civi = [{
-    label: 'Soltero',
-    value: 'soltero'
-  },{
-    label: 'Viudo',
-    value: 'viudo'
-  },{
-    label: 'Casado',
-    value: 'casado'
-  },{
-    label: 'Divorciado',
-    value: 'divorciado'
-  }]
-
-  const sexos = [{
-    label: 'Masculino',
-    value: 'masculino'
-  },{
-    label: 'Femenino',
-    value: 'fenemino'
-  }]
-
-  const municipios = [{
-    label: 'Mexicali',
-    value: 'mexicali'
-  },{
-    label: 'Tijuana',
-    value: 'tijuana'
-  },{
-    label: 'Tecate',
-    value: 'tecate'
-  },{
-    label: 'Ensenada',
-    value: 'ensenada'
-  }]
 
   return (
     <Form initialValues={props.item ? props.item : {}} onSubmit={props.onSubmit}>
@@ -63,7 +31,7 @@ const SolicitanteForm = (props) => {
                 <Field label="RFC" field="rfc" keepState/>
                 <Field label="CURP" field="curp" keepState  />
                 <Field label="Teléfono" field="telefono" keepState />
-                <Field label="Estado Civil" field="estado_civil" kind="select" options={estados_civi} keepState/>   
+                <Field label="Estado Civil" field="estado_civil" kind="select" options={estados_civil} keepState/>   
                 <Field label="Sexo" field="sexo" kind="select" options={sexos} keepState />
                 <Field label="Municipio" field="municipio" kind="select" options={municipios} keepState/>
                 <Field label="Localidad" field="localidad" kind="select" options={municipios} keepState/>
@@ -86,7 +54,7 @@ const SolicitanteForm = (props) => {
                 <Field label="Domicilio" field="domicilio" keepState/>
                 <Field label="Código postal" field="codigo_postal" keepState />
                 <Field label="No. de identificación" field="no_identificacion" keepState />
-                <Field label="Tipo de identificación" field="tipo_identificacion" keepState/>
+                <Field label="Tipo de identificación" field="tipo_identificacion" kind="select" options={tipos_identificacion} keepState/>
               </div>
           ) },
           { menuItem: 'Datos bancarios', render: () => (

@@ -50,7 +50,7 @@ const EstadoCuenta = (props) => {
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Estado de cuenta</Header>
-        <Checkbox checked={isComisionOn} onChange={v => setIsComisionOn(!isComisionOn)} toggle label='Comisión por apertura'/>
+        {/* <Checkbox checked={isComisionOn} onChange={v => setIsComisionOn(!isComisionOn)} toggle label='Comisión por apertura'/> */}
         <div>
           
           <span>Fecha de corte: </span>

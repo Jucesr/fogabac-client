@@ -17,18 +17,24 @@ const CreditoInfo = ({
     ingresos = 0,
     tiv,
     egresos = 0,
-    tim
+    tim,
+    bolsa_credito,
+    fecha_suscripcion,
+    fecha_vencimiento
   } = {}
 }) => {
   const _folio = numero_contrato ? numero_contrato : folio
   return (
     <Grid className="Grid" columns={4}>
+        <GR items={['Fecha Suscripción', formatDate( fecha_suscripcion), 'Fecha Vencimiento', formatDate(fecha_vencimiento)]}/>
+        <GR items={['Bolsa', toUpper(bolsa_credito.nombre), 'Tipo de crédito', bolsa_credito.tipo_credito.nombre]}/>
         <GR items={['Folio', toUpper(_folio), 'Registro', toUpper(formatDate(createdAt))]}/>
         <GR items={['Promotor', toUpper(promotor), 'Estatus', toUpper(estatus)]}/>
         <GR items={[`Monto ${estatus == "Aprobado" ? "Aprobado" : "Solicitado"}`, formatColumn('currency', monto), 'Destino del crédito', toUpper(replaceAll(destino, '_', ' '))]}/>
         <GR items={['Comisión por apertura', `${comision_apertura} %` , 'TI Ordinario', `${tio} %`]}/>
         <GR items={['Ingresos', formatColumn('currency', ingresos), 'TI Vencido', `${tiv} %` ]}/>
         <GR items={['Egresos', formatColumn('currency', egresos), 'TI Moratorio', `${tim} %` ]}/>
+        <GR items={['Remanente', formatColumn('currency', ingresos - egresos), '', `` ]}/>
     </Grid>
   )
 }
