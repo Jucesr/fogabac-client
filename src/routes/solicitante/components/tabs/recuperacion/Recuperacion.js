@@ -9,10 +9,14 @@ import { calculateInterest } from "utils/bussines";
 import actions from "store/actions/recuperaciones";
 import pagareActions from "store/actions/pagares";
 
+import es from 'date-fns/locale/es';
+import DatePicker from 'react-datepicker';
+
 const Recuperacion = (props) => {
 
   const [modal, setModal] = useState({});
   const [item, setItem] = useState();
+  const [interestDate, setInterestDate] = useState(null);
 
   useEffect(() => {
     props.load(props.credito_active._id)
@@ -22,14 +26,14 @@ const Recuperacion = (props) => {
   const items = props.credito_active.recuperaciones ? props.credito_active.recuperaciones : []
   const pagares = props.credito_active.pagares ? props.credito_active.pagares : []
 
-  const {tio, tiv, tim, comision_apertura} = props.credito_active;
-  const res = calculateInterest(pagares, tio, tiv, tim, comision_apertura);
+  const { tio, tiv, tim, comision_apertura } = props.credito_active;
+  const res = calculateInterest(pagares, tio, tiv, tim, comision_apertura, interestDate);
 
   return (
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Recuperaciones</Header>
-        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar recuperación', id: 'ADD'})}>
+        <Button size="tiny" color="green" onClick={() => setModal({ title: 'Agregar recuperación', id: 'ADD' })}>
           <Icon name='plus' />
           Nueva recuperación
         </Button>
@@ -51,7 +55,7 @@ const Recuperacion = (props) => {
         //   })
         //   setItem(row)
         // }}
-        onDeleteRow={row => { 
+        onDeleteRow={row => {
           props.remove(row);
         }}
         columns={[
@@ -97,10 +101,10 @@ const Recuperacion = (props) => {
         ]}
         data={items.map(item => ({
           ...item,
-          capital: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_capital , 0),
-          ordinario: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_interes , 0),
-          vencido: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_vencido , 0),
-          moratorio: item.pagares.reduce( (acum, p) => acum + p.monto_recuperado_moratorio , 0)
+          capital: item.pagares.reduce((acum, p) => acum + p.monto_recuperado_capital, 0),
+          ordinario: item.pagares.reduce((acum, p) => acum + p.monto_recuperado_interes, 0),
+          vencido: item.pagares.reduce((acum, p) => acum + p.monto_recuperado_vencido, 0),
+          moratorio: item.pagares.reduce((acum, p) => acum + p.monto_recuperado_moratorio, 0)
         }))}
       />
 
@@ -111,9 +115,9 @@ const Recuperacion = (props) => {
       >
         <Modal.Header>{modal.title}</Modal.Header>
         <Modal.Content>
-          
+
           {
-            modal.id === 'EDIT' && <RPForm item={item} onSubmit={values => {
+            modal.id === 'EDIT' && <RPForm credito={props.credito_active} item={item} onSubmit={values => {
               props.update({
                 ...item,
                 ...values
@@ -124,64 +128,84 @@ const Recuperacion = (props) => {
 
           {
             modal.id === 'ADD' && (
-            <React.Fragment>
-              <Header className="Subtitle" as='h4'>Resumen de estado de cuenta</Header>
-              <br/>
-              <NormalTable
-                minRows={0}
-                className="-striped"
-                showPagination={false}
-                
-                data={[{
-                  ...res.totales
-                }]}
-                columns={[
-                  {
-                    Header: "Capital",
-                    accessor: "capital",
-                    Cell: row => formatColumn('currency', row.value)
-                  },
-                  {
-                    Header: "Interes ordinario",
-                    accessor: "io",
-                    Cell: row => formatColumn('currency', row.value)
-                  },
-                  {
-                    Header: "Interes vencido",
-                    accessor: "iv",
-                    Cell: row => formatColumn('currency', row.value)
-                  },
-                  {
-                    Header: "Interes moratorio",
-                    accessor: "im",
-                    Cell: row => formatColumn('currency', row.value)
-                  },
-                  {
-                    Header: "Total Liquidación",
-                    accessor: "liquidacion",
-                    Cell: row => formatColumn('currency', row.value)
-                  }
-                ]}
-              >
+              <React.Fragment>
+                <Header className="Subtitle" as='h4'>Resumen de estado de cuenta</Header>
+                <div style={{
+                  textAlign: 'right'
+                }}>
 
-              </NormalTable>
-                <br/>
+                  <span>Fecha de corte: </span>
+                  <DatePicker
+                    popperPlacement="top"
+                    showMonthDropdown
+                    showYearDropdown
+                    customInput={<input />}
+                    selected={interestDate}
+                    onChange={date => {
+                      setInterestDate(date.getTime())
+                    }}
+                    locale={es}
+                    placeholderText="Selecciona una fecha"
+                    dateFormat="d MMMM, yyyy"
+                    isClearable={true}
+                  />
+                </div>
+                <br />
+                <NormalTable
+                  minRows={0}
+                  className="-striped"
+                  showPagination={false}
 
-              <Header className="Subtitle" as='h4'>Formulario</Header>
-              <RPForm max={res.totales.liquidacion} onSubmit={values => {
-                props.add({
-                  ...values,
-                  credito: props.credito_active._id
-                })
-                
-                setModal({})
-                } } /> 
-            
-          
-            </React.Fragment>
+                  data={[{
+                    ...res.totales
+                  }]}
+                  columns={[
+                    {
+                      Header: "Capital",
+                      accessor: "capital",
+                      Cell: row => formatColumn('currency', row.value)
+                    },
+                    {
+                      Header: "Interes ordinario",
+                      accessor: "io",
+                      Cell: row => formatColumn('currency', row.value)
+                    },
+                    {
+                      Header: "Interes vencido",
+                      accessor: "iv",
+                      Cell: row => formatColumn('currency', row.value)
+                    },
+                    {
+                      Header: "Interes moratorio",
+                      accessor: "im",
+                      Cell: row => formatColumn('currency', row.value)
+                    },
+                    {
+                      Header: "Total Liquidación",
+                      accessor: "liquidacion",
+                      Cell: row => formatColumn('currency', row.value)
+                    }
+                  ]}
+                >
+
+                </NormalTable>
+                <br />
+
+                <Header className="Subtitle" as='h4'>Formulario</Header>
+                <RPForm credito={props.credito_active} max={res.totales.liquidacion} onSubmit={values => {
+                  props.add({
+                    ...values,
+                    credito: props.credito_active._id
+                  })
+
+                  setModal({})
+                }} />
+
+
+              </React.Fragment>
             )
-          } 
-         
+          }
+
           {
             modal.id === 'DETAIL' && <React.Fragment>
 
@@ -189,7 +213,7 @@ const Recuperacion = (props) => {
                 minRows={0}
                 className="-striped"
                 showPagination={false}
-                
+
                 data={item.pagares.map(pagare => {
                   //  Buscar pagare.
                   const pagare_complete = props.credito_active.pagares.find(item => item._id == pagare._id)
@@ -230,7 +254,7 @@ const Recuperacion = (props) => {
               </NormalTable>
 
             </React.Fragment>
-          } 
+          }
 
         </Modal.Content>
       </Modal>

@@ -1,7 +1,17 @@
 import moment from 'moment';
 import { Decimal } from "decimal.js";
 
-export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => {
+/** Calcula el monto de interes de cada pagaré, además de calcular el monto total de la liquidación.
+ * @param {Array<Object>} pagares
+ * @param {Number} tio Tasa de interes ordinario
+ * @param {Number} tiv Tasa de interes vencido
+ * @param {Number} tim Tasa de interes moratorio
+ * @param {Number} comision Comisión por apertura de credito
+ * @param {String} interestDate La fecha con la que se hará el cálculo de intereses
+ * @return {Object.totales} El total de capital, intereses ordinarios, intereses vencidos y intereses moratorios
+ * @return {Object.items} Los pagares procesados con los intereses calculados
+ */
+export const calculateInterest = (pagares, tio, tiv, tim, comision, interestDate) => {
   let totales = {
     capital: 0,
     io: 0,
@@ -9,14 +19,14 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
     im: 0,
     liquidacion: 0,
     recuperado: new Decimal(0),
-    
+
   }
 
-  items = items.map(item => {
+  const process_pagares = pagares.map(pagare => {
 
-    if (item.is_liquidado) {
+    if (pagare.is_liquidado) {
       return {
-        ...item,
+        ...pagare,
         dias_ordinario: 0,
         dias_vencidos: 0,
         capital: 0,
@@ -27,12 +37,12 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
       }
     }
 
-    let vencimiento = moment(item.fecha_vencimiento);
-    let subscipcion = moment(item.fecha_suscripcion);
+    let vencimiento = moment(pagare.fecha_vencimiento);
+    let subscipcion = moment(pagare.fecha_suscripcion);
 
     let dias_hasta_vencimiento = vencimiento.diff(subscipcion, 'days');
 
-    let today = startFrom ? moment(startFrom) : moment();
+    let today = interestDate ? moment(interestDate) : moment();
 
     let dias_ordinario = today.diff(subscipcion, 'days');
     let dias_vencidos = today.diff(vencimiento, 'days');
@@ -40,10 +50,10 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
     //  Valida que los dias ordinarios no sean mayor a la fecha de vencimiento
     dias_ordinario = dias_ordinario >= dias_hasta_vencimiento ? dias_hasta_vencimiento : dias_ordinario;
     dias_vencidos = dias_vencidos < 0 ? 0 : dias_vencidos;
-    let interes_ordinario = (item.monto * (tio / 100) / 360 * dias_ordinario) - item.monto_recuperado_interes;
-    let interes_vencido = (item.monto * (tiv / 100) / 360 * dias_vencidos) - item.monto_recuperado_vencido;
-    let interes_moratorio = (item.monto * (tim / 100) / 360 * dias_vencidos) - item.monto_recuperado_moratorio;
-    let capital = (item.monto + (item.monto * (comision / 100))) - item.monto_recuperado_capital;
+    let interes_ordinario = (pagare.monto * (tio / 100) / 360 * dias_ordinario) - pagare.monto_recuperado_interes;
+    let interes_vencido = (pagare.monto * (tiv / 100) / 360 * dias_vencidos) - pagare.monto_recuperado_vencido;
+    let interes_moratorio = (pagare.monto * (tim / 100) / 360 * dias_vencidos) - pagare.monto_recuperado_moratorio;
+    let capital = (pagare.monto + (pagare.monto * (comision / 100))) - pagare.monto_recuperado_capital;
 
     totales = {
       capital: totales.capital + capital,
@@ -51,12 +61,11 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
       iv: totales.iv + interes_vencido,
       im: totales.im + interes_moratorio,
       liquidacion: totales.liquidacion + capital + interes_ordinario + interes_vencido + interes_moratorio,
-      recuperado: totales.recuperado.plus(item.monto_recuperado_capital)
-      // recuperado: totales.recuperado.plus(item.monto_recuperado_capital).plus(item.monto_recuperado_moratorio).plus(item.monto_recuperado_vencido).plus(item.monto_recuperado_interes)
+      recuperado: totales.recuperado.plus(pagare.monto_recuperado_capital)
     }
 
     return {
-      ...item,
+      ...pagare,
       dias_ordinario,
       dias_vencidos,
       capital,
@@ -69,7 +78,7 @@ export const calculateInterest = (items, tio, tiv, tim, comision, startFrom) => 
 
   return {
     totales,
-    items
+    items: process_pagares
   }
 }
 

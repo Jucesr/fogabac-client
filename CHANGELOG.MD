@@ -1,5 +1,22 @@
-## 0.1.X
-  Fecha: X Agosto 2020
+## 0.1.4
+  Fecha: 23 Febrero 2022
+  [NEW]
+    * En circulante | Total = ingresos - gastos de operacion - otros
+    * Formulario solicitante
+      * Se agregaron municipios San Quintin y San felipe
+    * Formulario credito
+      * Orden de créditos, ordinario, moratorio, vencido
+      * Corregir taza de interés ordinario
+    * Credito info
+     * Ingresos y egresos deben tomar el total estimado
+    * Otros
+      * Agregar fecha de corte al formulario de recuperación, para que tome esa fecha con la tabla que muestra.
+      * No permitir agregar pagares antes de la fecha de alta del credito
+      * No permitir agregar recuperaciones despues de la fecha de vencimiento del credito
+      * Se cambio el logo
+
+## 0.1.3
+  Fecha: 29 Noviembre 2021
   [NEW]
     * Se movieron las opciones en formularios a catalogs.
     * Se agregaron ingresos, egresos y remanente

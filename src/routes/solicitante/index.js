@@ -114,9 +114,8 @@ class Solicitante extends React.Component {
         const res = calculateInterest(pagares, tio, tiv, tim, 0);
         
         const estado_financiero = credito.estados_financieros ? credito.estados_financieros[0] : {};
-        const {ingresos = [], egresos = []} = estado_financiero ? estado_financiero : {}
-        const total_ingresos = calculateSimpleTotal(ingresos, 'valor_unitario')
-        const total_egresos = calculateSimpleTotal(egresos, 'costo')
+        const {ingreso_total, egreso_total} = estado_financiero ? estado_financiero : {}
+
         return {
           ...credito,
           bolsa_credito: props.apoyos[credito.bolsa_credito],
@@ -124,8 +123,8 @@ class Solicitante extends React.Component {
           importe_recuperado: res.totales.recuperado,
           no_pagares,
           liquidacion: res.totales.capital,
-          ingresos: total_ingresos,
-          egresos: total_egresos
+          ingresos: ingreso_total,
+          egresos: egreso_total
         }
       }
     )

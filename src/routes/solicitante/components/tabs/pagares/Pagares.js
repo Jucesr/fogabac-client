@@ -22,21 +22,18 @@ const Pagares = (props) => {
 
   const disponible = props.credito_active.monto - pagares_total;
 
-  // console.log("2019-11-30T00:00:00.000Z")
-  // console.log(moment("2019-11-30T00:00:00.000Z").add(1,'days').format('DD/MM/YYYY'))
-
   return (
     <React.Fragment>
       <div className="Section">
         <Header className="Subtitle" as='h4'>Pagarés</Header>
-        <Button size="tiny" color="green" onClick={() => setModal({title: 'Agregar pagaré', id: `${disponible > 0 ? 'ADD' : 'ERROR'}`})}>
+        <Button size="tiny" color="green" onClick={() => setModal({ title: 'Agregar pagaré', id: `${disponible > 0 ? 'ADD' : 'ERROR'}` })}>
           <Icon name='plus' />
           Nuevo pagaré
         </Button>
       </div>
       <Table
         itemName="concepto"
-        onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/pagare/${row._id}/downloadFile`)}
+        onDownloadRow={row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/pagare/${row._id}/downloadFile`)}
         onEditRow={row => {
           setModal({
             title: 'Editar pagaré',
@@ -44,7 +41,7 @@ const Pagares = (props) => {
           })
           setItem(row)
         }}
-        onDeleteRow={row => { 
+        onDeleteRow={row => {
           props.remove(row);
         }}
         columns={[
@@ -77,7 +74,7 @@ const Pagares = (props) => {
             width: 150
           }
         ]}
-        data={items.map(item => ({...item, restante: item.monto - item.monto_recuperado}))}
+        data={items.map(item => ({ ...item, restante: item.monto - item.monto_recuperado }))}
       />
 
       <Modal
@@ -87,22 +84,26 @@ const Pagares = (props) => {
       >
         <Modal.Header>{modal.title}</Modal.Header>
         <Modal.Content>
-          
+
           {
             modal.id === 'EDIT' && (
               <React.Fragment>
-                <RPForm max={item.monto + disponible} item={item} onSubmit={values => {
-                  props.update({
-                    ...item,
-                    ...values
-                  })
-                  setModal({})
-                }} />
+                <RPForm
+                  credito={props.credito_active}
+                  max={item.monto + disponible}
+                  item={item}
+                  onSubmit={values => {
+                    props.update({
+                      ...item,
+                      ...values
+                    })
+                    setModal({})
+                  }} />
               </React.Fragment>
             )
-              
+
           }
-         
+
           {
             modal.id === 'ADD' && (
               <React.Fragment>
@@ -111,29 +112,29 @@ const Pagares = (props) => {
                   header='Maximo disponible'
                   content={formatColumn("currency", disponible)}
                 />
-                <RPForm max={disponible} onSubmit={values => {
-                  const {importe_ejercido = 0, monto = 0} = props.credito_active;
+                <RPForm credito={props.credito_active} max={disponible} onSubmit={values => {
+                  const { importe_ejercido = 0, monto = 0 } = props.credito_active;
                   const disponible = monto - importe_ejercido;
-                  if(values.monto > disponible){
+                  if (values.monto > disponible) {
                     props.logError(`No hay dinero suficiente para crear un pagaré, Disponible = $${disponible}`)
-                  }else{
+                  } else {
                     props.add({
                       ...values,
                       credito: props.credito_active._id
                     })
                   }
-                  
+
                   setModal({})
-                }}/>
+                }} />
               </React.Fragment>
             )
-          } 
+          }
 
           {
             modal.id === 'ERROR' && <Message
-            error
-            header='No hay saldo disponible'
-          />
+              error
+              header='No hay saldo disponible'
+            />
           }
 
         </Modal.Content>

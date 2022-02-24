@@ -13,7 +13,7 @@ const Header = (props) => {
     <div>
       <div className="Header_User">
         <div>
-          <Image src='/img/logo_xs.jpg' />
+          <Image src='/img/logo_xs.png' />
         </div>
         <div>
         <Popup 

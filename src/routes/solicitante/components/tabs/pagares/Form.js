@@ -18,11 +18,11 @@ const RPForm = (props) => {
     })}>
       {({ formState }) => (
         <div className="Form">
-          <Field label="Fecha de suscripción" field="fecha_suscripcion" kind="datepicker" validate={validate} />
+          <Field label="Fecha de suscripción" field="fecha_suscripcion" kind="datepicker" validate={validate} minDate={props.credito.fecha_suscripcion} maxDate={props.credito.fecha_vencimiento} />
           <Field label="Fecha de vencimiento" field="fecha_vencimiento" kind="datepicker" validate={validate} />
-          <Field label="Concepto" field="concepto" validate={validate}/>
-          <Field label="Monto" field="monto" kind="currency" validate={validateMax(props.max)}/> 
-          <Field label="Documento" field="documento" kind="file"/> 
+          <Field label="Concepto" field="concepto" validate={validate} />
+          <Field label="Monto" field="monto" kind="currency" validate={validateMax(props.max)} />
+          <Field label="Documento" field="documento" kind="file" />
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>
       )}

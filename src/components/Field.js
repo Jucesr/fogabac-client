@@ -68,6 +68,8 @@ const Field = asField(({ fieldState, label, kind = "text", ...props }) => {
               placeholderText="Selecciona una fecha"
               dateFormat="d MMMM, yyyy"
               isClearable={true}
+              minDate={props.minDate}
+              maxDate={props.maxDate}
             />
 
 

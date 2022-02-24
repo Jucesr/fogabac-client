@@ -104,9 +104,9 @@ const CreditoForm = (props) => {
           <Field label="Ciclo" field="ciclo" validate={validate}  />
           <Field label="Destino del crédito" field="destino" kind="select" options={destinos} validate={validate}  />
           <Field label="Tipo de tenencia" field="tenencia" kind="select" options={tenencias} validate={validate}  />
-          <Field label="Taza de interes ordinario" field="tio" kind="percentage" validate={validate}  />
-          <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
+          <Field label="Tasa de interes ordinario" field="tio" kind="percentage" validate={validate}  />
           <Field label="Tasa de intereses moratorios" field="tim" kind="percentage" validate={validate}  />
+          <Field label="Tasa de intereses vencidos" field="tiv" kind="percentage"validate={validate}  />
           <Field label="Comision por apertura" field="comision_apertura" kind="percentage" validate={validate}  />
           <Button className="Form_button" color="blue" type="submit">Guardar</Button>
         </div>

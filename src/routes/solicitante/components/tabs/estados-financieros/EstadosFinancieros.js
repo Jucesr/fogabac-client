@@ -185,7 +185,7 @@ const EstadosFinancieros = (props) => {
           <GR type="black" items={['Costo de ventas', circulante_otros.costo_ventas]}/>
           <GR type="normal" items={['Impuestos', circulante_otros.impuestos]}/>
 
-          <GR type="total" items={['Total Circulante', (sum_circulante_ingresos + sum_circulante_gastos - sum_circulante_otros)]}/>
+          <GR type="total" items={['Total Circulante', (sum_circulante_ingresos - sum_circulante_gastos - sum_circulante_otros)]}/>
         </Grid>
         
       </div>

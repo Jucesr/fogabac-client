@@ -11,9 +11,7 @@ import DatePicker from 'react-datepicker';
 const EstadoCuenta = (props) => {
 
   const [modal, setModal] = useState({});
-  const [item, setItem] = useState();
   const [interestDate, setInterestDate] = useState();
-  const [isComisionOn, setIsComisionOn] = useState(false);
 
   useEffect(() => {
     props.load(props.credito_active._id)
@@ -27,8 +25,8 @@ const EstadoCuenta = (props) => {
     im: 0,
     liquidacion: 0
   }
-  const {tio, tiv, tim, comision_apertura} = props.credito_active;
-  const res = calculateInterest(items, tio, tiv, tim, isComisionOn ? comision_apertura: 0, interestDate);
+  const {tio, tiv, tim} = props.credito_active;
+  const res = calculateInterest(items, tio, tiv, tim, 0, interestDate);
 
   items = res.items;
   totales = res.totales;
@@ -72,15 +70,15 @@ const EstadoCuenta = (props) => {
       <Table
         itemName="concepto"
         actionsLabel="Detalle"
-        actionsWidth={70}
+        actionsWidth={1}
         // onDownloadRow = {row => window.open(`${process.env.REACT_APP_API_ENDPOINT}/referencia_personal/${row._id}/downloadFile`)}
-        onSelectRow={row => {
-          setModal({
-            title: 'Editar pagaré',
-            id: 'EDIT'
-          })
-          setItem(row)
-        }}
+        // onSelectRow={row => {
+        //   setModal({
+        //     title: 'Editar pagaré',
+        //     id: 'EDIT'
+        //   })
+        //   // setItem(row)
+        // }}
         columns={[
           {
             Header: "No.",
