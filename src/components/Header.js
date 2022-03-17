@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Image, Label, Input, Menu, Button, Icon, Popup } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+const version = process.env.REACT_APP_VERSION;
 
 const Header = (props) => {
 
@@ -12,39 +13,49 @@ const Header = (props) => {
   return (
     <div>
       <div className="Header_User">
-        <div>
+        <div style={{
+          display: 'flex',
+        }}>
           <Image src='/img/logo_xs.png' />
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            padding: '0.5rem',
+            fontWeight: 'bold',
+          }}>
+            V{version}
+          </div>
         </div>
         <div>
-        <Popup 
-          hoverable 
-          trigger={
-          <div className="Header_UserInfo">
-            <Image size='mini' src={`/img/user.png`} avatar/>
-            <div>
-              <div>
-                Usuario
+          <Popup
+            hoverable
+            trigger={
+              <div className="Header_UserInfo">
+                <Image size='mini' src={`/img/user.png`} avatar />
+                <div>
+                  <div>
+                    Usuario
+                  </div>
+                  <span>
+                    General
+                  </span>
+                </div>
               </div>
-              <span>
-                General
-              </span>
-            </div>
-          </div>
-          
-          } 
-          position='bottom right' 
-          content={
-            <div
-            >
-              <Button onClick={() => alert('No implementado')} color="red"><Icon name="log out" />Cerrar sesión</Button>
-            </div>
-          }
-        />
+
+            }
+            position='bottom right'
+            content={
+              <div
+              >
+                <Button onClick={() => alert('No implementado')} color="red"><Icon name="log out" />Cerrar sesión</Button>
+              </div>
+            }
+          />
         </div>
       </div>
 
       <div>
-      <Menu pointing>
+        <Menu pointing>
           {/* <Menu.Item 
             name="pendientes" 
             as={Link} 
@@ -53,9 +64,9 @@ const Header = (props) => {
             onClick={handleItemClick}
           /> */}
 
-          <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem == "apoyos"} onClick={handleItemClick}/>
-            
-          <Menu.Item name="solicitantes" as={Link} to="/solicitantes" active={activeItem == "solicitantes"}  onClick={handleItemClick}/>
+          <Menu.Item name="apoyos" as={Link} to="/apoyos" active={activeItem == "apoyos"} onClick={handleItemClick} />
+
+          <Menu.Item name="solicitantes" as={Link} to="/solicitantes" active={activeItem == "solicitantes"} onClick={handleItemClick} />
 
           <Menu.Item
             name='configuracion'
@@ -78,16 +89,16 @@ const Header = (props) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  
-  changePage: ({page_title, page_active}) => {
-   dispatch({
-     type: 'CHANGE_PAGE',
-     payload: page_title
-   })
+
+  changePage: ({ page_title, page_active }) => {
+    dispatch({
+      type: 'CHANGE_PAGE',
+      payload: page_title
+    })
   }
- });
- 
- const mapStateToProps = (state) => ({
- });
+});
+
+const mapStateToProps = (state) => ({
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

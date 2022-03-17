@@ -53,7 +53,10 @@ export const calculateInterest = (pagares, tio, tiv, tim, comision, interestDate
     let interes_ordinario = (pagare.monto * (tio / 100) / 360 * dias_ordinario) - pagare.monto_recuperado_interes;
     let interes_vencido = (pagare.monto * (tiv / 100) / 360 * dias_vencidos) - pagare.monto_recuperado_vencido;
     let interes_moratorio = (pagare.monto * (tim / 100) / 360 * dias_vencidos) - pagare.monto_recuperado_moratorio;
-    let capital = (pagare.monto + (pagare.monto * (comision / 100))) - pagare.monto_recuperado_capital;
+    // let capital = (pagare.monto + (pagare.monto * (comision / 100))) - pagare.monto_recuperado_capital;
+    // La comisión no forma parte del financiamiento;
+    let capital = (pagare.monto) - pagare.monto_recuperado_capital;
+
 
     totales = {
       capital: totales.capital + capital,

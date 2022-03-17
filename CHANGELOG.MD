@@ -1,3 +1,8 @@
+## 0.1.5
+  Fecha: 17 Marzo 2022
+  [NEW]
+    * La comisión no se aplica al financiamento del credito
+
 ## 0.1.4
   Fecha: 23 Febrero 2022
   [NEW]
